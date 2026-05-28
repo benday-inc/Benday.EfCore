@@ -5,6 +5,7 @@
 
 *.unversioned.json
 unversioned/
+.DS_Store
 
 # User-specific files
 *.rsuser
