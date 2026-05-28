@@ -1,20 +1,29 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+    <PackageId>Benday.EfCore.SqlServer</PackageId>
     <Title>Benday.EfCore.SqlServer</Title>
-    <Description>A collection of classes for supporting the repository pattern and domain model pattern in .NET Core with Entity Framework Core.</Description>
-    <Copyright>2024</Copyright>
-    <PackageIcon>bdc_mark_128_128.png</PackageIcon>
-    <PackageProjectUrl>https://github.com/benday-inc/Benday.EfCore.SqlServer</PackageProjectUrl>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/benday-inc/Benday.EfCore.SqlServer.git</RepositoryUrl>
-    <AssemblyVersion>10.0.0.0</AssemblyVersion>
-    <Version>$(VersionPrefix)10.0.0</Version>
-    <Nullable>enable</Nullable>
+    <Description>Base classes for the repository pattern, adapter pattern, and service layer pattern with EF Core and SQL Server. Hide your dependencies.</Description>
+    <Authors>Benjamin Day</Authors>
+    <Company>Benjamin Day Consulting, Inc.</Company>
+    <Copyright>2026</Copyright>
+    <AssemblyVersion>11.0.0.0</AssemblyVersion>
+    <Version>11.0.0-alpha</Version>
+    <PackageTags>efcore;repository;adapter;testability;architecture</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>bdc_mark_128_128.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageProjectUrl>https://github.com/benday-inc/Benday.EfCore.SqlServer</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/benday-inc/Benday.EfCore.SqlServer.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
+
   <ItemGroup>
     <None Include="..\bdc_mark_128_128.png">
       <Pack>True</Pack>
@@ -25,9 +34,14 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
+
   <ItemGroup>
-    <PackageReference Include="Benday.Common" Version="8.*" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.*" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.*" />
+    <PackageReference Include="Benday.Common.Interfaces" Version="1.0.*" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.*" />
+  </ItemGroup>
+
 </Project>
