@@ -1,0 +1,17 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="bdc_mark_128_128.png" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="Benday.EfCore.SqlServer.IntegrationTests/Benday.EfCore.SqlServer.IntegrationTests.csproj" />
+  <Project Path="Benday.EfCore.SqlServer.TestApi/Benday.EfCore.SqlServer.TestApi.csproj" />
+  <Project Path="Benday.EfCore.SqlServer.Testing/Benday.EfCore.SqlServer.Testing.csproj" />
+  <Project Path="Benday.EfCore.SqlServer.UnitTests/Benday.EfCore.SqlServer.UnitTests.csproj" />
+  <Project Path="Benday.EfCore.SqlServer/Benday.EfCore.SqlServer.csproj" />
+</Solution>
