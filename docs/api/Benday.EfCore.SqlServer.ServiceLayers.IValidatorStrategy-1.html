@@ -1,17 +1,15 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
 
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Interface ISearchableRepository&lt;T&gt;
- </title>
+      <title>Interface IValidatorStrategy&lt;T&gt; </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Interface ISearchableRepository&lt;T&gt;
- ">
+      <meta name="title" content="Interface IValidatorStrategy&lt;T&gt; ">
     
-    
+    <meta name="description" content="Validation strategy interface. Decouples validation logic from both the domain model and the service layer so each validation rule is independently testable and swappable via DI.">
       <link rel="shortcut icon" href="../favicon.ico">
       <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
       <link rel="stylesheet" href="../styles/docfx.css">
@@ -69,38 +67,21 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Benday.EfCore.SqlServer.ISearchableRepository`1">
+            <article class="content wrap" id="_content" data-uid="Benday.EfCore.SqlServer.ServiceLayers.IValidatorStrategy`1">
 
 
 
-  <h1 id="Benday_EfCore_SqlServer_ISearchableRepository_1" data-uid="Benday.EfCore.SqlServer.ISearchableRepository`1" class="text-break">Interface ISearchableRepository&lt;T&gt;
-</h1>
-  <div class="markdown level0 summary"><p>Interface indicating that this repository provides search functionality for this entity type.</p>
+  <h1 id="Benday_EfCore_SqlServer_ServiceLayers_IValidatorStrategy_1" data-uid="Benday.EfCore.SqlServer.ServiceLayers.IValidatorStrategy`1" class="text-break">Interface IValidatorStrategy&lt;T&gt;</h1>
+  <div class="markdown level0 summary"><p>Validation strategy interface. Decouples validation logic from
+both the domain model and the service layer so each validation
+rule is independently testable and swappable via DI.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
-    <div>
-      <a class="xref" href="Benday.EfCore.SqlServer.IRepository-1.html#Benday_EfCore_SqlServer_IRepository_1_GetAll">IRepository&lt;T&gt;.GetAll()</a>
-    </div>
-    <div>
-      <a class="xref" href="Benday.EfCore.SqlServer.IRepository-1.html#Benday_EfCore_SqlServer_IRepository_1_GetAll_System_Int32_System_Boolean_">IRepository&lt;T&gt;.GetAll(int, bool)</a>
-    </div>
-    <div>
-      <a class="xref" href="Benday.EfCore.SqlServer.IRepository-1.html#Benday_EfCore_SqlServer_IRepository_1_GetById_System_Int32_">IRepository&lt;T&gt;.GetById(int)</a>
-    </div>
-    <div>
-      <a class="xref" href="Benday.EfCore.SqlServer.IRepository-1.html#Benday_EfCore_SqlServer_IRepository_1_Save__0_">IRepository&lt;T&gt;.Save(T)</a>
-    </div>
-    <div>
-      <a class="xref" href="Benday.EfCore.SqlServer.IRepository-1.html#Benday_EfCore_SqlServer_IRepository_1_Delete__0_">IRepository&lt;T&gt;.Delete(T)</a>
-    </div>
-  </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Benday.html">Benday</a>.<a class="xref" href="Benday.EfCore.html">EfCore</a>.<a class="xref" href="Benday.EfCore.SqlServer.html">SqlServer</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Benday.html">Benday</a>.<a class="xref" href="Benday.EfCore.html">EfCore</a>.<a class="xref" href="Benday.EfCore.SqlServer.html">SqlServer</a>.<a class="xref" href="Benday.EfCore.SqlServer.ServiceLayers.html">ServiceLayers</a></h6>
   <h6><strong>Assembly</strong>: Benday.EfCore.SqlServer.dll</h6>
-  <h5 id="Benday_EfCore_SqlServer_ISearchableRepository_1_syntax">Syntax</h5>
+  <h5 id="Benday_EfCore_SqlServer_ServiceLayers_IValidatorStrategy_1_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface ISearchableRepository&lt;T&gt; : IRepository&lt;T&gt; where T : IInt32Identity</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IValidatorStrategy&lt;T&gt;</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -113,8 +94,7 @@
     <tbody>
       <tr>
         <td><span class="parametername">T</span></td>
-        <td><p>Entity data type managed by this repository</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -122,19 +102,19 @@
 </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/main/apiSpec/new?filename=Benday_EfCore_SqlServer_ISearchableRepository_1_Search_Benday_Common_Search_.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.ISearchableRepository%601.Search(Benday.Common.Search)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_ServiceLayers_IValidatorStrategy_1_IsValid__0_.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.ServiceLayers.IValidatorStrategy%601.IsValid(%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/main/Benday.EfCore.SqlServer/ISearchableRepository.cs/#L17">View Source</a>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/ServiceLayers/Interfaces.cs/#L13">View Source</a>
   </span>
-  <a id="Benday_EfCore_SqlServer_ISearchableRepository_1_Search_" data-uid="Benday.EfCore.SqlServer.ISearchableRepository`1.Search*"></a>
-  <h4 id="Benday_EfCore_SqlServer_ISearchableRepository_1_Search_Benday_Common_Search_" data-uid="Benday.EfCore.SqlServer.ISearchableRepository`1.Search(Benday.Common.Search)">Search(Search)</h4>
-  <div class="markdown level1 summary"><p>Execute a search for this entity type and return the matching result.</p>
+  <a id="Benday_EfCore_SqlServer_ServiceLayers_IValidatorStrategy_1_IsValid_" data-uid="Benday.EfCore.SqlServer.ServiceLayers.IValidatorStrategy`1.IsValid*"></a>
+  <h4 id="Benday_EfCore_SqlServer_ServiceLayers_IValidatorStrategy_1_IsValid__0_" data-uid="Benday.EfCore.SqlServer.ServiceLayers.IValidatorStrategy`1.IsValid(`0)">IsValid(T)</h4>
+  <div class="markdown level1 summary"><p>Returns true if the supplied value is valid.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">SearchResult&lt;T&gt; Search(Search search)</code></pre>
+    <pre><code class="lang-csharp hljs">bool IsValid(T validateThis)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -147,10 +127,9 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Search</span></td>
-        <td><span class="parametername">search</span></td>
-        <td><p>Search definition with arguments, search operation methods, and sorting information</p>
-</td>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">validateThis</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -164,9 +143,8 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">SearchResult</span>&lt;T&gt;</td>
-        <td><p>The result of the search</p>
-</td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -179,10 +157,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/main/apiSpec/new?filename=Benday_EfCore_SqlServer_ISearchableRepository_1.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.ISearchableRepository%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
+                    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_ServiceLayers_IValidatorStrategy_1.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.ServiceLayers.IValidatorStrategy%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
                   </li>
                   <li>
-                    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/main/Benday.EfCore.SqlServer/ISearchableRepository.cs/#L9" class="contribution-link">View Source</a>
+                    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/ServiceLayers/Interfaces.cs/#L8" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

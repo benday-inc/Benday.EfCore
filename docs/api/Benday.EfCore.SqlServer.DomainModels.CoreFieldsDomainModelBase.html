@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class CoreFieldsDomainModelBase </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class CoreFieldsDomainModelBase ">
+    
+    <meta name="description" content="Domain model base class with audit fields and optimistic concurrency. The Timestamp property carries the concurrency token across the adapter boundary so the service layer can detect conflicting updates without touching the entity layer directly.">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <div class="navbar-brand">
+                <a href="../">
+                  <img id="logo" src="../logo.png" alt="" alt="asdf" width="50" height="50">
+                </a>
+
+              </div>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase">
+
+
+
+  <h1 id="Benday_EfCore_SqlServer_DomainModels_CoreFieldsDomainModelBase" data-uid="Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase" class="text-break">Class CoreFieldsDomainModelBase</h1>
+  <div class="markdown level0 summary"><p>Domain model base class with audit fields and optimistic concurrency.</p>
+<p>The Timestamp property carries the concurrency token across the
+adapter boundary so the service layer can detect conflicting updates
+without touching the entity layer directly.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Benday.EfCore.SqlServer.DomainModels.DomainModelBase.html">DomainModelBase</a></div>
+    <div class="level2"><span class="xref">CoreFieldsDomainModelBase</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><span class="xref">IEntityIdentity</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Benday.EfCore.SqlServer.DomainModels.DomainModelBase.html#Benday_EfCore_SqlServer_DomainModels_DomainModelBase_Id">DomainModelBase.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Benday.html">Benday</a>.<a class="xref" href="Benday.EfCore.html">EfCore</a>.<a class="xref" href="Benday.EfCore.SqlServer.html">SqlServer</a>.<a class="xref" href="Benday.EfCore.SqlServer.DomainModels.html">DomainModels</a></h6>
+  <h6><strong>Assembly</strong>: Benday.EfCore.SqlServer.dll</h6>
+  <h5 id="Benday_EfCore_SqlServer_DomainModels_CoreFieldsDomainModelBase_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class CoreFieldsDomainModelBase : DomainModelBase, IEntityIdentity&lt;int&gt;</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_DomainModels_CoreFieldsDomainModelBase_CreatedBy.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase.CreatedBy%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/DomainModels/DomainModelBase.cs/#L38">View Source</a>
+  </span>
+  <a id="Benday_EfCore_SqlServer_DomainModels_CoreFieldsDomainModelBase_CreatedBy_" data-uid="Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase.CreatedBy*"></a>
+  <h4 id="Benday_EfCore_SqlServer_DomainModels_CoreFieldsDomainModelBase_CreatedBy" data-uid="Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase.CreatedBy">CreatedBy</h4>
+  <div class="markdown level1 summary"><p>Username that created the item.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string CreatedBy { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_DomainModels_CoreFieldsDomainModelBase_CreatedDate.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase.CreatedDate%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/DomainModels/DomainModelBase.cs/#L43">View Source</a>
+  </span>
+  <a id="Benday_EfCore_SqlServer_DomainModels_CoreFieldsDomainModelBase_CreatedDate_" data-uid="Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase.CreatedDate*"></a>
+  <h4 id="Benday_EfCore_SqlServer_DomainModels_CoreFieldsDomainModelBase_CreatedDate" data-uid="Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase.CreatedDate">CreatedDate</h4>
+  <div class="markdown level1 summary"><p>UTC timestamp of when the item was created.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime CreatedDate { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_DomainModels_CoreFieldsDomainModelBase_LastModifiedBy.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase.LastModifiedBy%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/DomainModels/DomainModelBase.cs/#L48">View Source</a>
+  </span>
+  <a id="Benday_EfCore_SqlServer_DomainModels_CoreFieldsDomainModelBase_LastModifiedBy_" data-uid="Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase.LastModifiedBy*"></a>
+  <h4 id="Benday_EfCore_SqlServer_DomainModels_CoreFieldsDomainModelBase_LastModifiedBy" data-uid="Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase.LastModifiedBy">LastModifiedBy</h4>
+  <div class="markdown level1 summary"><p>Username that last modified the item.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string LastModifiedBy { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_DomainModels_CoreFieldsDomainModelBase_LastModifiedDate.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase.LastModifiedDate%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/DomainModels/DomainModelBase.cs/#L53">View Source</a>
+  </span>
+  <a id="Benday_EfCore_SqlServer_DomainModels_CoreFieldsDomainModelBase_LastModifiedDate_" data-uid="Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase.LastModifiedDate*"></a>
+  <h4 id="Benday_EfCore_SqlServer_DomainModels_CoreFieldsDomainModelBase_LastModifiedDate" data-uid="Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase.LastModifiedDate">LastModifiedDate</h4>
+  <div class="markdown level1 summary"><p>UTC timestamp of the last modification.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime LastModifiedDate { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_DomainModels_CoreFieldsDomainModelBase_Status.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase.Status%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/DomainModels/DomainModelBase.cs/#L33">View Source</a>
+  </span>
+  <a id="Benday_EfCore_SqlServer_DomainModels_CoreFieldsDomainModelBase_Status_" data-uid="Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase.Status*"></a>
+  <h4 id="Benday_EfCore_SqlServer_DomainModels_CoreFieldsDomainModelBase_Status" data-uid="Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase.Status">Status</h4>
+  <div class="markdown level1 summary"><p>Application-defined status value for the model.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Status { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_DomainModels_CoreFieldsDomainModelBase_Timestamp.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase.Timestamp%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/DomainModels/DomainModelBase.cs/#L59">View Source</a>
+  </span>
+  <a id="Benday_EfCore_SqlServer_DomainModels_CoreFieldsDomainModelBase_Timestamp_" data-uid="Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase.Timestamp*"></a>
+  <h4 id="Benday_EfCore_SqlServer_DomainModels_CoreFieldsDomainModelBase_Timestamp" data-uid="Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase.Timestamp">Timestamp</h4>
+  <div class="markdown level1 summary"><p>Optimistic concurrency token. Carried across the adapter
+boundary so the entity layer can detect conflicting updates.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public byte[]? Timestamp { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <span class="xref">Benday.Common.Interfaces.IEntityIdentity&lt;TKey&gt;</span>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_DomainModels_CoreFieldsDomainModelBase.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/DomainModels/DomainModelBase.cs/#L28" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      Copyright © <a href="https://www.benday.com/">www.benday.com</a> | <a href="mailto:info@benday.com">info@benday.com</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

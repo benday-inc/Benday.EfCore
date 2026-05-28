@@ -1,15 +1,13 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
 
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Namespace Benday.EfCore.SqlServer
- </title>
+      <title>Namespace Benday.EfCore.SqlServer.Entities </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Namespace Benday.EfCore.SqlServer
- ">
+      <meta name="title" content="Namespace Benday.EfCore.SqlServer.Entities ">
     
     
       <link rel="shortcut icon" href="../favicon.ico">
@@ -69,51 +67,48 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Benday.EfCore.SqlServer">
+            <article class="content wrap" id="_content" data-uid="Benday.EfCore.SqlServer.Entities">
 
-  <h1 id="Benday_EfCore_SqlServer" data-uid="Benday.EfCore.SqlServer" class="text-break">Namespace Benday.EfCore.SqlServer
-</h1>
+  <h1 id="Benday_EfCore_SqlServer_Entities" data-uid="Benday.EfCore.SqlServer.Entities" class="text-break">Namespace Benday.EfCore.SqlServer.Entities</h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
   <div class="markdown level0 remarks"></div>
     <h3 id="classes">
 Classes
 </h3>
-      <h4><a class="xref" href="Benday.EfCore.SqlServer.DependentEntityCollection-1.html">DependentEntityCollection&lt;T&gt;</a></h4>
-      <section><p>Collection of dependent child entities. Primarily used for triggering logic
-before save and after save events.</p>
+      <h4><a class="xref" href="Benday.EfCore.SqlServer.Entities.CoreFieldsEntityBase.html">CoreFieldsEntityBase</a></h4>
+      <section><p>Entity base class with audit fields (CreatedBy, CreatedDate,
+LastModifiedBy, LastModifiedDate) and optimistic concurrency
+via a [Timestamp] column.</p>
+<p>Column ordering places audit fields after the entity's own columns
+so they sort to the end of the table in the database.</p>
 </section>
-      <h4><a class="xref" href="Benday.EfCore.SqlServer.LinqPredicateExtensions.html">LinqPredicateExtensions</a></h4>
-      <section></section>
-      <h4><a class="xref" href="Benday.EfCore.SqlServer.ParameterSubstitutionVisitor.html">ParameterSubstitutionVisitor</a></h4>
-      <section></section>
-      <h4><a class="xref" href="Benday.EfCore.SqlServer.SqlEntityFrameworkCrudRepositoryBase-2.html">SqlEntityFrameworkCrudRepositoryBase&lt;TEntity, TDbContext&gt;</a></h4>
-      <section><p>Implementation of the repository pattern for an EF Core entity data type stored in SQL Server.
-Provides create, read, update, and delete logic.</p>
+      <h4><a class="xref" href="Benday.EfCore.SqlServer.Entities.DependentEntityCollection-1.html">DependentEntityCollection&lt;T&gt;</a></h4>
+      <section><p>Manages the save/delete lifecycle for a collection of child entities.</p>
+<p>Before SaveChanges: any item with IsMarkedForDelete == true is removed
+from the DbSet so EF Core will delete it from the database.</p>
+<p>After SaveChanges: items marked for delete are pruned from the
+in-memory collection so the parent entity's navigation property
+reflects the current state.</p>
 </section>
-      <h4><a class="xref" href="Benday.EfCore.SqlServer.SqlEntityFrameworkRepositoryBase-2.html">SqlEntityFrameworkRepositoryBase&lt;TEntity, TDbContext&gt;</a></h4>
-      <section><p>Base class implementation of the repository pattern for an EF Core entity data type stored in SQL Server.
-This provides standardized access to the DbContext and implements IDispoable.</p>
-</section>
-      <h4><a class="xref" href="Benday.EfCore.SqlServer.SqlEntityFrameworkSearchableRepositoryBase-2.html">SqlEntityFrameworkSearchableRepositoryBase&lt;TEntity, TDbContext&gt;</a></h4>
-      <section><p>Base class implementation of the repository pattern for an EF Core entity data type stored in SQL Server that
-supports searching using Benday.Common.Search functionality.</p>
+      <h4><a class="xref" href="Benday.EfCore.SqlServer.Entities.EntityBase.html">EntityBase</a></h4>
+      <section><p>Base class for EF Core entities. Implements the shared
+IEntityIdentity and IDeleteable interfaces from Benday.Common.Interfaces.</p>
+<p>IsMarkedForDelete is [NotMapped] — it only exists in memory to signal
+the DependentEntityCollection to remove this item during save.</p>
 </section>
     <h3 id="interfaces">
 Interfaces
 </h3>
-      <h4><a class="xref" href="Benday.EfCore.SqlServer.IDependentEntityCollection.html">IDependentEntityCollection</a></h4>
-      <section><p>Interface for dependent child entities that allows triggering logic
-before save and after save events.</p>
+      <h4><a class="xref" href="Benday.EfCore.SqlServer.Entities.IDependentEntityCollection.html">IDependentEntityCollection</a></h4>
+      <section><p>Manages the lifecycle of dependent/child entities during save operations.
+Before save: removes items marked for delete from the DbSet.
+After save: prunes the in-memory collection.</p>
 </section>
-      <h4><a class="xref" href="Benday.EfCore.SqlServer.IEntityBase.html">IEntityBase</a></h4>
-      <section><p>Interface for entities</p>
-</section>
-      <h4><a class="xref" href="Benday.EfCore.SqlServer.IRepository-1.html">IRepository&lt;T&gt;</a></h4>
-      <section><p>Interface for basic repository operations</p>
-</section>
-      <h4><a class="xref" href="Benday.EfCore.SqlServer.ISearchableRepository-1.html">ISearchableRepository&lt;T&gt;</a></h4>
-      <section><p>Interface indicating that this repository provides search functionality for this entity type.</p>
+      <h4><a class="xref" href="Benday.EfCore.SqlServer.Entities.IEntityWithDependents.html">IEntityWithDependents</a></h4>
+      <section><p>Interface for entities that manage dependent/child entity collections.
+This is the aggregate root pattern — the parent entity controls the
+lifecycle of its children during save and delete operations.</p>
 </section>
 
 

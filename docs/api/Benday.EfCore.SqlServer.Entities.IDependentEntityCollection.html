@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Interface IDependentEntityCollection </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Interface IDependentEntityCollection ">
+    
+    <meta name="description" content="Manages the lifecycle of dependent/child entities during save operations. Before save: removes items marked for delete from the DbSet. After save: prunes the in-memory collection.">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <div class="navbar-brand">
+                <a href="../">
+                  <img id="logo" src="../logo.png" alt="" alt="asdf" width="50" height="50">
+                </a>
+
+              </div>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Benday.EfCore.SqlServer.Entities.IDependentEntityCollection">
+
+
+
+  <h1 id="Benday_EfCore_SqlServer_Entities_IDependentEntityCollection" data-uid="Benday.EfCore.SqlServer.Entities.IDependentEntityCollection" class="text-break">Interface IDependentEntityCollection</h1>
+  <div class="markdown level0 summary"><p>Manages the lifecycle of dependent/child entities during save operations.
+Before save: removes items marked for delete from the DbSet.
+After save: prunes the in-memory collection.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Benday.html">Benday</a>.<a class="xref" href="Benday.EfCore.html">EfCore</a>.<a class="xref" href="Benday.EfCore.SqlServer.html">SqlServer</a>.<a class="xref" href="Benday.EfCore.SqlServer.Entities.html">Entities</a></h6>
+  <h6><strong>Assembly</strong>: Benday.EfCore.SqlServer.dll</h6>
+  <h5 id="Benday_EfCore_SqlServer_Entities_IDependentEntityCollection_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IDependentEntityCollection</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_Entities_IDependentEntityCollection_AfterSave.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.Entities.IDependentEntityCollection.AfterSave%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/Entities/DependentEntityCollection.cs/#L22">View Source</a>
+  </span>
+  <a id="Benday_EfCore_SqlServer_Entities_IDependentEntityCollection_AfterSave_" data-uid="Benday.EfCore.SqlServer.Entities.IDependentEntityCollection.AfterSave*"></a>
+  <h4 id="Benday_EfCore_SqlServer_Entities_IDependentEntityCollection_AfterSave" data-uid="Benday.EfCore.SqlServer.Entities.IDependentEntityCollection.AfterSave">AfterSave()</h4>
+  <div class="markdown level1 summary"><p>Prunes items marked for delete from the in-memory collection after save.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AfterSave()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_Entities_IDependentEntityCollection_BeforeSave_Microsoft_EntityFrameworkCore_DbContext_.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.Entities.IDependentEntityCollection.BeforeSave(Microsoft.EntityFrameworkCore.DbContext)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/Entities/DependentEntityCollection.cs/#L17">View Source</a>
+  </span>
+  <a id="Benday_EfCore_SqlServer_Entities_IDependentEntityCollection_BeforeSave_" data-uid="Benday.EfCore.SqlServer.Entities.IDependentEntityCollection.BeforeSave*"></a>
+  <h4 id="Benday_EfCore_SqlServer_Entities_IDependentEntityCollection_BeforeSave_Microsoft_EntityFrameworkCore_DbContext_" data-uid="Benday.EfCore.SqlServer.Entities.IDependentEntityCollection.BeforeSave(Microsoft.EntityFrameworkCore.DbContext)">BeforeSave(DbContext)</h4>
+  <div class="markdown level1 summary"><p>Removes items marked for delete from the context so EF Core will
+delete them from the database during SaveChanges.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void BeforeSave(DbContext context)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext">DbContext</a></td>
+        <td><span class="parametername">context</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_Entities_IDependentEntityCollection_GetItems.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.Entities.IDependentEntityCollection.GetItems%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/Entities/DependentEntityCollection.cs/#L29">View Source</a>
+  </span>
+  <a id="Benday_EfCore_SqlServer_Entities_IDependentEntityCollection_GetItems_" data-uid="Benday.EfCore.SqlServer.Entities.IDependentEntityCollection.GetItems*"></a>
+  <h4 id="Benday_EfCore_SqlServer_Entities_IDependentEntityCollection_GetItems" data-uid="Benday.EfCore.SqlServer.Entities.IDependentEntityCollection.GetItems">GetItems()</h4>
+  <div class="markdown level1 summary"><p>Returns the child items in this collection as identity instances.
+Lets callers (notably test doubles) walk the children to assign
+identities the way EF Core would during SaveChanges.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEnumerable&lt;IEntityIdentity&lt;int&gt;&gt; GetItems()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">IEntityIdentity</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_Entities_IDependentEntityCollection.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.Entities.IDependentEntityCollection%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/Entities/DependentEntityCollection.cs/#L11" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      Copyright © <a href="https://www.benday.com/">www.benday.com</a> | <a href="mailto:info@benday.com">info@benday.com</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

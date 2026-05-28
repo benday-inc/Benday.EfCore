@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title> </title>
+      <title>Namespace Benday.EfCore.SqlServer.Repositories </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content=" ">
+      <meta name="title" content="Namespace Benday.EfCore.SqlServer.Repositories ">
     
     
       <link rel="shortcut icon" href="../favicon.ico">
@@ -67,9 +67,35 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="">
+            <article class="content wrap" id="_content" data-uid="Benday.EfCore.SqlServer.Repositories">
 
-<meta http-equiv="refresh" content="0; url=https://benday-inc.github.io/Benday.EfCore.SqlServer/api/Benday.EfCore.SqlServer.html">
+  <h1 id="Benday_EfCore_SqlServer_Repositories" data-uid="Benday.EfCore.SqlServer.Repositories" class="text-break">Namespace Benday.EfCore.SqlServer.Repositories</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">
+Classes
+</h3>
+      <h4><a class="xref" href="Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkCrudRepositoryBase-2.html">SqlEntityFrameworkCrudRepositoryBase&lt;TEntity, TDbContext&gt;</a></h4>
+      <section><p>CRUD repository with async operations and aggregate root support.</p>
+<p>Implements IAsyncReadableRepository from Benday.Common.Interfaces so
+the same repository contract works whether the storage is SQL Server,
+Cosmos DB, or anything else.</p>
+<p>The save lifecycle handles dependent entities automatically:</p>
+<ol>
+<li>VerifyItemIsAddedOrAttached</li>
+<li>BeforeSave (override for custom logic)</li>
+<li>BeforeSave on each DependentEntityCollection (marks-for-delete handling)</li>
+<li>SaveChangesAsync</li>
+<li>AfterSave on each DependentEntityCollection (prune in-memory)</li>
+<li>AfterSave (override for custom logic)</li>
+</ol>
+</section>
+      <h4><a class="xref" href="Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkRepositoryBase-2.html">SqlEntityFrameworkRepositoryBase&lt;TEntity, TDbContext&gt;</a></h4>
+      <section><p>Base repository. Owns the DbContext and handles the
+add-vs-attach decision based on Id == 0.</p>
+</section>
+
 
 </article>
           </div>
@@ -78,9 +104,6 @@
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/docfx_project/api/index.md/#L1" class="contribution-link">Edit this page</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">

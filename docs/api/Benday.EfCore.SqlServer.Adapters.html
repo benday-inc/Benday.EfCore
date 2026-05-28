@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title> </title>
+      <title>Namespace Benday.EfCore.SqlServer.Adapters </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content=" ">
+      <meta name="title" content="Namespace Benday.EfCore.SqlServer.Adapters ">
     
     
       <link rel="shortcut icon" href="../favicon.ico">
@@ -67,9 +67,38 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="">
+            <article class="content wrap" id="_content" data-uid="Benday.EfCore.SqlServer.Adapters">
 
-<meta http-equiv="refresh" content="0; url=https://benday-inc.github.io/Benday.EfCore.SqlServer/api/Benday.EfCore.SqlServer.html">
+  <h1 id="Benday_EfCore_SqlServer_Adapters" data-uid="Benday.EfCore.SqlServer.Adapters" class="text-break">Namespace Benday.EfCore.SqlServer.Adapters</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">
+Classes
+</h3>
+      <h4><a class="xref" href="Benday.EfCore.SqlServer.Adapters.AdapterBase-2.html">AdapterBase&lt;TModel, TEntity&gt;</a></h4>
+      <section><p>Bidirectional adapter between a domain model (TModel) and
+an EF Core entity (TEntity).</p>
+<p>Handles single-item mapping in both directions, plus the tricky
+part: collection mapping with merge logic. When adapting a list of
+models to a list of entities, the adapter:</p>
+<ul>
+<li>Matches existing items by Id and updates them in place</li>
+<li>Creates new entity instances for models with Id == 0</li>
+<li>Marks entities for delete when their Id no longer appears
+in the model list (via IsMarkedForDelete)</li>
+</ul>
+<p>Subclasses implement PerformAdapt for the actual property copying.
+The base class handles the lifecycle, matching, and delete detection.</p>
+</section>
+    <h3 id="enums">
+Enums
+</h3>
+      <h4><a class="xref" href="Benday.EfCore.SqlServer.Adapters.AdapterAction.html">AdapterAction</a></h4>
+      <section><p>Controls what happens to an individual item during adaptation.
+Returned from BeforeAdapt hooks.</p>
+</section>
+
 
 </article>
           </div>
@@ -78,9 +107,6 @@
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/docfx_project/api/index.md/#L1" class="contribution-link">Edit this page</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">

@@ -1,17 +1,15 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
 
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Class SqlEntityFrameworkRepositoryBase&lt;TEntity, TDbContext&gt;
- </title>
+      <title>Class SqlEntityFrameworkRepositoryBase&lt;TEntity, TDbContext&gt; </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Class SqlEntityFrameworkRepositoryBase&lt;TEntity, TDbContext&gt;
- ">
+      <meta name="title" content="Class SqlEntityFrameworkRepositoryBase&lt;TEntity, TDbContext&gt; ">
     
-    
+    <meta name="description" content="Base repository. Owns the DbContext and handles the add-vs-attach decision based on Id == 0.">
       <link rel="shortcut icon" href="../favicon.ico">
       <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
       <link rel="stylesheet" href="../styles/docfx.css">
@@ -69,21 +67,20 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Benday.EfCore.SqlServer.SqlEntityFrameworkRepositoryBase`2">
+            <article class="content wrap" id="_content" data-uid="Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkRepositoryBase`2">
 
 
 
-  <h1 id="Benday_EfCore_SqlServer_SqlEntityFrameworkRepositoryBase_2" data-uid="Benday.EfCore.SqlServer.SqlEntityFrameworkRepositoryBase`2" class="text-break">Class SqlEntityFrameworkRepositoryBase&lt;TEntity, TDbContext&gt;
-</h1>
-  <div class="markdown level0 summary"><p>Base class implementation of the repository pattern for an EF Core entity data type stored in SQL Server.
-This provides standardized access to the DbContext and implements IDispoable.</p>
+  <h1 id="Benday_EfCore_SqlServer_Repositories_SqlEntityFrameworkRepositoryBase_2" data-uid="Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkRepositoryBase`2" class="text-break">Class SqlEntityFrameworkRepositoryBase&lt;TEntity, TDbContext&gt;</h1>
+  <div class="markdown level0 summary"><p>Base repository. Owns the DbContext and handles the
+add-vs-attach decision based on Id == 0.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
     <div class="level1"><span class="xref">SqlEntityFrameworkRepositoryBase&lt;TEntity, TDbContext&gt;</span></div>
-      <div class="level2"><a class="xref" href="Benday.EfCore.SqlServer.SqlEntityFrameworkCrudRepositoryBase-2.html">SqlEntityFrameworkCrudRepositoryBase&lt;TEntity, TDbContext&gt;</a></div>
+      <div class="level2"><a class="xref" href="Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkCrudRepositoryBase-2.html">SqlEntityFrameworkCrudRepositoryBase&lt;TEntity, TDbContext&gt;</a></div>
   </div>
   <div class="implements">
     <h5>Implements</h5>
@@ -113,11 +110,11 @@ This provides standardized access to the DbContext and implements IDispoable.</p
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Benday.html">Benday</a>.<a class="xref" href="Benday.EfCore.html">EfCore</a>.<a class="xref" href="Benday.EfCore.SqlServer.html">SqlServer</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Benday.html">Benday</a>.<a class="xref" href="Benday.EfCore.html">EfCore</a>.<a class="xref" href="Benday.EfCore.SqlServer.html">SqlServer</a>.<a class="xref" href="Benday.EfCore.SqlServer.Repositories.html">Repositories</a></h6>
   <h6><strong>Assembly</strong>: Benday.EfCore.SqlServer.dll</h6>
-  <h5 id="Benday_EfCore_SqlServer_SqlEntityFrameworkRepositoryBase_2_syntax">Syntax</h5>
+  <h5 id="Benday_EfCore_SqlServer_Repositories_SqlEntityFrameworkRepositoryBase_2_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class SqlEntityFrameworkRepositoryBase&lt;TEntity, TDbContext&gt; : IDisposable where TEntity : class, IEntityBase where TDbContext : DbContext</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract class SqlEntityFrameworkRepositoryBase&lt;TEntity, TDbContext&gt; : IDisposable where TEntity : EntityBase where TDbContext : DbContext</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -130,13 +127,11 @@ This provides standardized access to the DbContext and implements IDispoable.</p
     <tbody>
       <tr>
         <td><span class="parametername">TEntity</span></td>
-        <td><p>Entity data type managed by this repository implementation. Must be an instance of IInt32Identity.</p>
-</td>
+        <td></td>
       </tr>
       <tr>
         <td><span class="parametername">TDbContext</span></td>
-        <td><p>EF Core DbContext data type that manages this entity</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -144,14 +139,15 @@ This provides standardized access to the DbContext and implements IDispoable.</p
 </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/main/apiSpec/new?filename=Benday_EfCore_SqlServer_SqlEntityFrameworkRepositoryBase_2__ctor__1_.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.SqlEntityFrameworkRepositoryBase%602.%23ctor(%601)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_Repositories_SqlEntityFrameworkRepositoryBase_2__ctor__1_.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkRepositoryBase%602.%23ctor(%601)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/main/Benday.EfCore.SqlServer/SqlEntityFrameworkRepositoryBase.cs/#L17">View Source</a>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/Repositories/SqlEntityFrameworkRepositoryBase.cs/#L21">View Source</a>
   </span>
-  <a id="Benday_EfCore_SqlServer_SqlEntityFrameworkRepositoryBase_2__ctor_" data-uid="Benday.EfCore.SqlServer.SqlEntityFrameworkRepositoryBase`2.#ctor*"></a>
-  <h4 id="Benday_EfCore_SqlServer_SqlEntityFrameworkRepositoryBase_2__ctor__1_" data-uid="Benday.EfCore.SqlServer.SqlEntityFrameworkRepositoryBase`2.#ctor(`1)">SqlEntityFrameworkRepositoryBase(TDbContext)</h4>
-  <div class="markdown level1 summary"></div>
+  <a id="Benday_EfCore_SqlServer_Repositories_SqlEntityFrameworkRepositoryBase_2__ctor_" data-uid="Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkRepositoryBase`2.#ctor*"></a>
+  <h4 id="Benday_EfCore_SqlServer_Repositories_SqlEntityFrameworkRepositoryBase_2__ctor__1_" data-uid="Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkRepositoryBase`2.#ctor(`1)">SqlEntityFrameworkRepositoryBase(TDbContext)</h4>
+  <div class="markdown level1 summary"><p>Creates the repository over the supplied DbContext.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
@@ -178,14 +174,14 @@ This provides standardized access to the DbContext and implements IDispoable.</p
 </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/main/apiSpec/new?filename=Benday_EfCore_SqlServer_SqlEntityFrameworkRepositoryBase_2_Context.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.SqlEntityFrameworkRepositoryBase%602.Context%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_Repositories_SqlEntityFrameworkRepositoryBase_2_Context.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkRepositoryBase%602.Context%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/main/Benday.EfCore.SqlServer/SqlEntityFrameworkRepositoryBase.cs/#L46">View Source</a>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/Repositories/SqlEntityFrameworkRepositoryBase.cs/#L16">View Source</a>
   </span>
-  <a id="Benday_EfCore_SqlServer_SqlEntityFrameworkRepositoryBase_2_Context_" data-uid="Benday.EfCore.SqlServer.SqlEntityFrameworkRepositoryBase`2.Context*"></a>
-  <h4 id="Benday_EfCore_SqlServer_SqlEntityFrameworkRepositoryBase_2_Context" data-uid="Benday.EfCore.SqlServer.SqlEntityFrameworkRepositoryBase`2.Context">Context</h4>
-  <div class="markdown level1 summary"><p>The instance of EF Core DbContext used by the repository.</p>
+  <a id="Benday_EfCore_SqlServer_Repositories_SqlEntityFrameworkRepositoryBase_2_Context_" data-uid="Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkRepositoryBase`2.Context*"></a>
+  <h4 id="Benday_EfCore_SqlServer_Repositories_SqlEntityFrameworkRepositoryBase_2_Context" data-uid="Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkRepositoryBase`2.Context">Context</h4>
+  <div class="markdown level1 summary"><p>The EF Core DbContext owned by this repository.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -211,14 +207,14 @@ This provides standardized access to the DbContext and implements IDispoable.</p
 </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/main/apiSpec/new?filename=Benday_EfCore_SqlServer_SqlEntityFrameworkRepositoryBase_2_Dispose.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.SqlEntityFrameworkRepositoryBase%602.Dispose%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_Repositories_SqlEntityFrameworkRepositoryBase_2_Dispose.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkRepositoryBase%602.Dispose%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/main/Benday.EfCore.SqlServer/SqlEntityFrameworkRepositoryBase.cs/#L23">View Source</a>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/Repositories/SqlEntityFrameworkRepositoryBase.cs/#L50">View Source</a>
   </span>
-  <a id="Benday_EfCore_SqlServer_SqlEntityFrameworkRepositoryBase_2_Dispose_" data-uid="Benday.EfCore.SqlServer.SqlEntityFrameworkRepositoryBase`2.Dispose*"></a>
-  <h4 id="Benday_EfCore_SqlServer_SqlEntityFrameworkRepositoryBase_2_Dispose" data-uid="Benday.EfCore.SqlServer.SqlEntityFrameworkRepositoryBase`2.Dispose">Dispose()</h4>
-  <div class="markdown level1 summary"><p>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</p>
+  <a id="Benday_EfCore_SqlServer_Repositories_SqlEntityFrameworkRepositoryBase_2_Dispose_" data-uid="Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkRepositoryBase`2.Dispose*"></a>
+  <h4 id="Benday_EfCore_SqlServer_Repositories_SqlEntityFrameworkRepositoryBase_2_Dispose" data-uid="Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkRepositoryBase`2.Dispose">Dispose()</h4>
+  <div class="markdown level1 summary"><p>Disposes the owned DbContext.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -227,14 +223,15 @@ This provides standardized access to the DbContext and implements IDispoable.</p
   </div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/main/apiSpec/new?filename=Benday_EfCore_SqlServer_SqlEntityFrameworkRepositoryBase_2_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.SqlEntityFrameworkRepositoryBase%602.Dispose(System.Boolean)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_Repositories_SqlEntityFrameworkRepositoryBase_2_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkRepositoryBase%602.Dispose(System.Boolean)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/main/Benday.EfCore.SqlServer/SqlEntityFrameworkRepositoryBase.cs/#L30">View Source</a>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/Repositories/SqlEntityFrameworkRepositoryBase.cs/#L59">View Source</a>
   </span>
-  <a id="Benday_EfCore_SqlServer_SqlEntityFrameworkRepositoryBase_2_Dispose_" data-uid="Benday.EfCore.SqlServer.SqlEntityFrameworkRepositoryBase`2.Dispose*"></a>
-  <h4 id="Benday_EfCore_SqlServer_SqlEntityFrameworkRepositoryBase_2_Dispose_System_Boolean_" data-uid="Benday.EfCore.SqlServer.SqlEntityFrameworkRepositoryBase`2.Dispose(System.Boolean)">Dispose(bool)</h4>
-  <div class="markdown level1 summary"></div>
+  <a id="Benday_EfCore_SqlServer_Repositories_SqlEntityFrameworkRepositoryBase_2_Dispose_" data-uid="Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkRepositoryBase`2.Dispose*"></a>
+  <h4 id="Benday_EfCore_SqlServer_Repositories_SqlEntityFrameworkRepositoryBase_2_Dispose_System_Boolean_" data-uid="Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkRepositoryBase`2.Dispose(System.Boolean)">Dispose(bool)</h4>
+  <div class="markdown level1 summary"><p>Disposes managed resources (the DbContext) when <code class="paramref">disposing</code> is true.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
@@ -259,19 +256,20 @@ This provides standardized access to the DbContext and implements IDispoable.</p
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/main/apiSpec/new?filename=Benday_EfCore_SqlServer_SqlEntityFrameworkRepositoryBase_2_VerifyItemIsAddedOrAttachedToDbSet_Microsoft_EntityFrameworkCore_DbSet__0___0_.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.SqlEntityFrameworkRepositoryBase%602.VerifyItemIsAddedOrAttachedToDbSet(Microsoft.EntityFrameworkCore.DbSet%7B%600%7D%2C%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_Repositories_SqlEntityFrameworkRepositoryBase_2_VerifyItemIsAddedOrAttached_Microsoft_EntityFrameworkCore_DbSet__0___0_.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkRepositoryBase%602.VerifyItemIsAddedOrAttached(Microsoft.EntityFrameworkCore.DbSet%7B%600%7D%2C%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/main/Benday.EfCore.SqlServer/SqlEntityFrameworkRepositoryBase.cs/#L53">View Source</a>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/Repositories/SqlEntityFrameworkRepositoryBase.cs/#L30">View Source</a>
   </span>
-  <a id="Benday_EfCore_SqlServer_SqlEntityFrameworkRepositoryBase_2_VerifyItemIsAddedOrAttachedToDbSet_" data-uid="Benday.EfCore.SqlServer.SqlEntityFrameworkRepositoryBase`2.VerifyItemIsAddedOrAttachedToDbSet*"></a>
-  <h4 id="Benday_EfCore_SqlServer_SqlEntityFrameworkRepositoryBase_2_VerifyItemIsAddedOrAttachedToDbSet_Microsoft_EntityFrameworkCore_DbSet__0___0_" data-uid="Benday.EfCore.SqlServer.SqlEntityFrameworkRepositoryBase`2.VerifyItemIsAddedOrAttachedToDbSet(Microsoft.EntityFrameworkCore.DbSet{`0},`0)">VerifyItemIsAddedOrAttachedToDbSet(DbSet&lt;TEntity&gt;, TEntity)</h4>
-  <div class="markdown level1 summary"><p>Verifies that an object is attached to the DbContext instance and attaches it if necessary.</p>
+  <a id="Benday_EfCore_SqlServer_Repositories_SqlEntityFrameworkRepositoryBase_2_VerifyItemIsAddedOrAttached_" data-uid="Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkRepositoryBase`2.VerifyItemIsAddedOrAttached*"></a>
+  <h4 id="Benday_EfCore_SqlServer_Repositories_SqlEntityFrameworkRepositoryBase_2_VerifyItemIsAddedOrAttached_Microsoft_EntityFrameworkCore_DbSet__0___0_" data-uid="Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkRepositoryBase`2.VerifyItemIsAddedOrAttached(Microsoft.EntityFrameworkCore.DbSet{`0},`0)">VerifyItemIsAddedOrAttached(DbSet&lt;TEntity&gt;, TEntity)</h4>
+  <div class="markdown level1 summary"><p>Adds new entities (Id == 0) to the DbSet. Attaches existing
+entities so EF Core tracks them for update.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected void VerifyItemIsAddedOrAttachedToDbSet(DbSet&lt;TEntity&gt; dbset, TEntity item)</code></pre>
+    <pre><code class="lang-csharp hljs">protected void VerifyItemIsAddedOrAttached(DbSet&lt;TEntity&gt; dbSet, TEntity entity)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -285,15 +283,13 @@ This provides standardized access to the DbContext and implements IDispoable.</p
     <tbody>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbset-1">DbSet</a>&lt;TEntity&gt;</td>
-        <td><span class="parametername">dbset</span></td>
-        <td><p>DbSet instance that should contain this entity</p>
-</td>
+        <td><span class="parametername">dbSet</span></td>
+        <td></td>
       </tr>
       <tr>
         <td><span class="xref">TEntity</span></td>
-        <td><span class="parametername">item</span></td>
-        <td><p>Entity instance to verify is attached</p>
-</td>
+        <td><span class="parametername">entity</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -310,10 +306,10 @@ This provides standardized access to the DbContext and implements IDispoable.</p
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/main/apiSpec/new?filename=Benday_EfCore_SqlServer_SqlEntityFrameworkRepositoryBase_2.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.SqlEntityFrameworkRepositoryBase%602%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
+                    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_Repositories_SqlEntityFrameworkRepositoryBase_2.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkRepositoryBase%602%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
                   </li>
                   <li>
-                    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/main/Benday.EfCore.SqlServer/SqlEntityFrameworkRepositoryBase.cs/#L13" class="contribution-link">View Source</a>
+                    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/Repositories/SqlEntityFrameworkRepositoryBase.cs/#L11" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

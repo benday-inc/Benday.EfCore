@@ -16,7 +16,7 @@ Let us know by submitting an [issue](https://github.com/benday-inc/Benday.EfCore
 
 [Source code](https://github.com/benday-inc/Benday.EfCore.SqlServer)
 
-[API Documentation](https://benday-inc.github.io/Benday.EfCore.SqlServer/api/Benday.EfCore.SqlServer.html)
+[API Documentation](https://benday-inc.github.io/Benday.EfCore.SqlServer/api/index.html)
 
 [NuGet Package](https://www.nuget.org/packages/Benday.EfCore.SqlServer/)
 

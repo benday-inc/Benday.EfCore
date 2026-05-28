@@ -5,16 +5,16 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Benday.EfCore.SqlServer </title>
+      <title>Namespace Benday.EfCore.SqlServer.DomainModels </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Benday.EfCore.SqlServer ">
+      <meta name="title" content="Namespace Benday.EfCore.SqlServer.DomainModels ">
     
     
-      <link rel="shortcut icon" href="favicon.ico">
-      <link rel="stylesheet" href="styles/docfx.vendor.min.css">
-      <link rel="stylesheet" href="styles/docfx.css">
-      <link rel="stylesheet" href="styles/main.css">
-      <meta property="docfx:navrel" content="toc.html">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
       <meta property="docfx:tocrel" content="toc.html">
     
     
@@ -34,8 +34,8 @@
                 <span class="icon-bar"></span>
               </button>
               <div class="navbar-brand">
-                <a href="">
-                  <img id="logo" src="logo.png" alt="" alt="asdf" width="50" height="50">
+                <a href="../">
+                  <img id="logo" src="../logo.png" alt="" alt="asdf" width="50" height="50">
                 </a>
 
               </div>            </div>
@@ -58,22 +58,38 @@
         </div>
       </header>
       <div role="main" class="container body-content hide-when-search">
-        <div class="article row grid">
-          <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="">
-<h1 id="bendayefcoresqlserver">Benday.EfCore.SqlServer</h1>
 
-<p>Base classes for the repository, adapter, and service layer patterns with EF Core and SQL Server.</p>
-<h2 id="about">About</h2>
-<p>Written by Benjamin Day<br>
-Pluralsight Author | Microsoft MVP | Scrum.org Professional Scrum Trainer<br>
-<a href="https://www.benday.com">https://www.benday.com</a><br>
-info@benday.com</p>
-<p><em>Got ideas for git repo sync features you'd like to see? Found a bug?
-Let us know by submitting an <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/issues">issue</a></em>. <em>Want to contribute? Submit a pull request.</em></p>
-<p><a href="https://github.com/benday-inc/Benday.EfCore.SqlServer">Source code</a></p>
-<p><a href="api/index.html">API Documentation</a></p>
-<p><a href="https://www.nuget.org/packages/Benday.EfCore.SqlServer/">NuGet Package</a></p>
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Benday.EfCore.SqlServer.DomainModels">
+
+  <h1 id="Benday_EfCore_SqlServer_DomainModels" data-uid="Benday.EfCore.SqlServer.DomainModels" class="text-break">Namespace Benday.EfCore.SqlServer.DomainModels</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">
+Classes
+</h3>
+      <h4><a class="xref" href="Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase.html">CoreFieldsDomainModelBase</a></h4>
+      <section><p>Domain model base class with audit fields and optimistic concurrency.</p>
+<p>The Timestamp property carries the concurrency token across the
+adapter boundary so the service layer can detect conflicting updates
+without touching the entity layer directly.</p>
+</section>
+      <h4><a class="xref" href="Benday.EfCore.SqlServer.DomainModels.DomainModelBase.html">DomainModelBase</a></h4>
+      <section><p>Base class for domain models. Uses IEntityIdentity{int} from
+the shared interface package so domain models and entities
+share the same identity contract.</p>
+<p>Domain models are NOT EF Core entities. They live on the business
+logic side of the adapter boundary. EF Core should never see these.</p>
+</section>
+
 
 </article>
           </div>
@@ -82,9 +98,6 @@ Let us know by submitting an <a href="https://github.com/benday-inc/Benday.EfCor
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/docfx_project/index.md/#L1" class="contribution-link">Edit this page</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
@@ -108,8 +121,8 @@ Let us know by submitting an <a href="https://github.com/benday-inc/Benday.EfCor
       </footer>
     </div>
 
-    <script type="text/javascript" src="styles/docfx.vendor.min.js"></script>
-    <script type="text/javascript" src="styles/docfx.js"></script>
-    <script type="text/javascript" src="styles/main.js"></script>
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
   </body>
 </html>

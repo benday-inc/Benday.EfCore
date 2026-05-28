@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class AdapterBase&lt;TModel, TEntity&gt; </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class AdapterBase&lt;TModel, TEntity&gt; ">
+    
+    <meta name="description" content="Bidirectional adapter between a domain model (TModel) and an EF Core entity (TEntity). Handles single-item mapping in both directions, plus the tricky part: collection mapping with merge logic. When adapting a list of models to a list of entities, the adapter:  Matches existing items by Id and updates them in place Creates new entity instances for models with Id == 0 Marks entities for delete when their Id no longer appears in the model list (via IsMarkedForDelete)  Subclasses implement PerformAdapt for the actual property copying. The base class handles the lifecycle, matching, and delete detection.">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <div class="navbar-brand">
+                <a href="../">
+                  <img id="logo" src="../logo.png" alt="" alt="asdf" width="50" height="50">
+                </a>
+
+              </div>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Benday.EfCore.SqlServer.Adapters.AdapterBase`2">
+
+
+
+  <h1 id="Benday_EfCore_SqlServer_Adapters_AdapterBase_2" data-uid="Benday.EfCore.SqlServer.Adapters.AdapterBase`2" class="text-break">Class AdapterBase&lt;TModel, TEntity&gt;</h1>
+  <div class="markdown level0 summary"><p>Bidirectional adapter between a domain model (TModel) and
+an EF Core entity (TEntity).</p>
+<p>Handles single-item mapping in both directions, plus the tricky
+part: collection mapping with merge logic. When adapting a list of
+models to a list of entities, the adapter:</p>
+<ul>
+<li>Matches existing items by Id and updates them in place</li>
+<li>Creates new entity instances for models with Id == 0</li>
+<li>Marks entities for delete when their Id no longer appears
+in the model list (via IsMarkedForDelete)</li>
+</ul>
+<p>Subclasses implement PerformAdapt for the actual property copying.
+The base class handles the lifecycle, matching, and delete detection.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">AdapterBase&lt;TModel, TEntity&gt;</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Benday.html">Benday</a>.<a class="xref" href="Benday.EfCore.html">EfCore</a>.<a class="xref" href="Benday.EfCore.SqlServer.html">SqlServer</a>.<a class="xref" href="Benday.EfCore.SqlServer.Adapters.html">Adapters</a></h6>
+  <h6><strong>Assembly</strong>: Benday.EfCore.SqlServer.dll</h6>
+  <h5 id="Benday_EfCore_SqlServer_Adapters_AdapterBase_2_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class AdapterBase&lt;TModel, TEntity&gt; where TModel : class, IEntityIdentity&lt;int&gt;, new() where TEntity : class, IEntityIdentity&lt;int&gt;, IDeleteable, new()</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TModel</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TEntity</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_Adapters_AdapterBase_2_Adapt_System_Collections_Generic_IList__0__System_Collections_Generic_IList__1__.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.Adapters.AdapterBase%602.Adapt(System.Collections.Generic.IList%7B%600%7D%2CSystem.Collections.Generic.IList%7B%601%7D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/Adapters/AdapterBase.cs/#L83">View Source</a>
+  </span>
+  <a id="Benday_EfCore_SqlServer_Adapters_AdapterBase_2_Adapt_" data-uid="Benday.EfCore.SqlServer.Adapters.AdapterBase`2.Adapt*"></a>
+  <h4 id="Benday_EfCore_SqlServer_Adapters_AdapterBase_2_Adapt_System_Collections_Generic_IList__0__System_Collections_Generic_IList__1__" data-uid="Benday.EfCore.SqlServer.Adapters.AdapterBase`2.Adapt(System.Collections.Generic.IList{`0},System.Collections.Generic.IList{`1})">Adapt(IList&lt;TModel&gt;, IList&lt;TEntity&gt;)</h4>
+  <div class="markdown level1 summary"><p>Adapt a list of models to a list of entities with merge logic.
+New items are added. Existing items are updated by Id match.
+Items missing from the model list are marked for delete.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Adapt(IList&lt;TModel&gt; fromValues, IList&lt;TEntity&gt; toValues)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;TModel&gt;</td>
+        <td><span class="parametername">fromValues</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;TEntity&gt;</td>
+        <td><span class="parametername">toValues</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_Adapters_AdapterBase_2_Adapt_System_Collections_Generic_IList__1__System_Collections_Generic_IList__0__.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.Adapters.AdapterBase%602.Adapt(System.Collections.Generic.IList%7B%601%7D%2CSystem.Collections.Generic.IList%7B%600%7D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/Adapters/AdapterBase.cs/#L134">View Source</a>
+  </span>
+  <a id="Benday_EfCore_SqlServer_Adapters_AdapterBase_2_Adapt_" data-uid="Benday.EfCore.SqlServer.Adapters.AdapterBase`2.Adapt*"></a>
+  <h4 id="Benday_EfCore_SqlServer_Adapters_AdapterBase_2_Adapt_System_Collections_Generic_IList__1__System_Collections_Generic_IList__0__" data-uid="Benday.EfCore.SqlServer.Adapters.AdapterBase`2.Adapt(System.Collections.Generic.IList{`1},System.Collections.Generic.IList{`0})">Adapt(IList&lt;TEntity&gt;, IList&lt;TModel&gt;)</h4>
+  <div class="markdown level1 summary"><p>Adapt a list of entities to a list of models.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Adapt(IList&lt;TEntity&gt; fromValues, IList&lt;TModel&gt; toValues)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;TEntity&gt;</td>
+        <td><span class="parametername">fromValues</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;TModel&gt;</td>
+        <td><span class="parametername">toValues</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_Adapters_AdapterBase_2_Adapt__0__1_.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.Adapters.AdapterBase%602.Adapt(%600%2C%601)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/Adapters/AdapterBase.cs/#L44">View Source</a>
+  </span>
+  <a id="Benday_EfCore_SqlServer_Adapters_AdapterBase_2_Adapt_" data-uid="Benday.EfCore.SqlServer.Adapters.AdapterBase`2.Adapt*"></a>
+  <h4 id="Benday_EfCore_SqlServer_Adapters_AdapterBase_2_Adapt__0__1_" data-uid="Benday.EfCore.SqlServer.Adapters.AdapterBase`2.Adapt(`0,`1)">Adapt(TModel, TEntity)</h4>
+  <div class="markdown level1 summary"><p>Adapt a model to an entity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Adapt(TModel fromValue, TEntity toValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">fromValue</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">TEntity</span></td>
+        <td><span class="parametername">toValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_Adapters_AdapterBase_2_Adapt__1__0_.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.Adapters.AdapterBase%602.Adapt(%601%2C%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/Adapters/AdapterBase.cs/#L64">View Source</a>
+  </span>
+  <a id="Benday_EfCore_SqlServer_Adapters_AdapterBase_2_Adapt_" data-uid="Benday.EfCore.SqlServer.Adapters.AdapterBase`2.Adapt*"></a>
+  <h4 id="Benday_EfCore_SqlServer_Adapters_AdapterBase_2_Adapt__1__0_" data-uid="Benday.EfCore.SqlServer.Adapters.AdapterBase`2.Adapt(`1,`0)">Adapt(TEntity, TModel)</h4>
+  <div class="markdown level1 summary"><p>Adapt an entity to a model.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Adapt(TEntity fromValue, TModel toValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TEntity</span></td>
+        <td><span class="parametername">fromValue</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">toValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_Adapters_AdapterBase_2_AfterAdapt__0__1_.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.Adapters.AdapterBase%602.AfterAdapt(%600%2C%601)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/Adapters/AdapterBase.cs/#L186">View Source</a>
+  </span>
+  <a id="Benday_EfCore_SqlServer_Adapters_AdapterBase_2_AfterAdapt_" data-uid="Benday.EfCore.SqlServer.Adapters.AdapterBase`2.AfterAdapt*"></a>
+  <h4 id="Benday_EfCore_SqlServer_Adapters_AdapterBase_2_AfterAdapt__0__1_" data-uid="Benday.EfCore.SqlServer.Adapters.AdapterBase`2.AfterAdapt(`0,`1)">AfterAdapt(TModel, TEntity)</h4>
+  <div class="markdown level1 summary"><p>Hook invoked after a model has been adapted to an entity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void AfterAdapt(TModel fromValue, TEntity toValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">fromValue</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">TEntity</span></td>
+        <td><span class="parametername">toValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_Adapters_AdapterBase_2_AfterAdapt__1__0_.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.Adapters.AdapterBase%602.AfterAdapt(%601%2C%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/Adapters/AdapterBase.cs/#L189">View Source</a>
+  </span>
+  <a id="Benday_EfCore_SqlServer_Adapters_AdapterBase_2_AfterAdapt_" data-uid="Benday.EfCore.SqlServer.Adapters.AdapterBase`2.AfterAdapt*"></a>
+  <h4 id="Benday_EfCore_SqlServer_Adapters_AdapterBase_2_AfterAdapt__1__0_" data-uid="Benday.EfCore.SqlServer.Adapters.AdapterBase`2.AfterAdapt(`1,`0)">AfterAdapt(TEntity, TModel)</h4>
+  <div class="markdown level1 summary"><p>Hook invoked after an entity has been adapted to a model.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void AfterAdapt(TEntity fromValue, TModel toValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TEntity</span></td>
+        <td><span class="parametername">fromValue</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">toValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_Adapters_AdapterBase_2_BeforeAdapt__0__1_.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.Adapters.AdapterBase%602.BeforeAdapt(%600%2C%601)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/Adapters/AdapterBase.cs/#L175">View Source</a>
+  </span>
+  <a id="Benday_EfCore_SqlServer_Adapters_AdapterBase_2_BeforeAdapt_" data-uid="Benday.EfCore.SqlServer.Adapters.AdapterBase`2.BeforeAdapt*"></a>
+  <h4 id="Benday_EfCore_SqlServer_Adapters_AdapterBase_2_BeforeAdapt__0__1_" data-uid="Benday.EfCore.SqlServer.Adapters.AdapterBase`2.BeforeAdapt(`0,`1)">BeforeAdapt(TModel, TEntity)</h4>
+  <div class="markdown level1 summary"><p>Hook invoked before a model is adapted to an entity. Return an
+<a class="xref" href="Benday.EfCore.SqlServer.Adapters.AdapterAction.html">AdapterAction</a> to control whether the item is adapted,
+skipped, or marked for delete. Defaults to Adapt.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual AdapterAction BeforeAdapt(TModel fromValue, TEntity toValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">fromValue</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">TEntity</span></td>
+        <td><span class="parametername">toValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Benday.EfCore.SqlServer.Adapters.AdapterAction.html">AdapterAction</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_Adapters_AdapterBase_2_BeforeAdapt__1__0_.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.Adapters.AdapterBase%602.BeforeAdapt(%601%2C%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/Adapters/AdapterBase.cs/#L182">View Source</a>
+  </span>
+  <a id="Benday_EfCore_SqlServer_Adapters_AdapterBase_2_BeforeAdapt_" data-uid="Benday.EfCore.SqlServer.Adapters.AdapterBase`2.BeforeAdapt*"></a>
+  <h4 id="Benday_EfCore_SqlServer_Adapters_AdapterBase_2_BeforeAdapt__1__0_" data-uid="Benday.EfCore.SqlServer.Adapters.AdapterBase`2.BeforeAdapt(`1,`0)">BeforeAdapt(TEntity, TModel)</h4>
+  <div class="markdown level1 summary"><p>Hook invoked before an entity is adapted to a model. Return an
+<a class="xref" href="Benday.EfCore.SqlServer.Adapters.AdapterAction.html">AdapterAction</a> to control the outcome. Defaults to Adapt.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual AdapterAction BeforeAdapt(TEntity fromValue, TModel toValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TEntity</span></td>
+        <td><span class="parametername">fromValue</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">toValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Benday.EfCore.SqlServer.Adapters.AdapterAction.html">AdapterAction</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_Adapters_AdapterBase_2_PerformAdapt__0__1_.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.Adapters.AdapterBase%602.PerformAdapt(%600%2C%601)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/Adapters/AdapterBase.cs/#L160">View Source</a>
+  </span>
+  <a id="Benday_EfCore_SqlServer_Adapters_AdapterBase_2_PerformAdapt_" data-uid="Benday.EfCore.SqlServer.Adapters.AdapterBase`2.PerformAdapt*"></a>
+  <h4 id="Benday_EfCore_SqlServer_Adapters_AdapterBase_2_PerformAdapt__0__1_" data-uid="Benday.EfCore.SqlServer.Adapters.AdapterBase`2.PerformAdapt(`0,`1)">PerformAdapt(TModel, TEntity)</h4>
+  <div class="markdown level1 summary"><p>Map properties from a model to an entity.
+Implement the actual property-by-property copy here.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void PerformAdapt(TModel fromValue, TEntity toValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">fromValue</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">TEntity</span></td>
+        <td><span class="parametername">toValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_Adapters_AdapterBase_2_PerformAdapt__1__0_.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.Adapters.AdapterBase%602.PerformAdapt(%601%2C%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/Adapters/AdapterBase.cs/#L166">View Source</a>
+  </span>
+  <a id="Benday_EfCore_SqlServer_Adapters_AdapterBase_2_PerformAdapt_" data-uid="Benday.EfCore.SqlServer.Adapters.AdapterBase`2.PerformAdapt*"></a>
+  <h4 id="Benday_EfCore_SqlServer_Adapters_AdapterBase_2_PerformAdapt__1__0_" data-uid="Benday.EfCore.SqlServer.Adapters.AdapterBase`2.PerformAdapt(`1,`0)">PerformAdapt(TEntity, TModel)</h4>
+  <div class="markdown level1 summary"><p>Map properties from an entity to a model.
+Implement the actual property-by-property copy here.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void PerformAdapt(TEntity fromValue, TModel toValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TEntity</span></td>
+        <td><span class="parametername">fromValue</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">toValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/new/v11/apiSpec/new?filename=Benday_EfCore_SqlServer_Adapters_AdapterBase_2.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.Adapters.AdapterBase%602%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/benday-inc/Benday.EfCore.SqlServer/blob/v11/Benday.EfCore.SqlServer/Adapters/AdapterBase.cs/#L35" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      Copyright © <a href="https://www.benday.com/">www.benday.com</a> | <a href="mailto:info@benday.com">info@benday.com</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
