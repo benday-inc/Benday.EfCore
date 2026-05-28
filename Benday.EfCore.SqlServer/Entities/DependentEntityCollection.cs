@@ -20,6 +20,13 @@ public interface IDependentEntityCollection
     /// Prunes items marked for delete from the in-memory collection after save.
     /// </summary>
     void AfterSave();
+
+    /// <summary>
+    /// Returns the child items in this collection as identity instances.
+    /// Lets callers (notably test doubles) walk the children to assign
+    /// identities the way EF Core would during SaveChanges.
+    /// </summary>
+    IEnumerable<IEntityIdentity<int>> GetItems();
 }
 
 /// <summary>
@@ -72,4 +79,7 @@ public class DependentEntityCollection<T> : IDependentEntityCollection
             _items.Remove(item);
         }
     }
+
+    /// <inheritdoc />
+    public IEnumerable<IEntityIdentity<int>> GetItems() => _items;
 }

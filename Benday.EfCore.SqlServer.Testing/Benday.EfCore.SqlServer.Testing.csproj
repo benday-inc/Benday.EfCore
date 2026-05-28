@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+    <PackageId>Benday.EfCore.SqlServer.Testing</PackageId>
+    <Title>Benday.EfCore.SqlServer.Testing</Title>
+    <Description>Test doubles and helpers for testing applications built with Benday.EfCore.SqlServer. Includes InMemoryRepository, FakeValidatorStrategy, and FakeUsernameProvider.</Description>
+    <Authors>Benjamin Day</Authors>
+    <Company>Benjamin Day Consulting, Inc.</Company>
+    <Copyright>2026</Copyright>
+    <AssemblyVersion>11.0.0.0</AssemblyVersion>
+    <Version>11.0.0-alpha</Version>
+    <PackageTags>efcore;testing;repository;fakes;testdoubles</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>bdc_mark_128_128.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageProjectUrl>https://github.com/benday-inc/Benday.EfCore.SqlServer</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/benday-inc/Benday.EfCore.SqlServer.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\bdc_mark_128_128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Benday.EfCore.SqlServer\Benday.EfCore.SqlServer.csproj" />
+  </ItemGroup>
+
+</Project>
