@@ -1,7 +1,7 @@
 using Benday.Common.Interfaces;
-using Benday.EfCore.SqlServer.Entities;
+using Benday.EfCore.Entities;
 
-namespace Benday.EfCore.SqlServer.Testing.Fakes;
+namespace Benday.EfCore.Testing.Fakes;
 
 /// <summary>
 /// In-memory repository for unit testing. Implements the same

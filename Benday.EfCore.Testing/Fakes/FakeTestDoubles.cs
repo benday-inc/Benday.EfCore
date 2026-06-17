@@ -1,6 +1,6 @@
-using Benday.EfCore.SqlServer.ServiceLayers;
+using Benday.EfCore.ServiceLayers;
 
-namespace Benday.EfCore.SqlServer.Testing.Fakes;
+namespace Benday.EfCore.Testing.Fakes;
 
 /// <summary>
 /// Fake validator for unit testing. You control the outcome.

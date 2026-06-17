@@ -8,9 +8,9 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
 
-    <PackageId>Benday.EfCore.SqlServer.Testing</PackageId>
-    <Title>Benday.EfCore.SqlServer.Testing</Title>
-    <Description>Test doubles and helpers for testing applications built with Benday.EfCore.SqlServer. Includes InMemoryRepository, FakeValidatorStrategy, and FakeUsernameProvider.</Description>
+    <PackageId>Benday.EfCore.Testing</PackageId>
+    <Title>Benday.EfCore.Testing</Title>
+    <Description>Test doubles and helpers for testing applications built with Benday.EfCore. Includes InMemoryRepository, FakeValidatorStrategy, and FakeUsernameProvider.</Description>
     <Authors>Benjamin Day</Authors>
     <Company>Benjamin Day Consulting, Inc.</Company>
     <Copyright>2026</Copyright>
@@ -37,7 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Benday.EfCore.SqlServer\Benday.EfCore.SqlServer.csproj" />
+    <ProjectReference Include="..\Benday.EfCore\Benday.EfCore.csproj" />
   </ItemGroup>
 
 </Project>
