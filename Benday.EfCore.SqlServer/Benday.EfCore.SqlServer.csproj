@@ -9,7 +9,7 @@
 
     <PackageId>Benday.EfCore.SqlServer</PackageId>
     <Title>Benday.EfCore.SqlServer</Title>
-    <Description>Base classes for the repository pattern, adapter pattern, and service layer pattern with EF Core and SQL Server. Hide your dependencies.</Description>
+    <Description>SQL Server wiring for Benday.EfCore: connection-string registration (UseConnectionString), rowversion optimistic concurrency (ApplyBendaySqlServerConcurrency), and a design-time DbContext factory base. Pairs with the provider-agnostic Benday.EfCore package. Hide your dependencies.</Description>
     <Authors>Benjamin Day</Authors>
     <Company>Benjamin Day Consulting, Inc.</Company>
     <Copyright>2026</Copyright>
