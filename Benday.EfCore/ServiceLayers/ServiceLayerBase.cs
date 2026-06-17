@@ -1,8 +1,8 @@
 using Benday.Common.Interfaces;
-using Benday.EfCore.SqlServer.Adapters;
-using Benday.EfCore.SqlServer.Entities;
+using Benday.EfCore.Adapters;
+using Benday.EfCore.Entities;
 
-namespace Benday.EfCore.SqlServer.ServiceLayers;
+namespace Benday.EfCore.ServiceLayers;
 
 /// <summary>
 /// Invalid object exception thrown when validation fails in the service layer.

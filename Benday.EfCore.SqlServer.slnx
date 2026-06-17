@@ -14,4 +14,5 @@
   <Project Path="Benday.EfCore.SqlServer.Testing/Benday.EfCore.SqlServer.Testing.csproj" />
   <Project Path="Benday.EfCore.SqlServer.UnitTests/Benday.EfCore.SqlServer.UnitTests.csproj" />
   <Project Path="Benday.EfCore.SqlServer/Benday.EfCore.SqlServer.csproj" />
+  <Project Path="Benday.EfCore/Benday.EfCore.csproj" />
 </Solution>

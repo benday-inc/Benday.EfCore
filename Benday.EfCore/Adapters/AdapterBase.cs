@@ -1,6 +1,6 @@
 using Benday.Common.Interfaces;
 
-namespace Benday.EfCore.SqlServer.Adapters;
+namespace Benday.EfCore.Adapters;
 
 /// <summary>
 /// Controls what happens to an individual item during adaptation.

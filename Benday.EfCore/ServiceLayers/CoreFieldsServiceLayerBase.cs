@@ -1,9 +1,9 @@
 using Benday.Common.Interfaces;
-using Benday.EfCore.SqlServer.Adapters;
-using Benday.EfCore.SqlServer.DomainModels;
-using Benday.EfCore.SqlServer.Entities;
+using Benday.EfCore.Adapters;
+using Benday.EfCore.DomainModels;
+using Benday.EfCore.Entities;
 
-namespace Benday.EfCore.SqlServer.ServiceLayers;
+namespace Benday.EfCore.ServiceLayers;
 
 /// <summary>
 /// Service layer base for entities with audit fields.

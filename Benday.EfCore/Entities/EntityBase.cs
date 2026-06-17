@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Benday.Common.Interfaces;
 
-namespace Benday.EfCore.SqlServer.Entities;
+namespace Benday.EfCore.Entities;
 
 /// <summary>
 /// Base class for EF Core entities. Implements the shared

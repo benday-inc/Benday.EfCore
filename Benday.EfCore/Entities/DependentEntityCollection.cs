@@ -1,7 +1,7 @@
 using Benday.Common.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Benday.EfCore.SqlServer.Entities;
+namespace Benday.EfCore.Entities;
 
 /// <summary>
 /// Manages the lifecycle of dependent/child entities during save operations.

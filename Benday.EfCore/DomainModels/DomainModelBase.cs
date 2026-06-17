@@ -1,6 +1,6 @@
 using Benday.Common.Interfaces;
 
-namespace Benday.EfCore.SqlServer.DomainModels;
+namespace Benday.EfCore.DomainModels;
 
 /// <summary>
 /// Base class for domain models. Uses IEntityIdentity{int} from

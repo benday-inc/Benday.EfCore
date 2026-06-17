@@ -1,14 +1,14 @@
 using Benday.Common.Interfaces;
-using Benday.EfCore.SqlServer.Entities;
+using Benday.EfCore.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Benday.EfCore.SqlServer.Repositories;
+namespace Benday.EfCore.Repositories;
 
 /// <summary>
 /// Base repository. Owns the DbContext and handles the
 /// add-vs-attach decision based on Id == 0.
 /// </summary>
-public abstract class SqlEntityFrameworkRepositoryBase<TEntity, TDbContext> : IDisposable
+public abstract class EfCoreRepositoryBase<TEntity, TDbContext> : IDisposable
     where TEntity : EntityBase
     where TDbContext : DbContext
 {
@@ -18,7 +18,7 @@ public abstract class SqlEntityFrameworkRepositoryBase<TEntity, TDbContext> : ID
     /// <summary>
     /// Creates the repository over the supplied DbContext.
     /// </summary>
-    protected SqlEntityFrameworkRepositoryBase(TDbContext context)
+    protected EfCoreRepositoryBase(TDbContext context)
     {
         Context = context ?? throw new ArgumentNullException(nameof(context));
     }
@@ -80,8 +80,8 @@ public abstract class SqlEntityFrameworkRepositoryBase<TEntity, TDbContext> : ID
 /// 5. AfterSave on each DependentEntityCollection (prune in-memory)
 /// 6. AfterSave (override for custom logic)
 /// </summary>
-public abstract class SqlEntityFrameworkCrudRepositoryBase<TEntity, TDbContext>
-    : SqlEntityFrameworkRepositoryBase<TEntity, TDbContext>,
+public abstract class EfCoreCrudRepositoryBase<TEntity, TDbContext>
+    : EfCoreRepositoryBase<TEntity, TDbContext>,
       IAsyncReadableRepository<TEntity, int>
     where TEntity : EntityBase
     where TDbContext : DbContext
@@ -89,7 +89,7 @@ public abstract class SqlEntityFrameworkCrudRepositoryBase<TEntity, TDbContext>
     /// <summary>
     /// Creates the CRUD repository over the supplied DbContext.
     /// </summary>
-    protected SqlEntityFrameworkCrudRepositoryBase(TDbContext context) : base(context) { }
+    protected EfCoreCrudRepositoryBase(TDbContext context) : base(context) { }
 
     /// <summary>
     /// The DbSet for this entity type. Subclasses must provide this.

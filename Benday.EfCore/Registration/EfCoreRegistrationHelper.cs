@@ -1,8 +1,8 @@
-using Benday.EfCore.SqlServer.ServiceLayers;
+using Benday.EfCore.ServiceLayers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Benday.EfCore.SqlServer.Registration;
+namespace Benday.EfCore.Registration;
 
 /// <summary>
 /// Fluent registration helper for wiring up the repository + adapter +
@@ -26,7 +26,6 @@ namespace Benday.EfCore.SqlServer.Registration;
 public class EfCoreRegistrationHelper<TDbContext> where TDbContext : DbContext
 {
     private readonly IServiceCollection _services;
-    private string? _connectionString;
     private Action<DbContextOptionsBuilder>? _dbContextOptions;
 
     /// <summary>
@@ -38,16 +37,9 @@ public class EfCoreRegistrationHelper<TDbContext> where TDbContext : DbContext
     }
 
     /// <summary>
-    /// Configure the SQL Server connection string.
-    /// </summary>
-    public EfCoreRegistrationHelper<TDbContext> UseConnectionString(string connectionString)
-    {
-        _connectionString = connectionString;
-        return this;
-    }
-
-    /// <summary>
-    /// Configure DbContext options directly for advanced scenarios.
+    /// Configure DbContext options directly. Provider packages layer
+    /// convenience methods on top of this (for example, the
+    /// <c>UseConnectionString</c> extension in Benday.EfCore.SqlServer).
     /// </summary>
     public EfCoreRegistrationHelper<TDbContext> ConfigureDbContext(
         Action<DbContextOptionsBuilder> configure)
@@ -57,25 +49,21 @@ public class EfCoreRegistrationHelper<TDbContext> where TDbContext : DbContext
     }
 
     /// <summary>
-    /// Register the DbContext with EF Core using the configured connection string.
-    /// Call this once, before registering repositories and services.
+    /// Register the DbContext with EF Core using the configured options.
+    /// Call <see cref="ConfigureDbContext"/> (or a provider's
+    /// <c>UseConnectionString</c>) first, then call this once before
+    /// registering repositories and services.
     /// </summary>
     public EfCoreRegistrationHelper<TDbContext> RegisterDbContext()
     {
-        if (_dbContextOptions != null)
-        {
-            _services.AddDbContext<TDbContext>(_dbContextOptions);
-        }
-        else if (_connectionString != null)
-        {
-            _services.AddDbContext<TDbContext>(options =>
-                options.UseSqlServer(_connectionString));
-        }
-        else
+        if (_dbContextOptions == null)
         {
             throw new InvalidOperationException(
-                "Call UseConnectionString() or ConfigureDbContext() before RegisterDbContext().");
+                "Call ConfigureDbContext(...) (or a provider's UseConnectionString(...)) " +
+                "before RegisterDbContext().");
         }
+
+        _services.AddDbContext<TDbContext>(_dbContextOptions);
 
         return this;
     }

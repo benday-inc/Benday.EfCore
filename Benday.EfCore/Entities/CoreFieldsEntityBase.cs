@@ -1,12 +1,17 @@
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Benday.EfCore.SqlServer.Entities;
+namespace Benday.EfCore.Entities;
 
 /// <summary>
 /// Entity base class with audit fields (CreatedBy, CreatedDate,
-/// LastModifiedBy, LastModifiedDate) and optimistic concurrency
-/// via a [Timestamp] column.
+/// LastModifiedBy, LastModifiedDate) and an optimistic concurrency
+/// token (<see cref="Timestamp"/>).
+///
+/// The concurrency token is mapped per provider rather than via a
+/// DataAnnotations attribute so this type stays provider-agnostic.
+/// SQL Server consumers map it as <c>rowversion</c> by calling
+/// <c>ApplyBendaySqlServerConcurrency()</c> (from Benday.EfCore.SqlServer)
+/// in <c>OnModelCreating</c>.
 ///
 /// Column ordering places audit fields after the entity's own columns
 /// so they sort to the end of the table in the database.
@@ -44,9 +49,11 @@ public abstract class CoreFieldsEntityBase : EntityBase
     public DateTime LastModifiedDate { get; set; }
 
     /// <summary>
-    /// Optimistic concurrency token managed by SQL Server (rowversion).
+    /// Optimistic concurrency token. Configured per provider: SQL Server
+    /// consumers map it as <c>rowversion</c> via
+    /// <c>ApplyBendaySqlServerConcurrency()</c>; PostgreSQL consumers use
+    /// <c>xmin</c> instead and can leave this property unmapped.
     /// </summary>
-    [Timestamp]
     [Column(Order = 550)]
     public byte[]? Timestamp { get; set; }
 }

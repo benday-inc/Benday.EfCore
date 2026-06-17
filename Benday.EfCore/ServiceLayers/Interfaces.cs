@@ -1,4 +1,4 @@
-namespace Benday.EfCore.SqlServer.ServiceLayers;
+namespace Benday.EfCore.ServiceLayers;
 
 /// <summary>
 /// Validation strategy interface. Decouples validation logic from

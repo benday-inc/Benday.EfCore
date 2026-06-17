@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Benday.EfCore.SqlServer.ServiceLayers;
+namespace Benday.EfCore.ServiceLayers;
 
 /// <summary>
 /// Default validator that uses DataAnnotations attributes on the

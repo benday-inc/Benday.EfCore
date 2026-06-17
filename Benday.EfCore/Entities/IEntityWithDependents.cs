@@ -1,4 +1,4 @@
-namespace Benday.EfCore.SqlServer.Entities;
+namespace Benday.EfCore.Entities;
 
 /// <summary>
 /// Interface for entities that manage dependent/child entity collections.
