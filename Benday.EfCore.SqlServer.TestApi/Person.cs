@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Benday.EfCore.SqlServer.Entities;
+using Benday.EfCore.Entities;
 
 namespace Benday.EfCore.SqlServer.TestApi;
 

@@ -1,5 +1,5 @@
 using Benday.Common.Testing;
-using Benday.EfCore.SqlServer.Adapters;
+using Benday.EfCore.Adapters;
 using Benday.EfCore.SqlServer.TestApi;
 using Benday.EfCore.SqlServer.TestApi.Adapters;
 using Benday.EfCore.SqlServer.TestApi.DomainModels;

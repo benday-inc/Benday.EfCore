@@ -1,4 +1,4 @@
-using Benday.EfCore.SqlServer.Testing.Fakes;
+using Benday.EfCore.Testing.Fakes;
 using Benday.EfCore.SqlServer.TestApi;
 using Benday.EfCore.SqlServer.TestApi.Repositories;
 

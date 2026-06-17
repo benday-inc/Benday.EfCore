@@ -1,6 +1,6 @@
 using Benday.Common.Testing;
-using Benday.EfCore.SqlServer.ServiceLayers;
-using Benday.EfCore.SqlServer.Testing.Fakes;
+using Benday.EfCore.ServiceLayers;
+using Benday.EfCore.Testing.Fakes;
 using Benday.EfCore.SqlServer.TestApi.Adapters;
 using Benday.EfCore.SqlServer.TestApi.DomainModels;
 using Benday.EfCore.SqlServer.TestApi.Services;

@@ -1,4 +1,4 @@
-using Benday.EfCore.SqlServer.Adapters;
+using Benday.EfCore.Adapters;
 using Benday.EfCore.SqlServer.TestApi.DomainModels;
 
 namespace Benday.EfCore.SqlServer.TestApi.Adapters;

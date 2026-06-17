@@ -1,5 +1,5 @@
 using Benday.Common.Interfaces;
-using Benday.EfCore.SqlServer.ServiceLayers;
+using Benday.EfCore.ServiceLayers;
 using Benday.EfCore.SqlServer.TestApi.Adapters;
 using Benday.EfCore.SqlServer.TestApi.DomainModels;
 using Benday.EfCore.SqlServer.TestApi.Repositories;

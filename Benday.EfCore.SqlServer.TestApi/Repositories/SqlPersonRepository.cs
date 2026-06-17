@@ -1,4 +1,4 @@
-using Benday.EfCore.SqlServer.Repositories;
+using Benday.EfCore.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Benday.EfCore.SqlServer.TestApi.Repositories;
@@ -9,7 +9,7 @@ namespace Benday.EfCore.SqlServer.TestApi.Repositories;
 /// dependent-entity save lifecycle from the base class.
 /// </summary>
 public class SqlPersonRepository :
-    SqlEntityFrameworkCrudRepositoryBase<Person, TestDbContext>,
+    EfCoreCrudRepositoryBase<Person, TestDbContext>,
     IPersonRepository
 {
     /// <summary>

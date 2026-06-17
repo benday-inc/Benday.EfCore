@@ -1,3 +1,4 @@
+using Benday.EfCore.SqlServer;
 using Microsoft.EntityFrameworkCore;
 
 namespace Benday.EfCore.SqlServer.TestApi;
@@ -30,5 +31,9 @@ public class TestDbContext : DbContext
             .WithOne(n => n.Person!)
             .HasForeignKey(n => n.PersonId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        // Map CoreFieldsEntityBase.Timestamp as a SQL Server rowversion token.
+        // Replaces the [Timestamp] attribute the provider-agnostic base dropped.
+        modelBuilder.ApplyBendaySqlServerConcurrency();
     }
 }

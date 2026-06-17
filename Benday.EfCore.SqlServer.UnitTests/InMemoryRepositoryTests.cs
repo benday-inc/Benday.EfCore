@@ -1,5 +1,5 @@
 using Benday.Common.Testing;
-using Benday.EfCore.SqlServer.Testing.Fakes;
+using Benday.EfCore.Testing.Fakes;
 using Benday.EfCore.SqlServer.TestApi;
 
 namespace Benday.EfCore.SqlServer.UnitTests;

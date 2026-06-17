@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using Benday.EfCore.SqlServer.Entities;
+using Benday.EfCore.Entities;
 
 namespace Benday.EfCore.SqlServer.TestApi;
 
