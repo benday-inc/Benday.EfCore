@@ -20,13 +20,21 @@ public interface IDependentEntityCollection
     /// Prunes items marked for delete from the in-memory collection after save.
     /// </summary>
     void AfterSave();
+}
 
+/// <summary>
+/// Generic extension of <see cref="IDependentEntityCollection"/> that exposes
+/// typed identity access for callers (notably test doubles) that need to walk
+/// the children and assign identities the way EF Core would during SaveChanges.
+/// </summary>
+/// <typeparam name="TIdentity">The child entity's primary key type.</typeparam>
+public interface IDependentEntityCollection<TIdentity> : IDependentEntityCollection
+    where TIdentity : IEquatable<TIdentity>
+{
     /// <summary>
     /// Returns the child items in this collection as identity instances.
-    /// Lets callers (notably test doubles) walk the children to assign
-    /// identities the way EF Core would during SaveChanges.
     /// </summary>
-    IEnumerable<IEntityIdentity<int>> GetItems();
+    IEnumerable<IEntityIdentity<TIdentity>> GetItems();
 }
 
 /// <summary>
@@ -39,8 +47,11 @@ public interface IDependentEntityCollection
 /// in-memory collection so the parent entity's navigation property
 /// reflects the current state.
 /// </summary>
-public class DependentEntityCollection<T> : IDependentEntityCollection
-    where T : class, IEntityIdentity<int>, IDeleteable
+/// <typeparam name="T">The child entity type.</typeparam>
+/// <typeparam name="TIdentity">The child entity's primary key type.</typeparam>
+public class DependentEntityCollection<T, TIdentity> : IDependentEntityCollection<TIdentity>
+    where T : class, IEntityIdentity<TIdentity>, IDeleteable
+    where TIdentity : IEquatable<TIdentity>
 {
     private readonly IList<T> _items;
 
@@ -81,5 +92,21 @@ public class DependentEntityCollection<T> : IDependentEntityCollection
     }
 
     /// <inheritdoc />
-    public IEnumerable<IEntityIdentity<int>> GetItems() => _items;
+    public IEnumerable<IEntityIdentity<TIdentity>> GetItems() => _items;
+}
+
+/// <summary>
+/// Non-generic int convenience shim over <see cref="DependentEntityCollection{T, TIdentity}"/>.
+/// Int consumers wrap their child collections with this and keep their existing
+/// syntax unchanged.
+/// </summary>
+/// <typeparam name="T">The child entity type.</typeparam>
+public class DependentEntityCollection<T> : DependentEntityCollection<T, int>
+    where T : class, IEntityIdentity<int>, IDeleteable
+{
+    /// <summary>
+    /// Creates a dependent entity collection wrapper over a child navigation collection.
+    /// </summary>
+    /// <param name="items">The child collection owned by the parent entity.</param>
+    public DependentEntityCollection(IList<T> items) : base(items) { }
 }

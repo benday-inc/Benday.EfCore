@@ -25,17 +25,32 @@ public enum AdapterAction
 /// models to a list of entities, the adapter:
 ///
 /// - Matches existing items by Id and updates them in place
-/// - Creates new entity instances for models with Id == 0
+/// - Creates new entity instances for new models (see <see cref="IsNew"/>)
 /// - Marks entities for delete when their Id no longer appears
 ///   in the model list (via IsMarkedForDelete)
 ///
 /// Subclasses implement PerformAdapt for the actual property copying.
 /// The base class handles the lifecycle, matching, and delete detection.
+///
+/// The identity type is generic (<typeparamref name="TIdentity"/>). Int consumers
+/// use the non-generic <see cref="AdapterBase{TModel, TEntity}"/> shim.
 /// </summary>
-public abstract class AdapterBase<TModel, TEntity>
-    where TModel : class, IEntityIdentity<int>, new()
-    where TEntity : class, IEntityIdentity<int>, IDeleteable, new()
+/// <typeparam name="TModel">The domain model type.</typeparam>
+/// <typeparam name="TEntity">The EF Core entity type.</typeparam>
+/// <typeparam name="TIdentity">The primary key type.</typeparam>
+public abstract class AdapterBase<TModel, TEntity, TIdentity>
+    where TModel : class, IEntityIdentity<TIdentity>, new()
+    where TEntity : class, IEntityIdentity<TIdentity>, IDeleteable, new()
+    where TIdentity : IEquatable<TIdentity>
 {
+    /// <summary>
+    /// Returns true when the identity value indicates a new, unpersisted item.
+    /// Default: Id equals default(TIdentity) — 0 for int, Guid.Empty for Guid,
+    /// null for string. Override for client-assigned key strategies.
+    /// </summary>
+    protected virtual bool IsNew(TIdentity id) =>
+        EqualityComparer<TIdentity>.Default.Equals(id, default!);
+
     // --- Single-item mapping ---
 
     /// <summary>
@@ -90,7 +105,7 @@ public abstract class AdapterBase<TModel, TEntity>
             TEntity? toValue;
             bool isNew = false;
 
-            if (fromValue.Id == 0)
+            if (IsNew(fromValue.Id))
             {
                 toValue = new TEntity();
                 isNew = true;
@@ -190,19 +205,33 @@ public abstract class AdapterBase<TModel, TEntity>
 
     // --- Private helpers ---
 
-    private static TEntity? FindById(IList<TEntity> items, int id)
-        => items.FirstOrDefault(item => item.Id == id);
+    private static TEntity? FindById(IList<TEntity> items, TIdentity id)
+        => items.FirstOrDefault(item => item.Id.Equals(id));
 
-    private static void MarkDeletedItems(IList<TModel> fromValues, IList<TEntity> toValues)
+    private void MarkDeletedItems(IList<TModel> fromValues, IList<TEntity> toValues)
     {
-        var modelIds = new HashSet<int>(fromValues.Select(m => m.Id).Where(id => id != 0));
+        var modelIds = new HashSet<TIdentity>(
+            fromValues.Select(m => m.Id).Where(id => !IsNew(id)));
 
         foreach (var entity in toValues)
         {
-            if (entity.Id != 0 && !modelIds.Contains(entity.Id))
+            if (!IsNew(entity.Id) && !modelIds.Contains(entity.Id))
             {
                 entity.IsMarkedForDelete = true;
             }
         }
     }
+}
+
+/// <summary>
+/// Non-generic int convenience shim over <see cref="AdapterBase{TModel, TEntity, TIdentity}"/>.
+/// Int consumers derive from this and keep their existing syntax unchanged.
+/// </summary>
+/// <typeparam name="TModel">The domain model type.</typeparam>
+/// <typeparam name="TEntity">The EF Core entity type.</typeparam>
+public abstract class AdapterBase<TModel, TEntity>
+    : AdapterBase<TModel, TEntity, int>
+    where TModel : class, IEntityIdentity<int>, new()
+    where TEntity : class, IEntityIdentity<int>, IDeleteable, new()
+{
 }

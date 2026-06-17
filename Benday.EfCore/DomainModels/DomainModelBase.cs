@@ -10,12 +10,23 @@ namespace Benday.EfCore.DomainModels;
 /// Domain models are NOT EF Core entities. They live on the business
 /// logic side of the adapter boundary. EF Core should never see these.
 /// </summary>
-public abstract class DomainModelBase : IEntityIdentity<int>
+/// <typeparam name="TIdentity">The identity type.</typeparam>
+public abstract class DomainModelBase<TIdentity> : IEntityIdentity<TIdentity>
+    where TIdentity : IEquatable<TIdentity>
 {
     /// <summary>
-    /// Identity of the domain model. Zero means not yet persisted.
+    /// Identity of the domain model. The default value (0 for int, Guid.Empty
+    /// for Guid, null for string) means not yet persisted.
     /// </summary>
-    public int Id { get; set; }
+    public TIdentity Id { get; set; } = default!;
+}
+
+/// <summary>
+/// Non-generic int convenience shim over <see cref="DomainModelBase{TIdentity}"/>.
+/// Int consumers derive from this and keep their existing syntax unchanged.
+/// </summary>
+public abstract class DomainModelBase : DomainModelBase<int>
+{
 }
 
 /// <summary>
@@ -25,7 +36,9 @@ public abstract class DomainModelBase : IEntityIdentity<int>
 /// adapter boundary so the service layer can detect conflicting updates
 /// without touching the entity layer directly.
 /// </summary>
-public abstract class CoreFieldsDomainModelBase : DomainModelBase
+/// <typeparam name="TIdentity">The identity type.</typeparam>
+public abstract class CoreFieldsDomainModelBase<TIdentity> : DomainModelBase<TIdentity>
+    where TIdentity : IEquatable<TIdentity>
 {
     /// <summary>
     /// Application-defined status value for the model.
@@ -57,4 +70,12 @@ public abstract class CoreFieldsDomainModelBase : DomainModelBase
     /// boundary so the entity layer can detect conflicting updates.
     /// </summary>
     public byte[]? Timestamp { get; set; }
+}
+
+/// <summary>
+/// Non-generic int convenience shim over <see cref="CoreFieldsDomainModelBase{TIdentity}"/>.
+/// Int consumers derive from this and keep their existing syntax unchanged.
+/// </summary>
+public abstract class CoreFieldsDomainModelBase : CoreFieldsDomainModelBase<int>
+{
 }

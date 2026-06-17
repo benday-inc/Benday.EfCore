@@ -15,10 +15,14 @@ namespace Benday.EfCore.ServiceLayers;
 /// Also copies audit fields and the concurrency timestamp back to
 /// the model after save so the caller has current values.
 /// </summary>
-public abstract class CoreFieldsServiceLayerBase<TModel, TEntity>
-    : ServiceLayerBase<TModel, TEntity>
-    where TModel : CoreFieldsDomainModelBase, new()
-    where TEntity : CoreFieldsEntityBase, new()
+/// <typeparam name="TModel">The domain model type.</typeparam>
+/// <typeparam name="TEntity">The entity type.</typeparam>
+/// <typeparam name="TIdentity">The primary key type.</typeparam>
+public abstract class CoreFieldsServiceLayerBase<TModel, TEntity, TIdentity>
+    : ServiceLayerBase<TModel, TEntity, TIdentity>
+    where TModel : CoreFieldsDomainModelBase<TIdentity>, new()
+    where TEntity : CoreFieldsEntityBase<TIdentity>, new()
+    where TIdentity : IEquatable<TIdentity>
 {
     /// <summary>The provider used to stamp audit fields with the current username.</summary>
     protected IUsernameProvider UsernameProvider { get; }
@@ -27,8 +31,8 @@ public abstract class CoreFieldsServiceLayerBase<TModel, TEntity>
     /// Creates the service layer with its repository, adapter, validator, and username provider.
     /// </summary>
     protected CoreFieldsServiceLayerBase(
-        IAsyncReadableRepository<TEntity, int> repository,
-        AdapterBase<TModel, TEntity> adapter,
+        IAsyncReadableRepository<TEntity, TIdentity> repository,
+        AdapterBase<TModel, TEntity, TIdentity> adapter,
         IValidatorStrategy<TModel> validator,
         IUsernameProvider usernameProvider)
         : base(repository, adapter, validator)
@@ -40,7 +44,8 @@ public abstract class CoreFieldsServiceLayerBase<TModel, TEntity>
     /// <summary>
     /// Populates audit fields before the adapter copies model → entity.
     ///
-    /// New items (Id == 0): sets CreatedBy and CreatedDate.
+    /// New items (see <see cref="ServiceLayerBase{TModel, TEntity, TIdentity}.IsNew"/>):
+    /// sets CreatedBy and CreatedDate.
     /// All items: sets LastModifiedBy and LastModifiedDate.
     /// No change tracking needed — just always update.
     /// </summary>
@@ -49,7 +54,7 @@ public abstract class CoreFieldsServiceLayerBase<TModel, TEntity>
         var now = DateTime.UtcNow;
         var username = UsernameProvider.Username;
 
-        if (model.Id == 0)
+        if (IsNew(model.Id))
         {
             model.CreatedBy = username;
             model.CreatedDate = now;
@@ -64,14 +69,14 @@ public abstract class CoreFieldsServiceLayerBase<TModel, TEntity>
     /// Call this for each child collection before adapting.
     /// </summary>
     protected virtual void PopulateAuditFieldsBeforeSave(
-        IEnumerable<CoreFieldsDomainModelBase> children)
+        IEnumerable<CoreFieldsDomainModelBase<TIdentity>> children)
     {
         var now = DateTime.UtcNow;
         var username = UsernameProvider.Username;
 
         foreach (var child in children)
         {
-            if (child.Id == 0)
+            if (IsNew(child.Id))
             {
                 child.CreatedBy = username;
                 child.CreatedDate = now;
@@ -123,18 +128,18 @@ public abstract class CoreFieldsServiceLayerBase<TModel, TEntity>
     /// each child collection.
     /// </summary>
     protected virtual void PopulateFieldsFromEntityAfterSave(
-        IList<CoreFieldsEntityBase> fromEntities,
-        IList<CoreFieldsDomainModelBase> toModels)
+        IList<CoreFieldsEntityBase<TIdentity>> fromEntities,
+        IList<CoreFieldsDomainModelBase<TIdentity>> toModels)
     {
         foreach (var entity in fromEntities)
         {
-            var model = toModels.FirstOrDefault(m => m.Id == entity.Id);
-            if (model == null && entity.Id != 0)
+            var model = toModels.FirstOrDefault(m => m.Id.Equals(entity.Id));
+            if (model == null && !IsNew(entity.Id))
             {
                 // New items — match by position isn't reliable,
                 // but the Id was just assigned. Try to find by
-                // matching zero-Id items in order.
-                model = toModels.FirstOrDefault(m => m.Id == 0);
+                // matching new (unassigned) items in order.
+                model = toModels.FirstOrDefault(m => IsNew(m.Id));
             }
 
             if (model != null)
@@ -148,4 +153,27 @@ public abstract class CoreFieldsServiceLayerBase<TModel, TEntity>
             }
         }
     }
+}
+
+/// <summary>
+/// Non-generic int convenience shim over
+/// <see cref="CoreFieldsServiceLayerBase{TModel, TEntity, TIdentity}"/>.
+/// Int consumers derive from this and keep their existing syntax unchanged.
+/// </summary>
+/// <typeparam name="TModel">The domain model type.</typeparam>
+/// <typeparam name="TEntity">The entity type.</typeparam>
+public abstract class CoreFieldsServiceLayerBase<TModel, TEntity>
+    : CoreFieldsServiceLayerBase<TModel, TEntity, int>
+    where TModel : CoreFieldsDomainModelBase<int>, new()
+    where TEntity : CoreFieldsEntityBase<int>, new()
+{
+    /// <summary>
+    /// Creates the service layer with its repository, adapter, validator, and username provider.
+    /// </summary>
+    protected CoreFieldsServiceLayerBase(
+        IAsyncReadableRepository<TEntity, int> repository,
+        AdapterBase<TModel, TEntity, int> adapter,
+        IValidatorStrategy<TModel> validator,
+        IUsernameProvider usernameProvider)
+        : base(repository, adapter, validator, usernameProvider) { }
 }

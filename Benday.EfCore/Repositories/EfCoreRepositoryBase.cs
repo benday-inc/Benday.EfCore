@@ -6,10 +6,17 @@ namespace Benday.EfCore.Repositories;
 
 /// <summary>
 /// Base repository. Owns the DbContext and handles the
-/// add-vs-attach decision based on Id == 0.
+/// add-vs-attach decision based on the <see cref="IsNew"/> seam.
+///
+/// The identity type is generic (<typeparamref name="TIdentity"/>). Int consumers
+/// use the non-generic <see cref="EfCoreRepositoryBase{TEntity, TDbContext}"/> shim.
 /// </summary>
-public abstract class EfCoreRepositoryBase<TEntity, TDbContext> : IDisposable
-    where TEntity : EntityBase
+/// <typeparam name="TEntity">The entity type.</typeparam>
+/// <typeparam name="TIdentity">The primary key type.</typeparam>
+/// <typeparam name="TDbContext">The DbContext type.</typeparam>
+public abstract class EfCoreRepositoryBase<TEntity, TIdentity, TDbContext> : IDisposable
+    where TEntity : EntityBase<TIdentity>
+    where TIdentity : IEquatable<TIdentity>
     where TDbContext : DbContext
 {
     /// <summary>The EF Core DbContext owned by this repository.</summary>
@@ -24,12 +31,20 @@ public abstract class EfCoreRepositoryBase<TEntity, TDbContext> : IDisposable
     }
 
     /// <summary>
-    /// Adds new entities (Id == 0) to the DbSet. Attaches existing
+    /// Returns true when the entity is new (unpersisted) and should be added
+    /// rather than attached. Default: Id equals default(TIdentity) — 0 for int,
+    /// Guid.Empty for Guid, null for string. Override for client-assigned keys.
+    /// </summary>
+    protected virtual bool IsNew(TEntity entity) =>
+        EqualityComparer<TIdentity>.Default.Equals(entity.Id, default!);
+
+    /// <summary>
+    /// Adds new entities to the DbSet. Attaches existing
     /// entities so EF Core tracks them for update.
     /// </summary>
     protected void VerifyItemIsAddedOrAttached(DbSet<TEntity> dbSet, TEntity entity)
     {
-        if (entity.Id == 0)
+        if (IsNew(entity))
         {
             dbSet.Add(entity);
         }
@@ -80,10 +95,14 @@ public abstract class EfCoreRepositoryBase<TEntity, TDbContext> : IDisposable
 /// 5. AfterSave on each DependentEntityCollection (prune in-memory)
 /// 6. AfterSave (override for custom logic)
 /// </summary>
-public abstract class EfCoreCrudRepositoryBase<TEntity, TDbContext>
-    : EfCoreRepositoryBase<TEntity, TDbContext>,
-      IAsyncReadableRepository<TEntity, int>
-    where TEntity : EntityBase
+/// <typeparam name="TEntity">The entity type.</typeparam>
+/// <typeparam name="TIdentity">The primary key type.</typeparam>
+/// <typeparam name="TDbContext">The DbContext type.</typeparam>
+public abstract class EfCoreCrudRepositoryBase<TEntity, TIdentity, TDbContext>
+    : EfCoreRepositoryBase<TEntity, TIdentity, TDbContext>,
+      IAsyncReadableRepository<TEntity, TIdentity>
+    where TEntity : EntityBase<TIdentity>
+    where TIdentity : IEquatable<TIdentity>
     where TDbContext : DbContext
 {
     /// <summary>
@@ -120,10 +139,12 @@ public abstract class EfCoreCrudRepositoryBase<TEntity, TDbContext>
     /// <summary>
     /// Returns the entity with the supplied id, applying includes, or null.
     /// </summary>
-    public virtual async Task<TEntity?> GetByIdAsync(int id)
+    public virtual async Task<TEntity?> GetByIdAsync(TIdentity id)
     {
         var query = AddIncludes(EntityDbSet.AsQueryable());
-        return await query.FirstOrDefaultAsync(e => e.Id == id);
+        // .Equals() instead of == because TIdentity is generic; for int/Guid/string
+        // this translates to SQL correctly.
+        return await query.FirstOrDefaultAsync(e => e.Id.Equals(id));
     }
 
     /// <summary>
@@ -197,4 +218,40 @@ public abstract class EfCoreCrudRepositoryBase<TEntity, TDbContext>
             collection.AfterSave();
         }
     }
+}
+
+/// <summary>
+/// Non-generic int convenience shim over
+/// <see cref="EfCoreRepositoryBase{TEntity, TIdentity, TDbContext}"/>.
+/// Int consumers derive from this and keep their existing syntax unchanged.
+/// </summary>
+/// <typeparam name="TEntity">The entity type.</typeparam>
+/// <typeparam name="TDbContext">The DbContext type.</typeparam>
+public abstract class EfCoreRepositoryBase<TEntity, TDbContext>
+    : EfCoreRepositoryBase<TEntity, int, TDbContext>
+    where TEntity : EntityBase<int>
+    where TDbContext : DbContext
+{
+    /// <summary>
+    /// Creates the repository over the supplied DbContext.
+    /// </summary>
+    protected EfCoreRepositoryBase(TDbContext context) : base(context) { }
+}
+
+/// <summary>
+/// Non-generic int convenience shim over
+/// <see cref="EfCoreCrudRepositoryBase{TEntity, TIdentity, TDbContext}"/>.
+/// Int consumers derive from this and keep their existing syntax unchanged.
+/// </summary>
+/// <typeparam name="TEntity">The entity type.</typeparam>
+/// <typeparam name="TDbContext">The DbContext type.</typeparam>
+public abstract class EfCoreCrudRepositoryBase<TEntity, TDbContext>
+    : EfCoreCrudRepositoryBase<TEntity, int, TDbContext>
+    where TEntity : EntityBase<int>
+    where TDbContext : DbContext
+{
+    /// <summary>
+    /// Creates the CRUD repository over the supplied DbContext.
+    /// </summary>
+    protected EfCoreCrudRepositoryBase(TDbContext context) : base(context) { }
 }

@@ -1,11 +1,11 @@
 #!/usr/bin/env pwsh
 <#
 .SYNOPSIS
-    Packs the Benday.EfCore NuGet packages and copies them to the local NuGet folder.
+    Builds the Benday.EfCore solution and copies the NuGet packages to the local NuGet folder.
 
 .DESCRIPTION
-    Runs `dotnet pack` for each packable library in this solution and writes the
-    resulting .nupkg files to a local NuGet feed folder:
+    Builds the solution (GeneratePackageOnBuild produces the .nupkg files) and copies the
+    resulting .nupkg files for each packable library to a local NuGet feed folder:
       - Windows:     C:\LocalNuGet
       - macOS/Linux: ~/LocalNuGet
     The folder is created if it does not already exist.
@@ -49,13 +49,36 @@ $projects = @(
     "Benday.EfCore.Testing/Benday.EfCore.Testing.csproj"
 )
 
+Write-Host "Building solution ($Configuration)..."
+
+dotnet build Benday.EfCore.slnx --configuration $Configuration
+if ($LASTEXITCODE -ne 0) {
+    throw "dotnet build failed (exit code $LASTEXITCODE)."
+}
+
+Write-Host "Copying packages..."
+
 foreach ($project in $projects) {
     $projectPath = Join-Path $root $project
+
+    # verify project exists
+    if (-not (Test-Path $projectPath)) {
+        throw "Project not found: $projectPath"
+    }
+
+    # GeneratePackageOnBuild puts the .nupkg in the project's bin/$Configuration folder.
+    $projectDir = Split-Path $projectPath -Parent
+    $binDir = Join-Path $projectDir "bin/$Configuration"
+
+    $nupkgs = Get-ChildItem -Path $binDir -Filter "*.nupkg" -ErrorAction SilentlyContinue
+    if (-not $nupkgs) {
+        throw "No .nupkg files found in $binDir for $project."
+    }
+
     Write-Host ""
-    Write-Host "Packing $project ($Configuration) -> $localNuGet"
-    dotnet pack $projectPath --configuration $Configuration --output $localNuGet
-    if ($LASTEXITCODE -ne 0) {
-        throw "dotnet pack failed for $project (exit code $LASTEXITCODE)."
+    foreach ($nupkg in $nupkgs) {
+        Write-Host "Copying $($nupkg.Name) -> $localNuGet"
+        Copy-Item -Path $nupkg.FullName -Destination $localNuGet -Force
     }
 }
 

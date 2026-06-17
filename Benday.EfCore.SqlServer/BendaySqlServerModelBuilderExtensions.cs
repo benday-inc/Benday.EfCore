@@ -10,9 +10,10 @@ namespace Benday.EfCore.SqlServer;
 public static class BendaySqlServerModelBuilderExtensions
 {
     /// <summary>
-    /// Maps the <see cref="CoreFieldsEntityBase.Timestamp"/> property as a SQL
+    /// Maps the <see cref="CoreFieldsEntityBase{TIdentity}.Timestamp"/> property as a SQL
     /// Server <c>rowversion</c> optimistic-concurrency token for every entity
-    /// that derives from <see cref="CoreFieldsEntityBase"/>. This replaces the
+    /// that derives from <see cref="CoreFieldsEntityBase{TIdentity}"/> (including the
+    /// non-generic <see cref="CoreFieldsEntityBase"/> int shim). This replaces the
     /// <c>[Timestamp]</c> attribute that the provider-agnostic base type no
     /// longer carries.
     ///
@@ -24,15 +25,36 @@ public static class BendaySqlServerModelBuilderExtensions
         ArgumentNullException.ThrowIfNull(modelBuilder);
 
         var coreFieldsEntities = modelBuilder.Model.GetEntityTypes()
-            .Where(entityType => typeof(CoreFieldsEntityBase).IsAssignableFrom(entityType.ClrType));
+            .Where(entityType => IsCoreFieldsEntity(entityType.ClrType));
 
         foreach (var entityType in coreFieldsEntities)
         {
             modelBuilder.Entity(entityType.ClrType)
-                .Property(nameof(CoreFieldsEntityBase.Timestamp))
+                .Property(nameof(CoreFieldsEntityBase<int>.Timestamp))
                 .IsRowVersion();
         }
 
         return modelBuilder;
+    }
+
+    /// <summary>
+    /// Walks the base-type chain looking for the open generic
+    /// <see cref="CoreFieldsEntityBase{TIdentity}"/>. This matches both int
+    /// consumers (via the <see cref="CoreFieldsEntityBase"/> shim) and consumers
+    /// using any other identity type (e.g. <c>CoreFieldsEntityBase&lt;Guid&gt;</c>).
+    /// </summary>
+    private static bool IsCoreFieldsEntity(Type type)
+    {
+        var current = type;
+        while (current != null)
+        {
+            if (current.IsGenericType &&
+                current.GetGenericTypeDefinition() == typeof(CoreFieldsEntityBase<>))
+            {
+                return true;
+            }
+            current = current.BaseType;
+        }
+        return false;
     }
 }

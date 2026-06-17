@@ -15,10 +15,13 @@ namespace Benday.EfCore.Testing.Fakes;
 /// Your service layer talks to this fake. Your tests run in milliseconds.
 /// No connection string. No SQL Server. No shared dev database.
 /// </summary>
-public class InMemoryRepository<T> : IAsyncReadableRepository<T, int>
-    where T : EntityBase
+/// <typeparam name="T">The entity type.</typeparam>
+/// <typeparam name="TIdentity">The primary key type.</typeparam>
+public class InMemoryRepository<T, TIdentity> : IAsyncReadableRepository<T, TIdentity>
+    where T : EntityBase<TIdentity>
+    where TIdentity : IEquatable<TIdentity>
 {
-    private int _nextId = 1;
+    private int _nextIdCounter = 1;
 
     /// <summary>The backing store of saved entities.</summary>
     public List<T> Items { get; set; } = new();
@@ -32,7 +35,7 @@ public class InMemoryRepository<T> : IAsyncReadableRepository<T, int>
     public bool WasGetByIdCalled { get; private set; }
 
     /// <summary>The id passed to the most recent <see cref="GetByIdAsync"/> call.</summary>
-    public int GetByIdArgumentValue { get; private set; }
+    public TIdentity? GetByIdArgumentValue { get; private set; }
 
     /// <summary>True once <see cref="SaveAsync"/> has been called.</summary>
     public bool WasSaveCalled { get; private set; }
@@ -51,11 +54,43 @@ public class InMemoryRepository<T> : IAsyncReadableRepository<T, int>
     {
         WasGetAllCalled = false;
         WasGetByIdCalled = false;
-        GetByIdArgumentValue = 0;
+        GetByIdArgumentValue = default;
         WasSaveCalled = false;
         SaveArgumentValue = default;
         WasDeleteCalled = false;
         DeleteArgumentValue = default;
+    }
+
+    // --- Identity seams ---
+
+    /// <summary>
+    /// Returns true when the identity value indicates a new, unpersisted item.
+    /// Default: Id equals default(TIdentity). Override for client-assigned keys.
+    /// </summary>
+    protected virtual bool IsNew(TIdentity id) =>
+        EqualityComparer<TIdentity>.Default.Equals(id, default!);
+
+    /// <summary>
+    /// Produces deterministic sequential identity values for testing:
+    /// int → 1, 2, 3; Guid → 00000000-0000-0000-0000-000000000001, etc.;
+    /// string → "1", "2", "3". Override for custom key strategies.
+    /// </summary>
+    protected virtual TIdentity GenerateId()
+    {
+        var id = _nextIdCounter++;
+
+        if (typeof(TIdentity) == typeof(int))
+            return (TIdentity)(object)id;
+
+        if (typeof(TIdentity) == typeof(Guid))
+            return (TIdentity)(object)Guid.Parse(
+                $"00000000-0000-0000-0000-{id:D12}");
+
+        if (typeof(TIdentity) == typeof(string))
+            return (TIdentity)(object)id.ToString();
+
+        throw new NotSupportedException(
+            $"Override GenerateId() for key type {typeof(TIdentity).Name}.");
     }
 
     // --- IAsyncReadableRepository implementation ---
@@ -68,12 +103,12 @@ public class InMemoryRepository<T> : IAsyncReadableRepository<T, int>
     }
 
     /// <inheritdoc />
-    public Task<T?> GetByIdAsync(int id)
+    public Task<T?> GetByIdAsync(TIdentity id)
     {
         WasGetByIdCalled = true;
         GetByIdArgumentValue = id;
 
-        var match = Items.FirstOrDefault(item => item.Id == id);
+        var match = Items.FirstOrDefault(item => item.Id.Equals(id));
         return Task.FromResult(match);
     }
 
@@ -83,9 +118,9 @@ public class InMemoryRepository<T> : IAsyncReadableRepository<T, int>
         WasSaveCalled = true;
         SaveArgumentValue = entity;
 
-        if (entity.Id == 0)
+        if (IsNew(entity.Id))
         {
-            entity.Id = _nextId++;
+            entity.Id = GenerateId();
         }
 
         if (!Items.Contains(entity))
@@ -127,7 +162,7 @@ public class InMemoryRepository<T> : IAsyncReadableRepository<T, int>
     /// <summary>
     /// Walks the aggregate's dependent collections, mirroring what EF Core
     /// does during SaveChanges: items marked for delete are pruned from the
-    /// in-memory collection, and new items (Id == 0) are assigned identities.
+    /// in-memory collection, and new items (see <see cref="IsNew"/>) are assigned identities.
     /// Recurses into nested aggregate roots.
     /// </summary>
     private void ProcessDependents(IEntityWithDependents parent)
@@ -140,18 +175,33 @@ public class InMemoryRepository<T> : IAsyncReadableRepository<T, int>
             // Remove children flagged for delete (same as the real repo's AfterSave).
             collection.AfterSave();
 
-            foreach (var item in collection.GetItems())
+            // Only the generic collection exposes typed identity access, which
+            // is what we need to assign ids the way EF Core would.
+            if (collection is IDependentEntityCollection<TIdentity> typedCollection)
             {
-                if (item.Id == 0)
+                foreach (var item in typedCollection.GetItems())
                 {
-                    item.Id = _nextId++;
-                }
+                    if (IsNew(item.Id))
+                    {
+                        item.Id = GenerateId();
+                    }
 
-                if (item is IEntityWithDependents nested)
-                {
-                    ProcessDependents(nested);
+                    if (item is IEntityWithDependents nested)
+                    {
+                        ProcessDependents(nested);
+                    }
                 }
             }
         }
     }
+}
+
+/// <summary>
+/// Non-generic int convenience shim over <see cref="InMemoryRepository{T, TIdentity}"/>.
+/// Int consumers derive from this and keep their existing syntax unchanged.
+/// </summary>
+/// <typeparam name="T">The entity type.</typeparam>
+public class InMemoryRepository<T> : InMemoryRepository<T, int>
+    where T : EntityBase<int>
+{
 }

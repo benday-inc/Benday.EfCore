@@ -23,7 +23,7 @@ public class UnknownObjectException : InvalidOperationException
     /// <summary>
     /// Creates an exception describing an object that could not be located.
     /// </summary>
-    public UnknownObjectException(string typeName, int id)
+    public UnknownObjectException(string typeName, object id)
         : base($"Could not locate a {typeName} with an id of '{id}'.") { }
 }
 
@@ -35,16 +35,20 @@ public class UnknownObjectException : InvalidOperationException
 /// The controller/API layer only deals in domain models. The service
 /// is the bridge.
 /// </summary>
-public abstract class ServiceLayerBase<TModel, TEntity>
-    : IAsyncService<TModel, int>
-    where TModel : class, IEntityIdentity<int>, new()
-    where TEntity : EntityBase, new()
+/// <typeparam name="TModel">The domain model type.</typeparam>
+/// <typeparam name="TEntity">The entity type.</typeparam>
+/// <typeparam name="TIdentity">The primary key type.</typeparam>
+public abstract class ServiceLayerBase<TModel, TEntity, TIdentity>
+    : IAsyncService<TModel, TIdentity>
+    where TModel : class, IEntityIdentity<TIdentity>, new()
+    where TEntity : EntityBase<TIdentity>, new()
+    where TIdentity : IEquatable<TIdentity>
 {
     /// <summary>The repository used to persist entities.</summary>
-    protected IAsyncReadableRepository<TEntity, int> Repository { get; }
+    protected IAsyncReadableRepository<TEntity, TIdentity> Repository { get; }
 
     /// <summary>The adapter that maps between models and entities.</summary>
-    protected AdapterBase<TModel, TEntity> Adapter { get; }
+    protected AdapterBase<TModel, TEntity, TIdentity> Adapter { get; }
 
     /// <summary>The validator applied to models before save.</summary>
     protected IValidatorStrategy<TModel> Validator { get; }
@@ -53,8 +57,8 @@ public abstract class ServiceLayerBase<TModel, TEntity>
     /// Creates the service layer with its repository, adapter, and validator.
     /// </summary>
     protected ServiceLayerBase(
-        IAsyncReadableRepository<TEntity, int> repository,
-        AdapterBase<TModel, TEntity> adapter,
+        IAsyncReadableRepository<TEntity, TIdentity> repository,
+        AdapterBase<TModel, TEntity, TIdentity> adapter,
         IValidatorStrategy<TModel> validator)
     {
         Repository = repository ?? throw new ArgumentNullException(nameof(repository));
@@ -67,6 +71,13 @@ public abstract class ServiceLayerBase<TModel, TEntity>
     /// Defaults to typeof(TModel).Name.
     /// </summary>
     protected virtual string EntityTypeName => typeof(TModel).Name;
+
+    /// <summary>
+    /// Returns true when the identity value indicates a new, unpersisted item.
+    /// Default: Id equals default(TIdentity). Override for client-assigned keys.
+    /// </summary>
+    protected virtual bool IsNew(TIdentity id) =>
+        EqualityComparer<TIdentity>.Default.Equals(id, default!);
 
     /// <summary>
     /// Validates and saves a domain model: validate → get or create the
@@ -84,7 +95,7 @@ public abstract class ServiceLayerBase<TModel, TEntity>
 
         TEntity toValue;
 
-        if (saveThis.Id == 0)
+        if (IsNew(saveThis.Id))
         {
             toValue = new TEntity();
         }
@@ -125,10 +136,10 @@ public abstract class ServiceLayerBase<TModel, TEntity>
     /// <summary>
     /// Deletes the entity with the supplied id.
     /// </summary>
-    public virtual async Task DeleteByIdAsync(int id)
+    public virtual async Task DeleteByIdAsync(TIdentity id)
     {
         var entity = await Repository.GetByIdAsync(id)
-            ?? throw new UnknownObjectException(EntityTypeName, id);
+            ?? throw new UnknownObjectException(EntityTypeName, id!);
 
         await Repository.DeleteAsync(entity);
     }
@@ -136,7 +147,7 @@ public abstract class ServiceLayerBase<TModel, TEntity>
     /// <summary>
     /// Loads an entity by id and adapts it to a domain model, or returns null.
     /// </summary>
-    public virtual async Task<TModel?> GetByIdAsync(int id)
+    public virtual async Task<TModel?> GetByIdAsync(TIdentity id)
     {
         var entity = await Repository.GetByIdAsync(id);
 
@@ -191,4 +202,26 @@ public abstract class ServiceLayerBase<TModel, TEntity>
 
     /// <summary>Override to enrich models after loading from repository.</summary>
     protected virtual void BeforeReturnFromGet(TModel model) { }
+}
+
+/// <summary>
+/// Non-generic int convenience shim over
+/// <see cref="ServiceLayerBase{TModel, TEntity, TIdentity}"/>.
+/// Int consumers derive from this and keep their existing syntax unchanged.
+/// </summary>
+/// <typeparam name="TModel">The domain model type.</typeparam>
+/// <typeparam name="TEntity">The entity type.</typeparam>
+public abstract class ServiceLayerBase<TModel, TEntity>
+    : ServiceLayerBase<TModel, TEntity, int>
+    where TModel : class, IEntityIdentity<int>, new()
+    where TEntity : EntityBase<int>, new()
+{
+    /// <summary>
+    /// Creates the service layer with its repository, adapter, and validator.
+    /// </summary>
+    protected ServiceLayerBase(
+        IAsyncReadableRepository<TEntity, int> repository,
+        AdapterBase<TModel, TEntity, int> adapter,
+        IValidatorStrategy<TModel> validator)
+        : base(repository, adapter, validator) { }
 }
