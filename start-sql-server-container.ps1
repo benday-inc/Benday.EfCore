@@ -1,14 +1,25 @@
-# PowerShell script to start a SQL Server container in Docker for local
-# development and integration testing.
-# Usage: .\start-sql-server-container.ps1 [-Remove] [-Pull]
+# PowerShell script to start SQL Server container in Docker
+# Usage: .\start-sql-server-container.ps1 [-Remove] [-Pull] [-Refresh]
+#                                         [-SaPassword <password>] [-Port <port>]
 
 param(
     [switch]$Remove,
-    [switch]$Pull
+    [switch]$Pull,
+    [switch]$Refresh,
+    # SA login password. Must meet the SQL Server password policy: at least 8
+    # characters with 3 of { uppercase, lowercase, digits, symbols }.
+    [string]$SaPassword = 'Pa$$word',
+    # Host port mapped to the container's SQL Server port (1433).
+    [int]$Port = 1433
 )
 
+if ($Refresh) {
+    $Remove = $true
+    $Pull = $true
+}
+
+$imageName = "mcr.microsoft.com/mssql/server:2025-latest"
 $containerName = "sql_server"
-$image = "mcr.microsoft.com/mssql/server:2022-latest"
 
 if ($Remove) {
     Write-Host "Stopping, killing, and removing any existing '$containerName' container..."
@@ -18,19 +29,28 @@ if ($Remove) {
 }
 
 if ($Pull) {
-    Write-Host "Pulling $image..."
-    docker pull $image
+    Write-Host "Pulling the latest SQL Server Docker image..."
+    docker pull $imageName
 }
 
 # Start the SQL Server container
-Write-Host "Starting SQL Server container '$containerName'..."
-docker run --platform linux/amd64 -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Pa$$word' -p 1433:1433 --name $containerName -d $image
+Write-Host "Starting SQL Server container..."
+
+# docker options (go BEFORE the image name)
+$dockerOptions = @(
+    "--platform", "linux/amd64"
+    "--name", $containerName
+    "--hostname", $containerName
+    "--detach"
+    "--publish", "${Port}:1433"
+    "--env", "ACCEPT_EULA=Y"
+    # MSSQL_SA_PASSWORD replaces the deprecated SA_PASSWORD env var.
+    "--env", "MSSQL_SA_PASSWORD=$SaPassword"
+)
+
+Write-Host "Running: docker run $($dockerOptions -join ' ') $imageName"
+docker run @dockerOptions $imageName
 
 # Show exposed ports
 Write-Host "Exposed ports for '$containerName' container:"
 docker port $containerName
-
-Write-Host ""
-Write-Host "Integration tests use this connection string:"
-Write-Host '  Server=localhost; Database=benday-efcore-sqlserver; User Id=sa; Password=Pa$$word; TrustServerCertificate=True'
-Write-Host "(The database and schema are created automatically via EF Core migrations on first test run.)"
