@@ -13,8 +13,8 @@
     <Authors>Benjamin Day</Authors>
     <Company>Benjamin Day Consulting, Inc.</Company>
     <Copyright>2026</Copyright>
-    <AssemblyVersion>11.0.4.0</AssemblyVersion>
-    <Version>11.0.4-alpha</Version>
+    <AssemblyVersion>11.0.6.0</AssemblyVersion>
+    <Version>11.0.6-alpha</Version>
     <PackageTags>efcore;repository;adapter;testability;architecture</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>bdc_mark_128_128.png</PackageIcon>
@@ -41,6 +41,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.*" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.*" />
   </ItemGroup>
 
 </Project>

@@ -70,6 +70,34 @@ public abstract class CoreFieldsDomainModelBase<TIdentity> : DomainModelBase<TId
     /// boundary so the entity layer can detect conflicting updates.
     /// </summary>
     public byte[]? Timestamp { get; set; }
+
+    /// <summary>
+    /// Sets the created and last modified audit fields for a new model.
+    /// Call this on insert. Sets CreatedBy, CreatedDate, LastModifiedBy,
+    /// and LastModifiedDate to the supplied username and <see cref="DateTime.UtcNow"/>.
+    /// </summary>
+    /// <param name="byUsername">The username to record as creator and modifier.</param>
+    public virtual void SetCreatedFields(string byUsername)
+    {
+        var now = DateTime.UtcNow;
+
+        CreatedBy = byUsername;
+        CreatedDate = now;
+        LastModifiedBy = byUsername;
+        LastModifiedDate = now;
+    }
+
+    /// <summary>
+    /// Sets the last modified audit fields for an existing model.
+    /// Call this on update. Sets LastModifiedBy and LastModifiedDate
+    /// to the supplied username and <see cref="DateTime.UtcNow"/>.
+    /// </summary>
+    /// <param name="byUsername">The username to record as modifier.</param>
+    public virtual void SetLastModifiedFields(string byUsername)
+    {
+        LastModifiedBy = byUsername;
+        LastModifiedDate = DateTime.UtcNow;
+    }
 }
 
 /// <summary>

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Benday.EfCore.Registration;
 
@@ -18,5 +19,37 @@ public static class SqlServerRegistrationExtensions
     {
         ArgumentNullException.ThrowIfNull(helper);
         return helper.ConfigureDbContext(options => options.UseSqlServer(connectionString));
+    }
+
+    /// <summary>
+    /// Configure the DbContext to use SQL Server with a named connection string
+    /// from configuration. Sugar over <see cref="UseConnectionString{TDbContext}(EfCoreRegistrationHelper{TDbContext}, string)"/>.
+    /// </summary>
+    /// <param name="helper">The registration helper.</param>
+    /// <param name="configuration">The configuration to read the connection string from.</param>
+    /// <param name="connectionStringName">
+    /// The name of the connection string in the ConnectionStrings section. Defaults to "default".
+    /// </param>
+    /// <exception cref="InvalidOperationException">
+    /// Thrown when the connection string is not found or is empty/whitespace.
+    /// </exception>
+    public static EfCoreRegistrationHelper<TDbContext> UseConnectionString<TDbContext>(
+        this EfCoreRegistrationHelper<TDbContext> helper,
+        IConfiguration configuration,
+        string connectionStringName = "default")
+        where TDbContext : DbContext
+    {
+        ArgumentNullException.ThrowIfNull(helper);
+        ArgumentNullException.ThrowIfNull(configuration);
+
+        var connectionString = configuration.GetConnectionString(connectionStringName);
+
+        if (string.IsNullOrWhiteSpace(connectionString))
+        {
+            throw new InvalidOperationException(
+                $"Connection string '{connectionStringName}' not found or is empty in configuration.");
+        }
+
+        return helper.UseConnectionString(connectionString);
     }
 }

@@ -55,6 +55,34 @@ public abstract class CoreFieldsEntityBase<TIdentity> : EntityBase<TIdentity>
     /// <c>xmin</c> instead and can leave this property unmapped.
     /// </summary>
     public byte[]? Timestamp { get; set; }
+
+    /// <summary>
+    /// Sets the created and last modified audit fields for a new entity.
+    /// Call this on insert. Sets CreatedBy, CreatedDate, LastModifiedBy,
+    /// and LastModifiedDate to the supplied username and <see cref="DateTime.UtcNow"/>.
+    /// </summary>
+    /// <param name="byUsername">The username to record as creator and modifier.</param>
+    public virtual void SetCreatedFields(string byUsername)
+    {
+        var now = DateTime.UtcNow;
+
+        CreatedBy = byUsername;
+        CreatedDate = now;
+        LastModifiedBy = byUsername;
+        LastModifiedDate = now;
+    }
+
+    /// <summary>
+    /// Sets the last modified audit fields for an existing entity.
+    /// Call this on update. Sets LastModifiedBy and LastModifiedDate
+    /// to the supplied username and <see cref="DateTime.UtcNow"/>.
+    /// </summary>
+    /// <param name="byUsername">The username to record as modifier.</param>
+    public virtual void SetLastModifiedFields(string byUsername)
+    {
+        LastModifiedBy = byUsername;
+        LastModifiedDate = DateTime.UtcNow;
+    }
 }
 
 /// <summary>

@@ -51,17 +51,16 @@ public abstract class CoreFieldsServiceLayerBase<TModel, TEntity, TIdentity>
     /// </summary>
     protected virtual void PopulateAuditFieldsBeforeSave(TModel model)
     {
-        var now = DateTime.UtcNow;
         var username = UsernameProvider.Username;
 
         if (IsNew(model.Id))
         {
-            model.CreatedBy = username;
-            model.CreatedDate = now;
+            model.SetCreatedFields(username);
         }
-
-        model.LastModifiedBy = username;
-        model.LastModifiedDate = now;
+        else
+        {
+            model.SetLastModifiedFields(username);
+        }
     }
 
     /// <summary>
@@ -71,19 +70,18 @@ public abstract class CoreFieldsServiceLayerBase<TModel, TEntity, TIdentity>
     protected virtual void PopulateAuditFieldsBeforeSave(
         IEnumerable<CoreFieldsDomainModelBase<TIdentity>> children)
     {
-        var now = DateTime.UtcNow;
         var username = UsernameProvider.Username;
 
         foreach (var child in children)
         {
             if (IsNew(child.Id))
             {
-                child.CreatedBy = username;
-                child.CreatedDate = now;
+                child.SetCreatedFields(username);
             }
-
-            child.LastModifiedBy = username;
-            child.LastModifiedDate = now;
+            else
+            {
+                child.SetLastModifiedFields(username);
+            }
         }
     }
 
