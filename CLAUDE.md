@@ -152,3 +152,25 @@ Solution file: `Benday.EfCore.slnx`.
   `ApplyBendaySqlServerConcurrency()` call in `TestDbContext.OnModelCreating` and a
   `SqlServerDesignTimeDbContextFactory` subclass.
 - Both libraries have XML doc comments on all public types/members (`GenerateDocumentationFile`).
+
+## CI/CD
+
+GitHub Actions workflow: `.github/workflows/benday-efcore.yml`
+
+**Triggers:**
+- Push to `main` (with path filters for relevant project directories)
+- Pull requests to `main` (same path filters)
+- Manual workflow dispatch
+
+**Jobs:**
+1. **unit-tests** — builds all three NuGet packages, runs unit tests, packs and uploads artifacts
+2. **integration-tests** — runs after unit-tests; uses SQL Server 2025 container, runs integration tests
+3. **deploy** — runs after both test jobs pass, only on push to `main`; pushes packages to NuGet.org
+
+**Required secrets:**
+- `NUGET_API_KEY` — NuGet.org API key for publishing
+
+**Environment:**
+- `nuget-deploy` — optional GitHub environment for approval gates on the deploy job
+
+Pull requests run unit and integration tests but skip the deploy job (validation without publishing).

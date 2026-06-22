@@ -1,8 +1,16 @@
-# Benday.EfCore.SqlServer
+# Benday.EfCore
 
 Base classes for the **repository pattern**, **adapter pattern**, and **service layer pattern**
-with Entity Framework Core and SQL Server. Hide your dependencies, keep your domain models clean,
+with Entity Framework Core. Hide your dependencies, keep your domain models clean,
 and make your business logic testable without a database.
+
+## Packages
+
+| Package | Description |
+|---|---|
+| [`Benday.EfCore`](https://www.nuget.org/packages/Benday.EfCore/) | Provider-agnostic core: entities, domain models, adapters, repositories, service layers, DI registration |
+| [`Benday.EfCore.SqlServer`](https://www.nuget.org/packages/Benday.EfCore.SqlServer/) | SQL Server wiring: `UseConnectionString`, `ApplyBendaySqlServerConcurrency`, design-time factory |
+| [`Benday.EfCore.Testing`](https://www.nuget.org/packages/Benday.EfCore.Testing/) | Test doubles: `InMemoryRepository<T>`, `FakeValidatorStrategy<T>`, `FakeUsernameProvider` |
 
 ## About
 
@@ -12,13 +20,11 @@ https://www.benday.com
 info@benday.com
 
 *Got ideas for features you'd like to see? Found a bug?
-Let us know by submitting an [issue](https://github.com/benday-inc/Benday.EfCore.SqlServer/issues)*. *Want to contribute? Submit a pull request.*
+Let us know by submitting an [issue](https://github.com/benday-inc/Benday.EfCore/issues)*. *Want to contribute? Submit a pull request.*
 
-[Source code](https://github.com/benday-inc/Benday.EfCore.SqlServer)
+[Source code](https://github.com/benday-inc/Benday.EfCore)
 
-[API Documentation](https://benday-inc.github.io/Benday.EfCore.SqlServer/api/index.html)
-
-[NuGet Package](https://www.nuget.org/packages/Benday.EfCore.SqlServer/)
+[API Documentation](https://benday-inc.github.io/Benday.EfCore/api/index.html)
 
 ## What's in v11
 
@@ -44,14 +50,14 @@ v11 is a ground-up modernization:
 
 | Layer | Base class | Purpose |
 |---|---|---|
-| **Entity** | `EntityBase`, `CoreFieldsEntityBase` | EF Core entities. `CoreFieldsEntityBase` adds audit fields + a `[Timestamp]` concurrency token. |
+| **Entity** | `EntityBase`, `CoreFieldsEntityBase` | EF Core entities. `CoreFieldsEntityBase` adds audit fields + a concurrency token (mapped per provider). |
 | **Domain model** | `DomainModelBase`, `CoreFieldsDomainModelBase` | Business-logic types on the far side of the adapter boundary. EF never sees them. |
 | **Adapter** | `AdapterBase<TModel, TEntity>` | Bidirectional mapping, including collection merge (match by Id, add new, mark missing for delete). |
-| **Repository** | `SqlEntityFrameworkRepositoryBase`, `SqlEntityFrameworkCrudRepositoryBase` | Async CRUD + the dependent-entity (aggregate) save/delete lifecycle. Implements `IAsyncReadableRepository<T,int>`. |
+| **Repository** | `EfCoreRepositoryBase`, `EfCoreCrudRepositoryBase` | Async CRUD + the dependent-entity (aggregate) save/delete lifecycle. Implements `IAsyncReadableRepository<T,int>`. |
 | **Service** | `ServiceLayerBase`, `CoreFieldsServiceLayerBase` | Orchestration: validate → get/create → adapt → save → copy back. `CoreFields` variant populates audit fields. |
 | **Registration** | `EfCoreRegistrationHelper<TDbContext>` | Fluent DI: `services.AddBendayEfCore<MyDbContext>(...)`. |
 
-A companion package, **`Benday.EfCore.SqlServer.Testing`**, provides `InMemoryRepository<T>`,
+The companion package **`Benday.EfCore.Testing`** provides `InMemoryRepository<T>`,
 `FakeValidatorStrategy<T>`, and `FakeUsernameProvider` so you can unit-test your service layer
 with no database.
 
@@ -64,7 +70,9 @@ is pruned afterward.
 
 ## Optimistic concurrency note
 
-`CoreFieldsEntityBase` carries a `[Timestamp]` (rowversion) concurrency token. Because of this,
+`CoreFieldsEntityBase` exposes a `Timestamp` property for optimistic concurrency. The property is
+provider-agnostic — SQL Server consumers map it as `rowversion` by calling
+`modelBuilder.ApplyBendaySqlServerConcurrency()` in `OnModelCreating`. Because of this token,
 **you cannot blind-update a detached `CoreFields` entity** — EF has no original rowversion to check
 and the update affects zero rows. Always **load the entity first** (so it carries its token), then
 modify and save. The service layer does exactly this (`GetByIdAsync` → adapt → save). Plain
@@ -74,7 +82,7 @@ modify and save. The service layer does exactly this (`GetByIdAsync` → adapt �
 
 ```bash
 # Build
-dotnet build Benday.EfCore.SqlServer.slnx
+dotnet build Benday.EfCore.slnx
 
 # Unit tests (in-memory, no database required)
 dotnet test Benday.EfCore.SqlServer.UnitTests
@@ -96,3 +104,13 @@ The integration tests need SQL Server at `localhost` (`sa` / `Pa$$word`). Start 
 The `benday-efcore-sqlserver` database and its schema are created automatically via EF Core
 migrations on first test run. When SQL Server is not reachable, the integration tests **skip**
 (rather than fail), so `dotnet test` on the whole solution stays green without a database.
+
+## CI/CD
+
+GitHub Actions runs on every push and pull request to `main`:
+
+1. **Unit tests** — builds all packages, runs unit tests, packs NuGet artifacts
+2. **Integration tests** — runs against SQL Server 2025 in a container
+3. **Deploy** — pushes to NuGet.org on push to `main` (requires `NUGET_API_KEY` secret)
+
+Pull requests get full validation without publishing.
