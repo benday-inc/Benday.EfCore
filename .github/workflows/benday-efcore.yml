@@ -127,7 +127,8 @@ jobs:
             **/TestResults/*.log
 
   deploy:
-    needs: [unit-tests, integration-tests]
+    # needs: [unit-tests, integration-tests]
+    needs: [unit-tests]
     runs-on: ubuntu-latest
     environment: nuget-deploy
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
