@@ -1,0 +1,151 @@
+name: Benday.EfCore CI
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'Benday.EfCore/**'
+      - 'Benday.EfCore.SqlServer/**'
+      - 'Benday.EfCore.Testing/**'
+      - 'Benday.EfCore.SqlServer.TestApi/**'
+      - 'Benday.EfCore.SqlServer.UnitTests/**'
+      - 'Benday.EfCore.SqlServer.IntegrationTests/**'
+      - '.github/workflows/benday-efcore.yml'
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'Benday.EfCore/**'
+      - 'Benday.EfCore.SqlServer/**'
+      - 'Benday.EfCore.Testing/**'
+      - 'Benday.EfCore.SqlServer.TestApi/**'
+      - 'Benday.EfCore.SqlServer.UnitTests/**'
+      - 'Benday.EfCore.SqlServer.IntegrationTests/**'
+      - '.github/workflows/benday-efcore.yml'
+  workflow_dispatch:
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore Benday.EfCore
+        run: dotnet restore Benday.EfCore/Benday.EfCore.csproj
+
+      - name: Restore Benday.EfCore.SqlServer
+        run: dotnet restore Benday.EfCore.SqlServer/Benday.EfCore.SqlServer.csproj
+
+      - name: Restore Benday.EfCore.Testing
+        run: dotnet restore Benday.EfCore.Testing/Benday.EfCore.Testing.csproj
+
+      - name: Restore UnitTests
+        run: dotnet restore Benday.EfCore.SqlServer.UnitTests/Benday.EfCore.SqlServer.UnitTests.csproj
+
+      - name: Build Benday.EfCore (Release)
+        run: dotnet build Benday.EfCore/Benday.EfCore.csproj --configuration Release --no-restore
+
+      - name: Build Benday.EfCore.SqlServer (Release)
+        run: dotnet build Benday.EfCore.SqlServer/Benday.EfCore.SqlServer.csproj --configuration Release --no-restore
+
+      - name: Build Benday.EfCore.Testing (Release)
+        run: dotnet build Benday.EfCore.Testing/Benday.EfCore.Testing.csproj --configuration Release --no-restore
+
+      - name: Build UnitTests (Release)
+        run: dotnet build Benday.EfCore.SqlServer.UnitTests/Benday.EfCore.SqlServer.UnitTests.csproj --configuration Release --no-restore
+
+      - name: Run Unit Tests (Release)
+        run: dotnet test Benday.EfCore.SqlServer.UnitTests/Benday.EfCore.SqlServer.UnitTests.csproj --configuration Release --no-build --verbosity normal
+
+      - name: Pack Benday.EfCore
+        run: dotnet pack Benday.EfCore/Benday.EfCore.csproj --no-build --configuration Release --output ./artifacts
+
+      - name: Pack Benday.EfCore.SqlServer
+        run: dotnet pack Benday.EfCore.SqlServer/Benday.EfCore.SqlServer.csproj --no-build --configuration Release --output ./artifacts
+
+      - name: Pack Benday.EfCore.Testing
+        run: dotnet pack Benday.EfCore.Testing/Benday.EfCore.Testing.csproj --no-build --configuration Release --output ./artifacts
+
+      - name: Upload NuGet packages
+        uses: actions/upload-artifact@v7
+        with:
+          name: nuget-packages-efcore
+          path: ./artifacts/*.nupkg
+
+  integration-tests:
+    needs: unit-tests
+    runs-on: ubuntu-latest
+
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2025-latest
+        ports:
+          - 1433:1433
+        env:
+          ACCEPT_EULA: Y
+          MSSQL_SA_PASSWORD: Pa$$word
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore IntegrationTests
+        run: dotnet restore Benday.EfCore.SqlServer.IntegrationTests/Benday.EfCore.SqlServer.IntegrationTests.csproj
+
+      - name: Build IntegrationTests (Release)
+        run: dotnet build Benday.EfCore.SqlServer.IntegrationTests/Benday.EfCore.SqlServer.IntegrationTests.csproj --configuration Release --no-restore
+
+      - name: Wait for SQL Server
+        run: |
+          echo "Waiting for SQL Server to be ready..."
+          for i in $(seq 1 30); do
+            if /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'Pa$$word' -C -Q "SELECT 1" > /dev/null 2>&1; then
+              echo "SQL Server is ready."
+              break
+            fi
+            echo "Attempt $i/30 - waiting 5s..."
+            sleep 5
+          done
+
+      - name: Run Integration Tests (Release)
+        run: dotnet test Benday.EfCore.SqlServer.IntegrationTests/Benday.EfCore.SqlServer.IntegrationTests.csproj --configuration Release --no-build --verbosity normal
+
+  deploy:
+    needs: [unit-tests, integration-tests]
+    runs-on: ubuntu-latest
+    environment: nuget-deploy
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: nuget-packages-efcore
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Push to NuGet
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: |
+          if [ -z "$NUGET_API_KEY" ]; then
+            echo "Error: NUGET_API_KEY secret is not set"
+            exit 1
+          fi
+          dotnet nuget push *.nupkg -k "$NUGET_API_KEY" -s https://api.nuget.org/v3/index.json --skip-duplicate
