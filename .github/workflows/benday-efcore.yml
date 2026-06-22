@@ -87,12 +87,18 @@ jobs:
 
     services:
       sqlserver:
-        image: mcr.microsoft.com/mssql/server:2025-latest
+        image: mcr.microsoft.com/mssql/server:2022-latest
         ports:
           - 1433:1433
         env:
           ACCEPT_EULA: Y
           MSSQL_SA_PASSWORD: Pa$$word
+        options: >-
+          --health-cmd "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'Pa$$word' -C -Q 'SELECT 1' || exit 1"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+          --health-start-period 10s
 
     steps:
       - uses: actions/checkout@v6
@@ -108,20 +114,17 @@ jobs:
       - name: Build IntegrationTests (Release)
         run: dotnet build Benday.EfCore.SqlServer.IntegrationTests/Benday.EfCore.SqlServer.IntegrationTests.csproj --configuration Release --no-restore
 
-      - name: Wait for SQL Server
-        run: |
-          echo "Waiting for SQL Server to be ready..."
-          for i in $(seq 1 30); do
-            if /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'Pa$$word' -C -Q "SELECT 1" > /dev/null 2>&1; then
-              echo "SQL Server is ready."
-              break
-            fi
-            echo "Attempt $i/30 - waiting 5s..."
-            sleep 5
-          done
-
       - name: Run Integration Tests (Release)
-        run: dotnet test Benday.EfCore.SqlServer.IntegrationTests/Benday.EfCore.SqlServer.IntegrationTests.csproj --configuration Release --no-build --verbosity normal
+        run: dotnet test Benday.EfCore.SqlServer.IntegrationTests/Benday.EfCore.SqlServer.IntegrationTests.csproj --configuration Release --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: integration-test-results
+          path: |
+            **/TestResults/*.trx
+            **/TestResults/*.log
 
   deploy:
     needs: [unit-tests, integration-tests]
