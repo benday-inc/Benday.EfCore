@@ -1,19 +1,22 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Benday.Common;
+using System.ComponentModel.DataAnnotations;
+using Benday.EfCore.Entities;
 
-namespace Benday.EfCore.SqlServer.TestApi
+namespace Benday.EfCore.SqlServer.TestApi;
+
+/// <summary>
+/// Child entity owned by a <see cref="Person"/>. Derives from
+/// <see cref="EntityBase"/> so it carries Id + IsMarkedForDelete and
+/// participates in the dependent-entity save/delete lifecycle.
+/// </summary>
+public class PersonNote : EntityBase
 {
-    public class PersonNote : IInt32Identity
-    {
-        [Required]
-        public int Id { get; set; }
+    /// <summary>Foreign key to the owning person.</summary>
+    public int PersonId { get; set; }
 
-        [Required]
-        public int PersonId { get; set; }
+    /// <summary>Navigation back to the owning person.</summary>
+    public Person? Person { get; set; }
 
-        public Person Person { get; set; }
-
-        [Required]
-        public string NoteText { get; set; }
-    }
+    /// <summary>The note text.</summary>
+    [Required]
+    public string NoteText { get; set; } = string.Empty;
 }

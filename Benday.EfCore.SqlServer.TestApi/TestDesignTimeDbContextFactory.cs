@@ -1,71 +1,20 @@
-﻿using System;
-using System.IO;
+using Benday.EfCore.SqlServer.Migrations;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
 
-namespace Benday.EfCore.SqlServer.TestApi
+namespace Benday.EfCore.SqlServer.TestApi;
+
+/// <summary>
+/// Design-time factory so the EF Core CLI (<c>dotnet ef</c>) can construct a
+/// <see cref="TestDbContext"/> for generating migrations. Connection-string
+/// loading (from appsettings.json) and SQL Server wiring are inherited from
+/// <see cref="SqlServerDesignTimeDbContextFactory{TContext}"/>.
+/// </summary>
+public class TestDesignTimeDbContextFactory
+    : SqlServerDesignTimeDbContextFactory<TestDbContext>
 {
-    public class TestDesignTimeDbContextFactory :
-        IDesignTimeDbContextFactory<TestDbContext>
+    /// <inheritdoc />
+    protected override TestDbContext Create(DbContextOptions<TestDbContext> options)
     {
-        public static TestDbContext Create()
-        {
-            var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-
-            var basePath = AppContext.BaseDirectory;
-
-            return Create(basePath, environmentName);
-        }
-
-        public TestDbContext CreateDbContext(string[] args)
-        {
-            return Create(
-                Directory.GetCurrentDirectory(),
-                Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"));
-        }
-
-        private static TestDbContext Create(string basePath, string environmentName)
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(basePath)
-                .AddJsonFile("appsettings.json")
-                .AddJsonFile($"appsettings.{environmentName}.json", true)
-                .AddJsonFile($"appsettings.unversioned.json", true)
-                .AddEnvironmentVariables();
-
-            var config = builder.Build();
-
-            var connstr = config.GetConnectionString("default");
-
-            if (string.IsNullOrWhiteSpace(connstr) == true)
-            {
-                throw new InvalidOperationException(
-                    "Could not find a connection string named 'default'.");
-            }
-            else
-            {
-                return Create(connstr);
-            }
-        }
-
-        private static TestDbContext Create(string connectionString)
-        {
-            if (string.IsNullOrEmpty(connectionString))
-                throw new ArgumentException(
-                $"{nameof(connectionString)} is null or empty.",
-                nameof(connectionString));
-
-            var optionsBuilder =
-                new DbContextOptionsBuilder<TestDbContext>();
-
-            Console.WriteLine(
-                "TestDesignTimeDbContextFactory.Create(string): Connection string: {0}",
-                connectionString);
-
-            optionsBuilder.UseSqlServer(connectionString);
-
-            return new TestDbContext(optionsBuilder.Options);
-        }
+        return new TestDbContext(options);
     }
 }
