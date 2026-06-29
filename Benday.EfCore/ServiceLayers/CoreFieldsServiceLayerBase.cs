@@ -6,6 +6,29 @@ using Benday.EfCore.Entities;
 namespace Benday.EfCore.ServiceLayers;
 
 /// <summary>
+/// Non-generic int convenience shim over
+/// <see cref="CoreFieldsServiceLayerBase{TModel, TEntity, TIdentity}"/>.
+/// Int consumers derive from this and keep their existing syntax unchanged.
+/// </summary>
+/// <typeparam name="TModel">The domain model type.</typeparam>
+/// <typeparam name="TEntity">The entity type.</typeparam>
+public abstract class CoreFieldsServiceLayerBase<TModel, TEntity>
+    : CoreFieldsServiceLayerBase<TModel, TEntity, int>
+    where TModel : CoreFieldsDomainModelBase<int>, new()
+    where TEntity : CoreFieldsEntityBase<int>, new()
+{
+    /// <summary>
+    /// Creates the service layer with its repository, adapter, validator, and username provider.
+    /// </summary>
+    protected CoreFieldsServiceLayerBase(
+        IAsyncReadableRepository<TEntity, int> repository,
+        AdapterBase<TModel, TEntity, int> adapter,
+        IValidatorStrategy<TModel> validator,
+        IUsernameProvider usernameProvider)
+        : base(repository, adapter, validator, usernameProvider) { }
+}
+
+/// <summary>
 /// Service layer base for entities with audit fields.
 ///
 /// Automatically populates CreatedBy/CreatedDate on new items
@@ -153,25 +176,4 @@ public abstract class CoreFieldsServiceLayerBase<TModel, TEntity, TIdentity>
     }
 }
 
-/// <summary>
-/// Non-generic int convenience shim over
-/// <see cref="CoreFieldsServiceLayerBase{TModel, TEntity, TIdentity}"/>.
-/// Int consumers derive from this and keep their existing syntax unchanged.
-/// </summary>
-/// <typeparam name="TModel">The domain model type.</typeparam>
-/// <typeparam name="TEntity">The entity type.</typeparam>
-public abstract class CoreFieldsServiceLayerBase<TModel, TEntity>
-    : CoreFieldsServiceLayerBase<TModel, TEntity, int>
-    where TModel : CoreFieldsDomainModelBase<int>, new()
-    where TEntity : CoreFieldsEntityBase<int>, new()
-{
-    /// <summary>
-    /// Creates the service layer with its repository, adapter, validator, and username provider.
-    /// </summary>
-    protected CoreFieldsServiceLayerBase(
-        IAsyncReadableRepository<TEntity, int> repository,
-        AdapterBase<TModel, TEntity, int> adapter,
-        IValidatorStrategy<TModel> validator,
-        IUsernameProvider usernameProvider)
-        : base(repository, adapter, validator, usernameProvider) { }
-}
+

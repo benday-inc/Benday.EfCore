@@ -5,26 +5,25 @@ using Benday.EfCore.Entities;
 namespace Benday.EfCore.ServiceLayers;
 
 /// <summary>
-/// Invalid object exception thrown when validation fails in the service layer.
+/// Non-generic int convenience shim over
+/// <see cref="ServiceLayerBase{TModel, TEntity, TIdentity}"/>.
+/// Int consumers derive from this and keep their existing syntax unchanged.
 /// </summary>
-public class InvalidObjectException : InvalidOperationException
+/// <typeparam name="TModel">The domain model type.</typeparam>
+/// <typeparam name="TEntity">The entity type.</typeparam>
+public abstract class ServiceLayerBase<TModel, TEntity>
+    : ServiceLayerBase<TModel, TEntity, int>
+    where TModel : class, IEntityIdentity<int>, new()
+    where TEntity : EntityBase<int>, new()
 {
     /// <summary>
-    /// Creates an exception describing an invalid object.
+    /// Creates the service layer with its repository, adapter, and validator.
     /// </summary>
-    public InvalidObjectException(string message) : base(message) { }
-}
-
-/// <summary>
-/// Exception thrown when an entity cannot be found by Id.
-/// </summary>
-public class UnknownObjectException : InvalidOperationException
-{
-    /// <summary>
-    /// Creates an exception describing an object that could not be located.
-    /// </summary>
-    public UnknownObjectException(string typeName, object id)
-        : base($"Could not locate a {typeName} with an id of '{id}'.") { }
+    protected ServiceLayerBase(
+        IAsyncReadableRepository<TEntity, int> repository,
+        AdapterBase<TModel, TEntity, int> adapter,
+        IValidatorStrategy<TModel> validator)
+        : base(repository, adapter, validator) { }
 }
 
 /// <summary>
@@ -204,24 +203,4 @@ public abstract class ServiceLayerBase<TModel, TEntity, TIdentity>
     protected virtual void BeforeReturnFromGet(TModel model) { }
 }
 
-/// <summary>
-/// Non-generic int convenience shim over
-/// <see cref="ServiceLayerBase{TModel, TEntity, TIdentity}"/>.
-/// Int consumers derive from this and keep their existing syntax unchanged.
-/// </summary>
-/// <typeparam name="TModel">The domain model type.</typeparam>
-/// <typeparam name="TEntity">The entity type.</typeparam>
-public abstract class ServiceLayerBase<TModel, TEntity>
-    : ServiceLayerBase<TModel, TEntity, int>
-    where TModel : class, IEntityIdentity<int>, new()
-    where TEntity : EntityBase<int>, new()
-{
-    /// <summary>
-    /// Creates the service layer with its repository, adapter, and validator.
-    /// </summary>
-    protected ServiceLayerBase(
-        IAsyncReadableRepository<TEntity, int> repository,
-        AdapterBase<TModel, TEntity, int> adapter,
-        IValidatorStrategy<TModel> validator)
-        : base(repository, adapter, validator) { }
-}
+
