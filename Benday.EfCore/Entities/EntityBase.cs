@@ -4,6 +4,14 @@ using Benday.Common.Interfaces;
 namespace Benday.EfCore.Entities;
 
 /// <summary>
+/// Non-generic int convenience shim over <see cref="EntityBase{TIdentity}"/>.
+/// Int consumers derive from this and keep their existing syntax unchanged.
+/// </summary>
+public abstract class EntityBase : EntityBase<int>
+{
+}
+
+/// <summary>
 /// Base class for EF Core entities. Implements the shared
 /// IEntityIdentity and IDeleteable interfaces from Benday.Common.Interfaces.
 ///
@@ -39,10 +47,4 @@ public abstract class EntityBase<TIdentity>
     public virtual IList<IDependentEntityCollection>? GetDependentEntities() => null;
 }
 
-/// <summary>
-/// Non-generic int convenience shim over <see cref="EntityBase{TIdentity}"/>.
-/// Int consumers derive from this and keep their existing syntax unchanged.
-/// </summary>
-public abstract class EntityBase : EntityBase<int>
-{
-}
+

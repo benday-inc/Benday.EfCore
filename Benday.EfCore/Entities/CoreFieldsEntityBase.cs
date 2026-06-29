@@ -4,6 +4,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Benday.EfCore.Entities;
 
 /// <summary>
+/// Non-generic int convenience shim over <see cref="CoreFieldsEntityBase{TIdentity}"/>.
+/// Int consumers derive from this and keep their existing syntax unchanged.
+/// </summary>
+public abstract class CoreFieldsEntityBase : CoreFieldsEntityBase<int>
+{
+}
+
+/// <summary>
 /// Entity base class with audit fields (CreatedBy, CreatedDate,
 /// LastModifiedBy, LastModifiedDate) and an optimistic concurrency
 /// token (<see cref="Timestamp"/>).
@@ -85,10 +93,4 @@ public abstract class CoreFieldsEntityBase<TIdentity> : EntityBase<TIdentity>
     }
 }
 
-/// <summary>
-/// Non-generic int convenience shim over <see cref="CoreFieldsEntityBase{TIdentity}"/>.
-/// Int consumers derive from this and keep their existing syntax unchanged.
-/// </summary>
-public abstract class CoreFieldsEntityBase : CoreFieldsEntityBase<int>
-{
-}
+
