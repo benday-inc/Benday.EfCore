@@ -3,17 +3,16 @@ using Benday.Common.Interfaces;
 namespace Benday.EfCore.Adapters;
 
 /// <summary>
-/// Controls what happens to an individual item during adaptation.
-/// Returned from BeforeAdapt hooks.
+/// Non-generic int convenience shim over <see cref="AdapterBase{TModel, TEntity, TIdentity}"/>.
+/// Int consumers derive from this and keep their existing syntax unchanged.
 /// </summary>
-public enum AdapterAction
+/// <typeparam name="TModel">The domain model type.</typeparam>
+/// <typeparam name="TEntity">The EF Core entity type.</typeparam>
+public abstract class AdapterBase<TModel, TEntity>
+    : AdapterBase<TModel, TEntity, int>
+    where TModel : class, IEntityIdentity<int>, new()
+    where TEntity : class, IEntityIdentity<int>, IDeleteable, new()
 {
-    /// <summary>Proceed with the normal adapt/copy.</summary>
-    Adapt,
-    /// <summary>Skip this item — don't copy, don't add.</summary>
-    Skip,
-    /// <summary>Mark this item for deletion.</summary>
-    Delete
 }
 
 /// <summary>
@@ -223,15 +222,4 @@ public abstract class AdapterBase<TModel, TEntity, TIdentity>
     }
 }
 
-/// <summary>
-/// Non-generic int convenience shim over <see cref="AdapterBase{TModel, TEntity, TIdentity}"/>.
-/// Int consumers derive from this and keep their existing syntax unchanged.
-/// </summary>
-/// <typeparam name="TModel">The domain model type.</typeparam>
-/// <typeparam name="TEntity">The EF Core entity type.</typeparam>
-public abstract class AdapterBase<TModel, TEntity>
-    : AdapterBase<TModel, TEntity, int>
-    where TModel : class, IEntityIdentity<int>, new()
-    where TEntity : class, IEntityIdentity<int>, IDeleteable, new()
-{
-}
+
