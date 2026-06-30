@@ -29,22 +29,17 @@ public class PersonNoteAdapter : AdapterBase<PersonNoteDomainModel, PersonNote>
 /// including merge logic over the child notes collection. Stateless — safe to
 /// register as a singleton.
 /// </summary>
-public class PersonAdapter : AdapterBase<PersonDomainModel, Person>
+public class PersonAdapter : CoreFieldsAdapterBase<PersonDomainModel, Person>
 {
     private readonly PersonNoteAdapter _noteAdapter = new();
 
     /// <inheritdoc />
     protected override void PerformAdapt(PersonDomainModel fromValue, Person toValue)
     {
+        // Status, audit fields, and the concurrency token are copied by
+        // CoreFieldsAdapterBase before this runs.
         toValue.FirstName = fromValue.FirstName;
         toValue.LastName = fromValue.LastName;
-
-        toValue.Status = fromValue.Status;
-        toValue.CreatedBy = fromValue.CreatedBy;
-        toValue.CreatedDate = fromValue.CreatedDate;
-        toValue.LastModifiedBy = fromValue.LastModifiedBy;
-        toValue.LastModifiedDate = fromValue.LastModifiedDate;
-        toValue.Timestamp = fromValue.Timestamp;
 
         // Merge the child collection: match by Id, add new, mark missing for delete.
         _noteAdapter.Adapt(fromValue.Notes, toValue.Notes);
@@ -53,16 +48,10 @@ public class PersonAdapter : AdapterBase<PersonDomainModel, Person>
     /// <inheritdoc />
     protected override void PerformAdapt(Person fromValue, PersonDomainModel toValue)
     {
-        toValue.Id = fromValue.Id;
+        // Id, Status, audit fields, and the concurrency token are copied by
+        // CoreFieldsAdapterBase before this runs.
         toValue.FirstName = fromValue.FirstName;
         toValue.LastName = fromValue.LastName;
-
-        toValue.Status = fromValue.Status;
-        toValue.CreatedBy = fromValue.CreatedBy;
-        toValue.CreatedDate = fromValue.CreatedDate;
-        toValue.LastModifiedBy = fromValue.LastModifiedBy;
-        toValue.LastModifiedDate = fromValue.LastModifiedDate;
-        toValue.Timestamp = fromValue.Timestamp;
 
         toValue.Notes = new List<PersonNoteDomainModel>();
         _noteAdapter.Adapt(fromValue.Notes, toValue.Notes);

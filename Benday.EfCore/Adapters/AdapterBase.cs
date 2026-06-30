@@ -68,6 +68,7 @@ public abstract class AdapterBase<TModel, TEntity, TIdentity>
             return;
         }
 
+        CopyFrameworkFields(fromValue, toValue);
         PerformAdapt(fromValue, toValue);
         AfterAdapt(fromValue, toValue);
     }
@@ -83,6 +84,7 @@ public abstract class AdapterBase<TModel, TEntity, TIdentity>
         var action = BeforeAdapt(fromValue, toValue);
         if (action == AdapterAction.Skip) return;
 
+        CopyFrameworkFields(fromValue, toValue);
         PerformAdapt(fromValue, toValue);
         AfterAdapt(fromValue, toValue);
     }
@@ -123,6 +125,7 @@ public abstract class AdapterBase<TModel, TEntity, TIdentity>
 
             if (action == AdapterAction.Adapt)
             {
+                CopyFrameworkFields(fromValue, toValue);
                 PerformAdapt(fromValue, toValue);
                 AfterAdapt(fromValue, toValue);
 
@@ -158,6 +161,7 @@ public abstract class AdapterBase<TModel, TEntity, TIdentity>
 
             if (action == AdapterAction.Adapt)
             {
+                CopyFrameworkFields(fromValue, toValue);
                 PerformAdapt(fromValue, toValue);
                 AfterAdapt(fromValue, toValue);
                 toValues.Add(toValue);
@@ -178,6 +182,24 @@ public abstract class AdapterBase<TModel, TEntity, TIdentity>
     /// Implement the actual property-by-property copy here.
     /// </summary>
     protected abstract void PerformAdapt(TEntity fromValue, TModel toValue);
+
+    // --- Framework-managed field copy ---
+
+    /// <summary>
+    /// Copies framework-managed fields (audit fields, concurrency token,
+    /// identity) immediately before <see cref="PerformAdapt(TModel, TEntity)"/>
+    /// runs. The base implementation does nothing; <c>CoreFieldsAdapterBase</c>
+    /// overrides it. Consumers of the plain <see cref="AdapterBase{TModel, TEntity}"/>
+    /// can ignore this hook.
+    /// </summary>
+    protected virtual void CopyFrameworkFields(TModel fromValue, TEntity toValue) { }
+
+    /// <summary>
+    /// Copies framework-managed fields immediately before
+    /// <see cref="PerformAdapt(TEntity, TModel)"/> runs. The base implementation
+    /// does nothing; <c>CoreFieldsAdapterBase</c> overrides it.
+    /// </summary>
+    protected virtual void CopyFrameworkFields(TEntity fromValue, TModel toValue) { }
 
     // --- Hooks ---
 
