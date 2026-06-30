@@ -2,7 +2,10 @@
   "permissions": {
     "allow": [
       "Bash(dotnet build:*)",
-      "Bash(dotnet test:*)"
+      "Bash(dotnet test:*)",
+      "mcp__claude_ai_Microsoft_Learn__microsoft_docs_search",
+      "Bash(dotnet --version)",
+      "Bash(dotnet ef *)"
     ]
   }
 }
