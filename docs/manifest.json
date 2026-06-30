@@ -1,369 +1,89 @@
 {
-  "source_base_path": "/Users/benday/code/benday-inc/Benday.EfCore.SqlServer/docfx_project",
+  "source_base_path": "/Users/benday/code/benday-inc/Benday.EfCore/docfx_project",
   "xrefmap": "xrefmap.yml",
   "files": [
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.Adapters.AdapterAction.yml",
+      "source_relative_path": "api/Benday.EfCore.Registration.SqlServerRegistrationExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.Adapters.AdapterAction.html"
+          "relative_path": "api/Benday.EfCore.Registration.SqlServerRegistrationExtensions.html"
         }
       },
       "version": "",
       "Uid": null,
       "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.Adapters.AdapterAction",
-      "Summary": "<p sourcefile=\"api/Benday.EfCore.SqlServer.Adapters.AdapterAction.yml\" sourcestartlinenumber=\"1\">Controls what happens to an individual item during adaptation.\nReturned from BeforeAdapt hooks.</p>\n"
+      "Title": "Benday.EfCore.Registration.SqlServerRegistrationExtensions",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Registration.SqlServerRegistrationExtensions.yml\" sourcestartlinenumber=\"1\">SQL Server-specific conveniences layered on top of the provider-agnostic\n<xref href=\"Benday.EfCore.Registration.EfCoreRegistrationHelper%601\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.Adapters.AdapterBase-2.yml",
+      "source_relative_path": "api/Benday.EfCore.Registration.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.Adapters.AdapterBase-2.html"
+          "relative_path": "api/Benday.EfCore.Registration.html"
         }
       },
       "version": "",
       "Uid": null,
       "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.Adapters.AdapterBase<TModel, TEntity>",
-      "Summary": "<p sourcefile=\"api/Benday.EfCore.SqlServer.Adapters.AdapterBase-2.yml\" sourcestartlinenumber=\"1\">Bidirectional adapter between a domain model (TModel) and\nan EF Core entity (TEntity).</p>\n<p sourcefile=\"api/Benday.EfCore.SqlServer.Adapters.AdapterBase-2.yml\" sourcestartlinenumber=\"4\">Handles single-item mapping in both directions, plus the tricky\npart: collection mapping with merge logic. When adapting a list of\nmodels to a list of entities, the adapter:</p>\n<ul sourcefile=\"api/Benday.EfCore.SqlServer.Adapters.AdapterBase-2.yml\" sourcestartlinenumber=\"8\">\n<li sourcefile=\"api/Benday.EfCore.SqlServer.Adapters.AdapterBase-2.yml\" sourcestartlinenumber=\"8\">Matches existing items by Id and updates them in place</li>\n<li sourcefile=\"api/Benday.EfCore.SqlServer.Adapters.AdapterBase-2.yml\" sourcestartlinenumber=\"9\">Creates new entity instances for models with Id == 0</li>\n<li sourcefile=\"api/Benday.EfCore.SqlServer.Adapters.AdapterBase-2.yml\" sourcestartlinenumber=\"10\">Marks entities for delete when their Id no longer appears\nin the model list (via IsMarkedForDelete)</li>\n</ul>\n<p sourcefile=\"api/Benday.EfCore.SqlServer.Adapters.AdapterBase-2.yml\" sourcestartlinenumber=\"13\">Subclasses implement PerformAdapt for the actual property copying.\nThe base class handles the lifecycle, matching, and delete detection.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.Adapters.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.Adapters.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.Adapters",
+      "Title": "Benday.EfCore.Registration",
       "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase.yml",
+      "source_relative_path": "api/Benday.EfCore.SqlServer.BendaySqlServerModelBuilderExtensions.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase.html"
+          "relative_path": "api/Benday.EfCore.SqlServer.BendaySqlServerModelBuilderExtensions.html"
         }
       },
       "version": "",
       "Uid": null,
       "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase",
-      "Summary": "<p sourcefile=\"api/Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase.yml\" sourcestartlinenumber=\"1\">Domain model base class with audit fields and optimistic concurrency.</p>\n<p sourcefile=\"api/Benday.EfCore.SqlServer.DomainModels.CoreFieldsDomainModelBase.yml\" sourcestartlinenumber=\"3\">The Timestamp property carries the concurrency token across the\nadapter boundary so the service layer can detect conflicting updates\nwithout touching the entity layer directly.</p>\n"
+      "Title": "Benday.EfCore.SqlServer.BendaySqlServerModelBuilderExtensions",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.SqlServer.BendaySqlServerModelBuilderExtensions.yml\" sourcestartlinenumber=\"1\"><xref href=\"Microsoft.EntityFrameworkCore.ModelBuilder\" data-throw-if-not-resolved=\"false\"></xref> extensions that apply SQL Server-specific model\nconfiguration for the Benday.EfCore base types.</p>\n"
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.DomainModels.DomainModelBase.yml",
+      "source_relative_path": "api/Benday.EfCore.SqlServer.Migrations.SqlServerDesignTimeDbContextFactory-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.DomainModels.DomainModelBase.html"
+          "relative_path": "api/Benday.EfCore.SqlServer.Migrations.SqlServerDesignTimeDbContextFactory-1.html"
         }
       },
       "version": "",
       "Uid": null,
       "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.DomainModels.DomainModelBase",
-      "Summary": "<p sourcefile=\"api/Benday.EfCore.SqlServer.DomainModels.DomainModelBase.yml\" sourcestartlinenumber=\"1\">Base class for domain models. Uses IEntityIdentity{int} from\nthe shared interface package so domain models and entities\nshare the same identity contract.</p>\n<p sourcefile=\"api/Benday.EfCore.SqlServer.DomainModels.DomainModelBase.yml\" sourcestartlinenumber=\"5\">Domain models are NOT EF Core entities. They live on the business\nlogic side of the adapter boundary. EF Core should never see these.</p>\n"
+      "Title": "Benday.EfCore.SqlServer.Migrations.SqlServerDesignTimeDbContextFactory<TContext>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.SqlServer.Migrations.SqlServerDesignTimeDbContextFactory-1.yml\" sourcestartlinenumber=\"1\">SQL Server design-time DbContext factory base. Subclass it and implement\n<code>Create(DbContextOptions)</code> to give the EF Core CLI (<code>dotnet ef</code>) a\nway to construct your context for generating migrations. Connection string\nloading is inherited from <xref href=\"Benday.EfCore.Migrations.DefaultDesignTimeDbContextFactory%601\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.DomainModels.yml",
+      "source_relative_path": "api/Benday.EfCore.SqlServer.Migrations.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.DomainModels.html"
+          "relative_path": "api/Benday.EfCore.SqlServer.Migrations.html"
         }
       },
       "version": "",
       "Uid": null,
       "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.DomainModels",
+      "Title": "Benday.EfCore.SqlServer.Migrations",
       "Summary": null
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.Entities.CoreFieldsEntityBase.yml",
+      "source_relative_path": "api/Benday.EfCore.SqlServer.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.Entities.CoreFieldsEntityBase.html"
+          "relative_path": "api/Benday.EfCore.SqlServer.html"
         }
       },
       "version": "",
       "Uid": null,
       "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.Entities.CoreFieldsEntityBase",
-      "Summary": "<p sourcefile=\"api/Benday.EfCore.SqlServer.Entities.CoreFieldsEntityBase.yml\" sourcestartlinenumber=\"1\">Entity base class with audit fields (CreatedBy, CreatedDate,\nLastModifiedBy, LastModifiedDate) and optimistic concurrency\nvia a [Timestamp] column.</p>\n<p sourcefile=\"api/Benday.EfCore.SqlServer.Entities.CoreFieldsEntityBase.yml\" sourcestartlinenumber=\"5\">Column ordering places audit fields after the entity's own columns\nso they sort to the end of the table in the database.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.Entities.DependentEntityCollection-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.Entities.DependentEntityCollection-1.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.Entities.DependentEntityCollection<T>",
-      "Summary": "<p sourcefile=\"api/Benday.EfCore.SqlServer.Entities.DependentEntityCollection-1.yml\" sourcestartlinenumber=\"1\">Manages the save/delete lifecycle for a collection of child entities.</p>\n<p sourcefile=\"api/Benday.EfCore.SqlServer.Entities.DependentEntityCollection-1.yml\" sourcestartlinenumber=\"3\">Before SaveChanges: any item with IsMarkedForDelete == true is removed\nfrom the DbSet so EF Core will delete it from the database.</p>\n<p sourcefile=\"api/Benday.EfCore.SqlServer.Entities.DependentEntityCollection-1.yml\" sourcestartlinenumber=\"6\">After SaveChanges: items marked for delete are pruned from the\nin-memory collection so the parent entity's navigation property\nreflects the current state.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.Entities.EntityBase.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.Entities.EntityBase.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.Entities.EntityBase",
-      "Summary": "<p sourcefile=\"api/Benday.EfCore.SqlServer.Entities.EntityBase.yml\" sourcestartlinenumber=\"1\">Base class for EF Core entities. Implements the shared\nIEntityIdentity and IDeleteable interfaces from Benday.Common.Interfaces.</p>\n<p sourcefile=\"api/Benday.EfCore.SqlServer.Entities.EntityBase.yml\" sourcestartlinenumber=\"4\">IsMarkedForDelete is [NotMapped] — it only exists in memory to signal\nthe DependentEntityCollection to remove this item during save.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.Entities.IDependentEntityCollection.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.Entities.IDependentEntityCollection.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.Entities.IDependentEntityCollection",
-      "Summary": "<p sourcefile=\"api/Benday.EfCore.SqlServer.Entities.IDependentEntityCollection.yml\" sourcestartlinenumber=\"1\">Manages the lifecycle of dependent/child entities during save operations.\nBefore save: removes items marked for delete from the DbSet.\nAfter save: prunes the in-memory collection.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.Entities.IEntityWithDependents.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.Entities.IEntityWithDependents.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.Entities.IEntityWithDependents",
-      "Summary": "<p sourcefile=\"api/Benday.EfCore.SqlServer.Entities.IEntityWithDependents.yml\" sourcestartlinenumber=\"1\">Interface for entities that manage dependent/child entity collections.\nThis is the aggregate root pattern — the parent entity controls the\nlifecycle of its children during save and delete operations.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.Entities.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.Entities.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.Entities",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.Registration.EfCoreRegistrationExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.Registration.EfCoreRegistrationExtensions.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.Registration.EfCoreRegistrationExtensions",
-      "Summary": "<p sourcefile=\"api/Benday.EfCore.SqlServer.Registration.EfCoreRegistrationExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for IServiceCollection to make registration clean.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.Registration.EfCoreRegistrationHelper-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.Registration.EfCoreRegistrationHelper-1.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.Registration.EfCoreRegistrationHelper<TDbContext>",
-      "Summary": "<p sourcefile=\"api/Benday.EfCore.SqlServer.Registration.EfCoreRegistrationHelper-1.yml\" sourcestartlinenumber=\"1\">Fluent registration helper for wiring up the repository + adapter +\nservice layer architecture with DI. Modeled after CosmosRegistrationHelper.</p>\n<p sourcefile=\"api/Benday.EfCore.SqlServer.Registration.EfCoreRegistrationHelper-1.yml\" sourcestartlinenumber=\"4\">Usage:</p>\n<pre><code class=\"lang-csharp\">services.AddBendayEfCore&lt;MyDbContext&gt;(options =&gt;\n{\n    options.UseConnectionString(connectionString);\n    options.RegisterDbContext();\n\n    options.RegisterAggregate&lt;\n        IPersonRepository, SqlPersonRepository,\n        PersonAdapter,\n        PersonDomainModel,\n        IPersonService, PersonService&gt;();\n});</code></pre>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.Registration.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.Registration.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.Registration",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkCrudRepositoryBase-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkCrudRepositoryBase-2.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkCrudRepositoryBase<TEntity, TDbContext>",
-      "Summary": "<p sourcefile=\"api/Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkCrudRepositoryBase-2.yml\" sourcestartlinenumber=\"1\">CRUD repository with async operations and aggregate root support.</p>\n<p sourcefile=\"api/Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkCrudRepositoryBase-2.yml\" sourcestartlinenumber=\"3\">Implements IAsyncReadableRepository from Benday.Common.Interfaces so\nthe same repository contract works whether the storage is SQL Server,\nCosmos DB, or anything else.</p>\n<p sourcefile=\"api/Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkCrudRepositoryBase-2.yml\" sourcestartlinenumber=\"7\">The save lifecycle handles dependent entities automatically:</p>\n<ol sourcefile=\"api/Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkCrudRepositoryBase-2.yml\" sourcestartlinenumber=\"8\">\n<li sourcefile=\"api/Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkCrudRepositoryBase-2.yml\" sourcestartlinenumber=\"8\">VerifyItemIsAddedOrAttached</li>\n<li sourcefile=\"api/Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkCrudRepositoryBase-2.yml\" sourcestartlinenumber=\"9\">BeforeSave (override for custom logic)</li>\n<li sourcefile=\"api/Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkCrudRepositoryBase-2.yml\" sourcestartlinenumber=\"10\">BeforeSave on each DependentEntityCollection (marks-for-delete handling)</li>\n<li sourcefile=\"api/Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkCrudRepositoryBase-2.yml\" sourcestartlinenumber=\"11\">SaveChangesAsync</li>\n<li sourcefile=\"api/Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkCrudRepositoryBase-2.yml\" sourcestartlinenumber=\"12\">AfterSave on each DependentEntityCollection (prune in-memory)</li>\n<li sourcefile=\"api/Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkCrudRepositoryBase-2.yml\" sourcestartlinenumber=\"13\">AfterSave (override for custom logic)</li>\n</ol>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkRepositoryBase-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkRepositoryBase-2.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkRepositoryBase<TEntity, TDbContext>",
-      "Summary": "<p sourcefile=\"api/Benday.EfCore.SqlServer.Repositories.SqlEntityFrameworkRepositoryBase-2.yml\" sourcestartlinenumber=\"1\">Base repository. Owns the DbContext and handles the\nadd-vs-attach decision based on Id == 0.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.Repositories.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.Repositories.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.Repositories",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.ServiceLayers.CoreFieldsServiceLayerBase-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.ServiceLayers.CoreFieldsServiceLayerBase-2.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.ServiceLayers.CoreFieldsServiceLayerBase<TModel, TEntity>",
-      "Summary": "<p sourcefile=\"api/Benday.EfCore.SqlServer.ServiceLayers.CoreFieldsServiceLayerBase-2.yml\" sourcestartlinenumber=\"1\">Service layer base for entities with audit fields.</p>\n<p sourcefile=\"api/Benday.EfCore.SqlServer.ServiceLayers.CoreFieldsServiceLayerBase-2.yml\" sourcestartlinenumber=\"3\">Automatically populates CreatedBy/CreatedDate on new items\nand LastModifiedBy/LastModifiedDate on every save. No change\ntracking required — we just always update the last-modified fields.</p>\n<p sourcefile=\"api/Benday.EfCore.SqlServer.ServiceLayers.CoreFieldsServiceLayerBase-2.yml\" sourcestartlinenumber=\"7\">Also copies audit fields and the concurrency timestamp back to\nthe model after save so the caller has current values.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.ServiceLayers.DefaultValidatorStrategy-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.ServiceLayers.DefaultValidatorStrategy-1.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.ServiceLayers.DefaultValidatorStrategy<T>",
-      "Summary": "<p sourcefile=\"api/Benday.EfCore.SqlServer.ServiceLayers.DefaultValidatorStrategy-1.yml\" sourcestartlinenumber=\"1\">Default validator that uses DataAnnotations attributes on the\ndomain model. Returns validation results for callers that need\nerror details.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.ServiceLayers.IUsernameProvider.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.ServiceLayers.IUsernameProvider.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.ServiceLayers.IUsernameProvider",
-      "Summary": "<p sourcefile=\"api/Benday.EfCore.SqlServer.ServiceLayers.IUsernameProvider.yml\" sourcestartlinenumber=\"1\">Provides the current username for audit field population.</p>\n<p sourcefile=\"api/Benday.EfCore.SqlServer.ServiceLayers.IUsernameProvider.yml\" sourcestartlinenumber=\"3\">In production, this is typically backed by HttpContext.User.\nIn tests, it's a fake that returns a predictable value.\nThis is why it's an interface — so your service layer never\ntouches HttpContext directly.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.ServiceLayers.IValidatorStrategy-1.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.ServiceLayers.IValidatorStrategy-1.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.ServiceLayers.IValidatorStrategy<T>",
-      "Summary": "<p sourcefile=\"api/Benday.EfCore.SqlServer.ServiceLayers.IValidatorStrategy-1.yml\" sourcestartlinenumber=\"1\">Validation strategy interface. Decouples validation logic from\nboth the domain model and the service layer so each validation\nrule is independently testable and swappable via DI.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.ServiceLayers.InvalidObjectException.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.ServiceLayers.InvalidObjectException.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.ServiceLayers.InvalidObjectException",
-      "Summary": "<p sourcefile=\"api/Benday.EfCore.SqlServer.ServiceLayers.InvalidObjectException.yml\" sourcestartlinenumber=\"1\">Invalid object exception thrown when validation fails in the service layer.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.ServiceLayers.ServiceLayerBase-2.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.ServiceLayers.ServiceLayerBase-2.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.ServiceLayers.ServiceLayerBase<TModel, TEntity>",
-      "Summary": "<p sourcefile=\"api/Benday.EfCore.SqlServer.ServiceLayers.ServiceLayerBase-2.yml\" sourcestartlinenumber=\"1\">Base service layer. Handles the core flow:\nvalidate → get or create entity → adapt → save → copy back IDs.</p>\n<p sourcefile=\"api/Benday.EfCore.SqlServer.ServiceLayers.ServiceLayerBase-2.yml\" sourcestartlinenumber=\"4\">The service owns the adapter. The repository only deals in entities.\nThe controller/API layer only deals in domain models. The service\nis the bridge.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.ServiceLayers.UnknownObjectException.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.ServiceLayers.UnknownObjectException.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.ServiceLayers.UnknownObjectException",
-      "Summary": "<p sourcefile=\"api/Benday.EfCore.SqlServer.ServiceLayers.UnknownObjectException.yml\" sourcestartlinenumber=\"1\">Exception thrown when an entity cannot be found by Id.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Benday.EfCore.SqlServer.ServiceLayers.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Benday.EfCore.SqlServer.ServiceLayers.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Benday.EfCore.SqlServer.ServiceLayers",
+      "Title": "Benday.EfCore.SqlServer",
       "Summary": null
     },
     {
