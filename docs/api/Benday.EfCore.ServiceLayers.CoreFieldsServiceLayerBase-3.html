@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class CoreFieldsServiceLayerBase&lt;TModel, TEntity, TIdentity&gt; </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class CoreFieldsServiceLayerBase&lt;TModel, TEntity, TIdentity&gt; ">
+    
+    <meta name="description" content="Service layer base for entities with audit fields. Automatically populates CreatedBy/CreatedDate on new items and LastModifiedBy/LastModifiedDate on every save. No change tracking required — we just always update the last-modified fields. Also copies audit fields and the concurrency timestamp back to the model after save so the caller has current values.">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <div class="navbar-brand">
+                <a href="../">
+                  <img id="logo" src="../logo.png" alt="" alt="asdf" width="50" height="50">
+                </a>
+
+              </div>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase`3">
+
+
+
+  <h1 id="Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3" data-uid="Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase`3" class="text-break">Class CoreFieldsServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;</h1>
+  <div class="markdown level0 summary"><p>Service layer base for entities with audit fields.</p>
+<p>Automatically populates CreatedBy/CreatedDate on new items
+and LastModifiedBy/LastModifiedDate on every save. No change
+tracking required — we just always update the last-modified fields.</p>
+<p>Also copies audit fields and the concurrency timestamp back to
+the model after save so the caller has current values.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Benday.EfCore.ServiceLayers.ServiceLayerBase-3.html">ServiceLayerBase</a>&lt;TModel, TEntity, TIdentity&gt;</div>
+    <div class="level2"><span class="xref">CoreFieldsServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;</span></div>
+      <div class="level3"><a class="xref" href="Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase-2.html">CoreFieldsServiceLayerBase&lt;TModel, TEntity&gt;</a></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><span class="xref">IAsyncService</span>&lt;TModel, TIdentity&gt;</div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Benday.EfCore.ServiceLayers.ServiceLayerBase-3.html#Benday_EfCore_ServiceLayers_ServiceLayerBase_3_Repository">ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;.Repository</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.ServiceLayers.ServiceLayerBase-3.html#Benday_EfCore_ServiceLayers_ServiceLayerBase_3_Adapter">ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;.Adapter</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.ServiceLayers.ServiceLayerBase-3.html#Benday_EfCore_ServiceLayers_ServiceLayerBase_3_Validator">ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;.Validator</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.ServiceLayers.ServiceLayerBase-3.html#Benday_EfCore_ServiceLayers_ServiceLayerBase_3_EntityTypeName">ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;.EntityTypeName</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.ServiceLayers.ServiceLayerBase-3.html#Benday_EfCore_ServiceLayers_ServiceLayerBase_3_IsNew__2_">ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;.IsNew(TIdentity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.ServiceLayers.ServiceLayerBase-3.html#Benday_EfCore_ServiceLayers_ServiceLayerBase_3_SaveAsync__0_">ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;.SaveAsync(TModel)</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.ServiceLayers.ServiceLayerBase-3.html#Benday_EfCore_ServiceLayers_ServiceLayerBase_3_DeleteAsync__0_">ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;.DeleteAsync(TModel)</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.ServiceLayers.ServiceLayerBase-3.html#Benday_EfCore_ServiceLayers_ServiceLayerBase_3_DeleteByIdAsync__2_">ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;.DeleteByIdAsync(TIdentity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.ServiceLayers.ServiceLayerBase-3.html#Benday_EfCore_ServiceLayers_ServiceLayerBase_3_GetByIdAsync__2_">ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;.GetByIdAsync(TIdentity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.ServiceLayers.ServiceLayerBase-3.html#Benday_EfCore_ServiceLayers_ServiceLayerBase_3_GetAllAsync">ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;.GetAllAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.ServiceLayers.ServiceLayerBase-3.html#Benday_EfCore_ServiceLayers_ServiceLayerBase_3_PopulateFieldsFromEntityAfterSave__1__0_">ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;.PopulateFieldsFromEntityAfterSave(TEntity, TModel)</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.ServiceLayers.ServiceLayerBase-3.html#Benday_EfCore_ServiceLayers_ServiceLayerBase_3_BeforeSave__0_">ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;.BeforeSave(TModel)</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.ServiceLayers.ServiceLayerBase-3.html#Benday_EfCore_ServiceLayers_ServiceLayerBase_3_AfterSave__0_">ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;.AfterSave(TModel)</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.ServiceLayers.ServiceLayerBase-3.html#Benday_EfCore_ServiceLayers_ServiceLayerBase_3_OnBeforeAdapt__0__1_">ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;.OnBeforeAdapt(TModel, TEntity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.ServiceLayers.ServiceLayerBase-3.html#Benday_EfCore_ServiceLayers_ServiceLayerBase_3_BeforeReturnFromGet__0_">ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;.BeforeReturnFromGet(TModel)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Benday.html">Benday</a>.<a class="xref" href="Benday.EfCore.html">EfCore</a>.<a class="xref" href="Benday.EfCore.ServiceLayers.html">ServiceLayers</a></h6>
+  <h6><strong>Assembly</strong>: Benday.EfCore.dll</h6>
+  <h5 id="Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class CoreFieldsServiceLayerBase&lt;TModel, TEntity, TIdentity&gt; : ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;, IAsyncService&lt;TModel, TIdentity&gt; where TModel : CoreFieldsDomainModelBase&lt;TIdentity&gt;, new() where TEntity : CoreFieldsEntityBase&lt;TIdentity&gt;, new() where TIdentity : IEquatable&lt;TIdentity&gt;</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TModel</span></td>
+        <td><p>The domain model type.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TEntity</span></td>
+        <td><p>The entity type.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TIdentity</span></td>
+        <td><p>The primary key type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="constructors">Constructors
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3__ctor_Benday_Common_Interfaces_IAsyncReadableRepository__1__2__Benday_EfCore_Adapters_AdapterBase__0__1__2__Benday_EfCore_ServiceLayers_IValidatorStrategy__0__Benday_EfCore_ServiceLayers_IUsernameProvider_.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase%603.%23ctor(Benday.Common.Interfaces.IAsyncReadableRepository%7B%601%2C%602%7D%2CBenday.EfCore.Adapters.AdapterBase%7B%600%2C%601%2C%602%7D%2CBenday.EfCore.ServiceLayers.IValidatorStrategy%7B%600%7D%2CBenday.EfCore.ServiceLayers.IUsernameProvider)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/CoreFieldsServiceLayerBase.cs/#L56">View Source</a>
+  </span>
+  <a id="Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3__ctor_" data-uid="Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase`3.#ctor*"></a>
+  <h4 id="Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3__ctor_Benday_Common_Interfaces_IAsyncReadableRepository__1__2__Benday_EfCore_Adapters_AdapterBase__0__1__2__Benday_EfCore_ServiceLayers_IValidatorStrategy__0__Benday_EfCore_ServiceLayers_IUsernameProvider_" data-uid="Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase`3.#ctor(Benday.Common.Interfaces.IAsyncReadableRepository{`1,`2},Benday.EfCore.Adapters.AdapterBase{`0,`1,`2},Benday.EfCore.ServiceLayers.IValidatorStrategy{`0},Benday.EfCore.ServiceLayers.IUsernameProvider)">CoreFieldsServiceLayerBase(IAsyncReadableRepository&lt;TEntity, TIdentity&gt;, AdapterBase&lt;TModel, TEntity, TIdentity&gt;, IValidatorStrategy&lt;TModel&gt;, IUsernameProvider)</h4>
+  <div class="markdown level1 summary"><p>Creates the service layer with its repository, adapter, validator, and username provider.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected CoreFieldsServiceLayerBase(IAsyncReadableRepository&lt;TEntity, TIdentity&gt; repository, AdapterBase&lt;TModel, TEntity, TIdentity&gt; adapter, IValidatorStrategy&lt;TModel&gt; validator, IUsernameProvider usernameProvider)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IAsyncReadableRepository</span>&lt;TEntity, TIdentity&gt;</td>
+        <td><span class="parametername">repository</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Benday.EfCore.Adapters.AdapterBase-3.html">AdapterBase</a>&lt;TModel, TEntity, TIdentity&gt;</td>
+        <td><span class="parametername">adapter</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Benday.EfCore.ServiceLayers.IValidatorStrategy-1.html">IValidatorStrategy</a>&lt;TModel&gt;</td>
+        <td><span class="parametername">validator</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Benday.EfCore.ServiceLayers.IUsernameProvider.html">IUsernameProvider</a></td>
+        <td><span class="parametername">usernameProvider</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3_UsernameProvider.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase%603.UsernameProvider%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/CoreFieldsServiceLayerBase.cs/#L51">View Source</a>
+  </span>
+  <a id="Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3_UsernameProvider_" data-uid="Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase`3.UsernameProvider*"></a>
+  <h4 id="Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3_UsernameProvider" data-uid="Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase`3.UsernameProvider">UsernameProvider</h4>
+  <div class="markdown level1 summary"><p>The provider used to stamp audit fields with the current username.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected IUsernameProvider UsernameProvider { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Benday.EfCore.ServiceLayers.IUsernameProvider.html">IUsernameProvider</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3_OnBeforeAdapt__0__1_.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase%603.OnBeforeAdapt(%600%2C%601)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/CoreFieldsServiceLayerBase.cs/#L118">View Source</a>
+  </span>
+  <a id="Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3_OnBeforeAdapt_" data-uid="Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase`3.OnBeforeAdapt*"></a>
+  <h4 id="Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3_OnBeforeAdapt__0__1_" data-uid="Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase`3.OnBeforeAdapt(`0,`1)">OnBeforeAdapt(TModel, TEntity)</h4>
+  <div class="markdown level1 summary"><p>Called before adapt — populates audit fields on the model
+so the adapter carries current values to the entity.</p>
+<p>Override OnPopulateAuditFieldsBeforeSave to also handle
+child collections.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnBeforeAdapt(TModel model, TEntity entity)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">model</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">TEntity</span></td>
+        <td><span class="parametername">entity</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Benday.EfCore.ServiceLayers.ServiceLayerBase-3.html#Benday_EfCore_ServiceLayers_ServiceLayerBase_3_OnBeforeAdapt__0__1_">ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;.OnBeforeAdapt(TModel, TEntity)</a></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3_OnPopulateAuditFieldsBeforeSave__0_.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase%603.OnPopulateAuditFieldsBeforeSave(%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/CoreFieldsServiceLayerBase.cs/#L128">View Source</a>
+  </span>
+  <a id="Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3_OnPopulateAuditFieldsBeforeSave_" data-uid="Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase`3.OnPopulateAuditFieldsBeforeSave*"></a>
+  <h4 id="Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3_OnPopulateAuditFieldsBeforeSave__0_" data-uid="Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase`3.OnPopulateAuditFieldsBeforeSave(`0)">OnPopulateAuditFieldsBeforeSave(TModel)</h4>
+  <div class="markdown level1 summary"><p>Override to populate audit fields on child domain model collections
+before the adapter processes them.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnPopulateAuditFieldsBeforeSave(TModel model)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">model</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3_PopulateAuditFieldsBeforeSave_System_Collections_Generic_IEnumerable_Benday_EfCore_DomainModels_CoreFieldsDomainModelBase__2___.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase%603.PopulateAuditFieldsBeforeSave(System.Collections.Generic.IEnumerable%7BBenday.EfCore.DomainModels.CoreFieldsDomainModelBase%7B%602%7D%7D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/CoreFieldsServiceLayerBase.cs/#L93">View Source</a>
+  </span>
+  <a id="Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3_PopulateAuditFieldsBeforeSave_" data-uid="Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase`3.PopulateAuditFieldsBeforeSave*"></a>
+  <h4 id="Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3_PopulateAuditFieldsBeforeSave_System_Collections_Generic_IEnumerable_Benday_EfCore_DomainModels_CoreFieldsDomainModelBase__2___" data-uid="Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase`3.PopulateAuditFieldsBeforeSave(System.Collections.Generic.IEnumerable{Benday.EfCore.DomainModels.CoreFieldsDomainModelBase{`2}})">PopulateAuditFieldsBeforeSave(IEnumerable&lt;CoreFieldsDomainModelBase&lt;TIdentity&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Populates audit fields on a collection of child models.
+Call this for each child collection before adapting.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void PopulateAuditFieldsBeforeSave(IEnumerable&lt;CoreFieldsDomainModelBase&lt;TIdentity&gt;&gt; children)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Benday.EfCore.DomainModels.CoreFieldsDomainModelBase-1.html">CoreFieldsDomainModelBase</a>&lt;TIdentity&gt;&gt;</td>
+        <td><span class="parametername">children</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3_PopulateAuditFieldsBeforeSave__0_.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase%603.PopulateAuditFieldsBeforeSave(%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/CoreFieldsServiceLayerBase.cs/#L75">View Source</a>
+  </span>
+  <a id="Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3_PopulateAuditFieldsBeforeSave_" data-uid="Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase`3.PopulateAuditFieldsBeforeSave*"></a>
+  <h4 id="Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3_PopulateAuditFieldsBeforeSave__0_" data-uid="Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase`3.PopulateAuditFieldsBeforeSave(`0)">PopulateAuditFieldsBeforeSave(TModel)</h4>
+  <div class="markdown level1 summary"><p>Populates audit fields before the adapter copies model → entity.</p>
+<p>New items (see <a class="xref" href="Benday.EfCore.ServiceLayers.ServiceLayerBase-3.html#Benday_EfCore_ServiceLayers_ServiceLayerBase_3_IsNew__2_">IsNew(TIdentity)</a>):
+sets CreatedBy and CreatedDate.
+All items: sets LastModifiedBy and LastModifiedDate.
+No change tracking needed — just always update.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void PopulateAuditFieldsBeforeSave(TModel model)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">model</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3_PopulateFieldsFromEntityAfterSave_System_Collections_Generic_IList_Benday_EfCore_Entities_CoreFieldsEntityBase__2___System_Collections_Generic_IList_Benday_EfCore_DomainModels_CoreFieldsDomainModelBase__2___.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase%603.PopulateFieldsFromEntityAfterSave(System.Collections.Generic.IList%7BBenday.EfCore.Entities.CoreFieldsEntityBase%7B%602%7D%7D%2CSystem.Collections.Generic.IList%7BBenday.EfCore.DomainModels.CoreFieldsDomainModelBase%7B%602%7D%7D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/CoreFieldsServiceLayerBase.cs/#L151">View Source</a>
+  </span>
+  <a id="Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3_PopulateFieldsFromEntityAfterSave_" data-uid="Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase`3.PopulateFieldsFromEntityAfterSave*"></a>
+  <h4 id="Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3_PopulateFieldsFromEntityAfterSave_System_Collections_Generic_IList_Benday_EfCore_Entities_CoreFieldsEntityBase__2___System_Collections_Generic_IList_Benday_EfCore_DomainModels_CoreFieldsDomainModelBase__2___" data-uid="Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase`3.PopulateFieldsFromEntityAfterSave(System.Collections.Generic.IList{Benday.EfCore.Entities.CoreFieldsEntityBase{`2}},System.Collections.Generic.IList{Benday.EfCore.DomainModels.CoreFieldsDomainModelBase{`2}})">PopulateFieldsFromEntityAfterSave(IList&lt;CoreFieldsEntityBase&lt;TIdentity&gt;&gt;, IList&lt;CoreFieldsDomainModelBase&lt;TIdentity&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Helper to copy audit fields from saved entities back to
+a collection of child models. Call this after save for
+each child collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void PopulateFieldsFromEntityAfterSave(IList&lt;CoreFieldsEntityBase&lt;TIdentity&gt;&gt; fromEntities, IList&lt;CoreFieldsDomainModelBase&lt;TIdentity&gt;&gt; toModels)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="Benday.EfCore.Entities.CoreFieldsEntityBase-1.html">CoreFieldsEntityBase</a>&lt;TIdentity&gt;&gt;</td>
+        <td><span class="parametername">fromEntities</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="Benday.EfCore.DomainModels.CoreFieldsDomainModelBase-1.html">CoreFieldsDomainModelBase</a>&lt;TIdentity&gt;&gt;</td>
+        <td><span class="parametername">toModels</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3_PopulateFieldsFromEntityAfterSave__1__0_.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase%603.PopulateFieldsFromEntityAfterSave(%601%2C%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/CoreFieldsServiceLayerBase.cs/#L134">View Source</a>
+  </span>
+  <a id="Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3_PopulateFieldsFromEntityAfterSave_" data-uid="Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase`3.PopulateFieldsFromEntityAfterSave*"></a>
+  <h4 id="Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3_PopulateFieldsFromEntityAfterSave__1__0_" data-uid="Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase`3.PopulateFieldsFromEntityAfterSave(`1,`0)">PopulateFieldsFromEntityAfterSave(TEntity, TModel)</h4>
+  <div class="markdown level1 summary"><p>Copies Id, audit fields, and concurrency timestamp from the
+saved entity back to the model.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void PopulateFieldsFromEntityAfterSave(TEntity fromEntity, TModel toModel)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TEntity</span></td>
+        <td><span class="parametername">fromEntity</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">toModel</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Benday.EfCore.ServiceLayers.ServiceLayerBase-3.html#Benday_EfCore_ServiceLayers_ServiceLayerBase_3_PopulateFieldsFromEntityAfterSave__1__0_">ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;.PopulateFieldsFromEntityAfterSave(TEntity, TModel)</a></div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <span class="xref">Benday.Common.Interfaces.IAsyncService&lt;T, TKey&gt;</span>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_CoreFieldsServiceLayerBase_3.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase%603%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/CoreFieldsServiceLayerBase.cs/#L44" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      Copyright © <a href="https://www.benday.com/">www.benday.com</a> | <a href="mailto:info@benday.com">info@benday.com</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

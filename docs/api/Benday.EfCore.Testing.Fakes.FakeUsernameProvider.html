@@ -5,11 +5,11 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Class BendaySqlServerModelBuilderExtensions </title>
+      <title>Class FakeUsernameProvider </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Class BendaySqlServerModelBuilderExtensions ">
+      <meta name="title" content="Class FakeUsernameProvider ">
     
-    <meta name="description" content="extensions that apply SQL Server-specific model configuration for the Benday.EfCore base types.">
+    <meta name="description" content="Fake username provider for unit testing. Returns a predictable username so audit field tests are deterministic.">
       <link rel="shortcut icon" href="../favicon.ico">
       <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
       <link rel="stylesheet" href="../styles/docfx.css">
@@ -67,19 +67,23 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Benday.EfCore.SqlServer.BendaySqlServerModelBuilderExtensions">
+            <article class="content wrap" id="_content" data-uid="Benday.EfCore.Testing.Fakes.FakeUsernameProvider">
 
 
 
-  <h1 id="Benday_EfCore_SqlServer_BendaySqlServerModelBuilderExtensions" data-uid="Benday.EfCore.SqlServer.BendaySqlServerModelBuilderExtensions" class="text-break">Class BendaySqlServerModelBuilderExtensions</h1>
-  <div class="markdown level0 summary"><p><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.modelbuilder">ModelBuilder</a> extensions that apply SQL Server-specific model
-configuration for the Benday.EfCore base types.</p>
+  <h1 id="Benday_EfCore_Testing_Fakes_FakeUsernameProvider" data-uid="Benday.EfCore.Testing.Fakes.FakeUsernameProvider" class="text-break">Class FakeUsernameProvider</h1>
+  <div class="markdown level0 summary"><p>Fake username provider for unit testing.
+Returns a predictable username so audit field tests are deterministic.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-    <div class="level1"><span class="xref">BendaySqlServerModelBuilderExtensions</span></div>
+    <div class="level1"><span class="xref">FakeUsernameProvider</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Benday.EfCore.ServiceLayers.IUsernameProvider.html">IUsernameProvider</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -105,36 +109,29 @@ configuration for the Benday.EfCore base types.</p>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Benday.html">Benday</a>.<a class="xref" href="Benday.EfCore.html">EfCore</a>.<a class="xref" href="Benday.EfCore.SqlServer.html">SqlServer</a></h6>
-  <h6><strong>Assembly</strong>: Benday.EfCore.SqlServer.dll</h6>
-  <h5 id="Benday_EfCore_SqlServer_BendaySqlServerModelBuilderExtensions_syntax">Syntax</h5>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Benday.html">Benday</a>.<a class="xref" href="Benday.EfCore.html">EfCore</a>.<a class="xref" href="Benday.EfCore.Testing.html">Testing</a>.<a class="xref" href="Benday.EfCore.Testing.Fakes.html">Fakes</a></h6>
+  <h6><strong>Assembly</strong>: Benday.EfCore.Testing.dll</h6>
+  <h5 id="Benday_EfCore_Testing_Fakes_FakeUsernameProvider_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class BendaySqlServerModelBuilderExtensions</code></pre>
+    <pre><code class="lang-csharp hljs">public class FakeUsernameProvider : IUsernameProvider</code></pre>
   </div>
-  <h3 id="methods">Methods
+  <h3 id="constructors">Constructors
 </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_SqlServer_BendaySqlServerModelBuilderExtensions_ApplyBendaySqlServerConcurrency_Microsoft_EntityFrameworkCore_ModelBuilder_.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.BendaySqlServerModelBuilderExtensions.ApplyBendaySqlServerConcurrency(Microsoft.EntityFrameworkCore.ModelBuilder)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Testing_Fakes_FakeUsernameProvider__ctor_System_String_.md&amp;value=---%0Auid%3A%20Benday.EfCore.Testing.Fakes.FakeUsernameProvider.%23ctor(System.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.SqlServer/BendaySqlServerModelBuilderExtensions.cs/#L23">View Source</a>
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.Testing/Fakes/FakeTestDoubles.cs/#L39">View Source</a>
   </span>
-  <a id="Benday_EfCore_SqlServer_BendaySqlServerModelBuilderExtensions_ApplyBendaySqlServerConcurrency_" data-uid="Benday.EfCore.SqlServer.BendaySqlServerModelBuilderExtensions.ApplyBendaySqlServerConcurrency*"></a>
-  <h4 id="Benday_EfCore_SqlServer_BendaySqlServerModelBuilderExtensions_ApplyBendaySqlServerConcurrency_Microsoft_EntityFrameworkCore_ModelBuilder_" data-uid="Benday.EfCore.SqlServer.BendaySqlServerModelBuilderExtensions.ApplyBendaySqlServerConcurrency(Microsoft.EntityFrameworkCore.ModelBuilder)">ApplyBendaySqlServerConcurrency(ModelBuilder)</h4>
-  <div class="markdown level1 summary"><p>Maps the <a class="xref" href="Benday.EfCore.Entities.CoreFieldsEntityBase-1.html#Benday_EfCore_Entities_CoreFieldsEntityBase_1_Timestamp">Timestamp</a> property as a SQL
-Server <code>rowversion</code> optimistic-concurrency token for every entity
-that derives from <a class="xref" href="Benday.EfCore.Entities.CoreFieldsEntityBase-1.html">CoreFieldsEntityBase&lt;TIdentity&gt;</a> (including the
-non-generic <a class="xref" href="Benday.EfCore.Entities.CoreFieldsEntityBase.html">CoreFieldsEntityBase</a> int shim). This replaces the
-<code>[Timestamp]</code> attribute that the provider-agnostic base type no
-longer carries.</p>
-<p>Call once at the end of <code>OnModelCreating</code>, after your entities have
-been added to the model.</p>
+  <a id="Benday_EfCore_Testing_Fakes_FakeUsernameProvider__ctor_" data-uid="Benday.EfCore.Testing.Fakes.FakeUsernameProvider.#ctor*"></a>
+  <h4 id="Benday_EfCore_Testing_Fakes_FakeUsernameProvider__ctor_System_String_" data-uid="Benday.EfCore.Testing.Fakes.FakeUsernameProvider.#ctor(System.String)">FakeUsernameProvider(string)</h4>
+  <div class="markdown level1 summary"><p>Creates the fake with a predictable username (default &quot;testuser@test.com&quot;).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ModelBuilder ApplyBendaySqlServerConcurrency(this ModelBuilder modelBuilder)</code></pre>
+    <pre><code class="lang-csharp hljs">public FakeUsernameProvider(string username = &quot;testuser@test.com&quot;)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -147,13 +144,31 @@ been added to the model.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.modelbuilder">ModelBuilder</a></td>
-        <td><span class="parametername">modelBuilder</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">username</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
-  <h5 class="returns">Returns</h5>
+  <h3 id="properties">Properties
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Testing_Fakes_FakeUsernameProvider_Username.md&amp;value=---%0Auid%3A%20Benday.EfCore.Testing.Fakes.FakeUsernameProvider.Username%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.Testing/Fakes/FakeTestDoubles.cs/#L45">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Testing_Fakes_FakeUsernameProvider_Username_" data-uid="Benday.EfCore.Testing.Fakes.FakeUsernameProvider.Username*"></a>
+  <h4 id="Benday_EfCore_Testing_Fakes_FakeUsernameProvider_Username" data-uid="Benday.EfCore.Testing.Fakes.FakeUsernameProvider.Username">Username</h4>
+  <div class="markdown level1 summary"><p>The current username used to stamp audit fields.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Username { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-condensed">
     <thead>
       <tr>
@@ -163,11 +178,15 @@ been added to the model.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.modelbuilder">ModelBuilder</a></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
         <td></td>
       </tr>
     </tbody>
   </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Benday.EfCore.ServiceLayers.IUsernameProvider.html">IUsernameProvider</a>
+  </div>
 
 </article>
           </div>
@@ -177,10 +196,10 @@ been added to the model.</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_SqlServer_BendaySqlServerModelBuilderExtensions.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.BendaySqlServerModelBuilderExtensions%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
+                    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Testing_Fakes_FakeUsernameProvider.md&amp;value=---%0Auid%3A%20Benday.EfCore.Testing.Fakes.FakeUsernameProvider%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
                   </li>
                   <li>
-                    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.SqlServer/BendaySqlServerModelBuilderExtensions.cs/#L10" class="contribution-link">View Source</a>
+                    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.Testing/Fakes/FakeTestDoubles.cs/#L34" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

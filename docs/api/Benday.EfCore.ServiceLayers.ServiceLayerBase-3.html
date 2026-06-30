@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt; </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt; ">
+    
+    <meta name="description" content="Base service layer. Handles the core flow: validate → get or create entity → adapt → save → copy back IDs. The service owns the adapter. The repository only deals in entities. The controller/API layer only deals in domain models. The service is the bridge.">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <div class="navbar-brand">
+                <a href="../">
+                  <img id="logo" src="../logo.png" alt="" alt="asdf" width="50" height="50">
+                </a>
+
+              </div>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3">
+
+
+
+  <h1 id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3" class="text-break">Class ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;</h1>
+  <div class="markdown level0 summary"><p>Base service layer. Handles the core flow:
+validate → get or create entity → adapt → save → copy back IDs.</p>
+<p>The service owns the adapter. The repository only deals in entities.
+The controller/API layer only deals in domain models. The service
+is the bridge.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;</span></div>
+      <div class="level2"><a class="xref" href="Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase-3.html">CoreFieldsServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;</a></div>
+      <div class="level2"><a class="xref" href="Benday.EfCore.ServiceLayers.ServiceLayerBase-2.html">ServiceLayerBase&lt;TModel, TEntity&gt;</a></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><span class="xref">IAsyncService</span>&lt;TModel, TIdentity&gt;</div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Benday.html">Benday</a>.<a class="xref" href="Benday.EfCore.html">EfCore</a>.<a class="xref" href="Benday.EfCore.ServiceLayers.html">ServiceLayers</a></h6>
+  <h6><strong>Assembly</strong>: Benday.EfCore.dll</h6>
+  <h5 id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt; : IAsyncService&lt;TModel, TIdentity&gt; where TModel : class, IEntityIdentity&lt;TIdentity&gt;, new() where TEntity : EntityBase&lt;TIdentity&gt;, new() where TIdentity : IEquatable&lt;TIdentity&gt;</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TModel</span></td>
+        <td><p>The domain model type.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TEntity</span></td>
+        <td><p>The entity type.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TIdentity</span></td>
+        <td><p>The primary key type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="constructors">Constructors
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_ServiceLayerBase_3__ctor_Benday_Common_Interfaces_IAsyncReadableRepository__1__2__Benday_EfCore_Adapters_AdapterBase__0__1__2__Benday_EfCore_ServiceLayers_IValidatorStrategy__0__.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.ServiceLayerBase%603.%23ctor(Benday.Common.Interfaces.IAsyncReadableRepository%7B%601%2C%602%7D%2CBenday.EfCore.Adapters.AdapterBase%7B%600%2C%601%2C%602%7D%2CBenday.EfCore.ServiceLayers.IValidatorStrategy%7B%600%7D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/ServiceLayerBase.cs/#L58">View Source</a>
+  </span>
+  <a id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3__ctor_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.#ctor*"></a>
+  <h4 id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3__ctor_Benday_Common_Interfaces_IAsyncReadableRepository__1__2__Benday_EfCore_Adapters_AdapterBase__0__1__2__Benday_EfCore_ServiceLayers_IValidatorStrategy__0__" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.#ctor(Benday.Common.Interfaces.IAsyncReadableRepository{`1,`2},Benday.EfCore.Adapters.AdapterBase{`0,`1,`2},Benday.EfCore.ServiceLayers.IValidatorStrategy{`0})">ServiceLayerBase(IAsyncReadableRepository&lt;TEntity, TIdentity&gt;, AdapterBase&lt;TModel, TEntity, TIdentity&gt;, IValidatorStrategy&lt;TModel&gt;)</h4>
+  <div class="markdown level1 summary"><p>Creates the service layer with its repository, adapter, and validator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ServiceLayerBase(IAsyncReadableRepository&lt;TEntity, TIdentity&gt; repository, AdapterBase&lt;TModel, TEntity, TIdentity&gt; adapter, IValidatorStrategy&lt;TModel&gt; validator)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IAsyncReadableRepository</span>&lt;TEntity, TIdentity&gt;</td>
+        <td><span class="parametername">repository</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Benday.EfCore.Adapters.AdapterBase-3.html">AdapterBase</a>&lt;TModel, TEntity, TIdentity&gt;</td>
+        <td><span class="parametername">adapter</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Benday.EfCore.ServiceLayers.IValidatorStrategy-1.html">IValidatorStrategy</a>&lt;TModel&gt;</td>
+        <td><span class="parametername">validator</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_ServiceLayerBase_3_Adapter.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.ServiceLayerBase%603.Adapter%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/ServiceLayerBase.cs/#L50">View Source</a>
+  </span>
+  <a id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_Adapter_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.Adapter*"></a>
+  <h4 id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_Adapter" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.Adapter">Adapter</h4>
+  <div class="markdown level1 summary"><p>The adapter that maps between models and entities.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected AdapterBase&lt;TModel, TEntity, TIdentity&gt; Adapter { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Benday.EfCore.Adapters.AdapterBase-3.html">AdapterBase</a>&lt;TModel, TEntity, TIdentity&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_ServiceLayerBase_3_EntityTypeName.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.ServiceLayerBase%603.EntityTypeName%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/ServiceLayerBase.cs/#L72">View Source</a>
+  </span>
+  <a id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_EntityTypeName_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.EntityTypeName*"></a>
+  <h4 id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_EntityTypeName" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.EntityTypeName">EntityTypeName</h4>
+  <div class="markdown level1 summary"><p>The type name used in error messages when an entity is not found.
+Defaults to typeof(TModel).Name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual string EntityTypeName { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_ServiceLayerBase_3_Repository.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.ServiceLayerBase%603.Repository%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/ServiceLayerBase.cs/#L47">View Source</a>
+  </span>
+  <a id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_Repository_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.Repository*"></a>
+  <h4 id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_Repository" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.Repository">Repository</h4>
+  <div class="markdown level1 summary"><p>The repository used to persist entities.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected IAsyncReadableRepository&lt;TEntity, TIdentity&gt; Repository { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IAsyncReadableRepository</span>&lt;TEntity, TIdentity&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_ServiceLayerBase_3_Validator.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.ServiceLayerBase%603.Validator%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/ServiceLayerBase.cs/#L53">View Source</a>
+  </span>
+  <a id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_Validator_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.Validator*"></a>
+  <h4 id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_Validator" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.Validator">Validator</h4>
+  <div class="markdown level1 summary"><p>The validator applied to models before save.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected IValidatorStrategy&lt;TModel&gt; Validator { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Benday.EfCore.ServiceLayers.IValidatorStrategy-1.html">IValidatorStrategy</a>&lt;TModel&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_ServiceLayerBase_3_AfterSave__0_.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.ServiceLayerBase%603.AfterSave(%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/ServiceLayerBase.cs/#L197">View Source</a>
+  </span>
+  <a id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_AfterSave_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.AfterSave*"></a>
+  <h4 id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_AfterSave__0_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.AfterSave(`0)">AfterSave(TModel)</h4>
+  <div class="markdown level1 summary"><p>Override for custom logic after save.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void AfterSave(TModel saveThis)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">saveThis</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_ServiceLayerBase_3_BeforeReturnFromGet__0_.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.ServiceLayerBase%603.BeforeReturnFromGet(%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/ServiceLayerBase.cs/#L203">View Source</a>
+  </span>
+  <a id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_BeforeReturnFromGet_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.BeforeReturnFromGet*"></a>
+  <h4 id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_BeforeReturnFromGet__0_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.BeforeReturnFromGet(`0)">BeforeReturnFromGet(TModel)</h4>
+  <div class="markdown level1 summary"><p>Override to enrich models after loading from repository.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void BeforeReturnFromGet(TModel model)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">model</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_ServiceLayerBase_3_BeforeSave__0_.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.ServiceLayerBase%603.BeforeSave(%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/ServiceLayerBase.cs/#L194">View Source</a>
+  </span>
+  <a id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_BeforeSave_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.BeforeSave*"></a>
+  <h4 id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_BeforeSave__0_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.BeforeSave(`0)">BeforeSave(TModel)</h4>
+  <div class="markdown level1 summary"><p>Override for custom logic before save (after validation has passed).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void BeforeSave(TModel saveThis)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">saveThis</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_ServiceLayerBase_3_DeleteAsync__0_.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.ServiceLayerBase%603.DeleteAsync(%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/ServiceLayerBase.cs/#L124">View Source</a>
+  </span>
+  <a id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_DeleteAsync_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.DeleteAsync*"></a>
+  <h4 id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_DeleteAsync__0_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.DeleteAsync(`0)">DeleteAsync(TModel)</h4>
+  <div class="markdown level1 summary"><p>Deletes the entity that corresponds to the supplied model.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task DeleteAsync(TModel deleteThis)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">deleteThis</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_ServiceLayerBase_3_DeleteByIdAsync__2_.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.ServiceLayerBase%603.DeleteByIdAsync(%602)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/ServiceLayerBase.cs/#L138">View Source</a>
+  </span>
+  <a id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_DeleteByIdAsync_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.DeleteByIdAsync*"></a>
+  <h4 id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_DeleteByIdAsync__2_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.DeleteByIdAsync(`2)">DeleteByIdAsync(TIdentity)</h4>
+  <div class="markdown level1 summary"><p>Deletes the entity with the supplied id.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task DeleteByIdAsync(TIdentity id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TIdentity</span></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_ServiceLayerBase_3_GetAllAsync.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.ServiceLayerBase%603.GetAllAsync%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/ServiceLayerBase.cs/#L166">View Source</a>
+  </span>
+  <a id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_GetAllAsync_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.GetAllAsync*"></a>
+  <h4 id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_GetAllAsync" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.GetAllAsync">GetAllAsync()</h4>
+  <div class="markdown level1 summary"><p>Loads all entities and adapts them to domain models.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;IList&lt;TModel&gt;&gt; GetAllAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;TModel&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_ServiceLayerBase_3_GetByIdAsync__2_.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.ServiceLayerBase%603.GetByIdAsync(%602)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/ServiceLayerBase.cs/#L149">View Source</a>
+  </span>
+  <a id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_GetByIdAsync_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.GetByIdAsync*"></a>
+  <h4 id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_GetByIdAsync__2_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.GetByIdAsync(`2)">GetByIdAsync(TIdentity)</h4>
+  <div class="markdown level1 summary"><p>Loads an entity by id and adapts it to a domain model, or returns null.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;TModel?&gt; GetByIdAsync(TIdentity id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TIdentity</span></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;TModel&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_ServiceLayerBase_3_IsNew__2_.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.ServiceLayerBase%603.IsNew(%602)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/ServiceLayerBase.cs/#L78">View Source</a>
+  </span>
+  <a id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_IsNew_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.IsNew*"></a>
+  <h4 id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_IsNew__2_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.IsNew(`2)">IsNew(TIdentity)</h4>
+  <div class="markdown level1 summary"><p>Returns true when the identity value indicates a new, unpersisted item.
+Default: Id equals default(TIdentity). Override for client-assigned keys.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual bool IsNew(TIdentity id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TIdentity</span></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_ServiceLayerBase_3_OnBeforeAdapt__0__1_.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.ServiceLayerBase%603.OnBeforeAdapt(%600%2C%601)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/ServiceLayerBase.cs/#L200">View Source</a>
+  </span>
+  <a id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_OnBeforeAdapt_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.OnBeforeAdapt*"></a>
+  <h4 id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_OnBeforeAdapt__0__1_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.OnBeforeAdapt(`0,`1)">OnBeforeAdapt(TModel, TEntity)</h4>
+  <div class="markdown level1 summary"><p>Override for custom logic after fetching the entity, before adapting.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnBeforeAdapt(TModel model, TEntity entity)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">model</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">TEntity</span></td>
+        <td><span class="parametername">entity</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_ServiceLayerBase_3_PopulateFieldsFromEntityAfterSave__1__0_.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.ServiceLayerBase%603.PopulateFieldsFromEntityAfterSave(%601%2C%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/ServiceLayerBase.cs/#L185">View Source</a>
+  </span>
+  <a id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_PopulateFieldsFromEntityAfterSave_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.PopulateFieldsFromEntityAfterSave*"></a>
+  <h4 id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_PopulateFieldsFromEntityAfterSave__1__0_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.PopulateFieldsFromEntityAfterSave(`1,`0)">PopulateFieldsFromEntityAfterSave(TEntity, TModel)</h4>
+  <div class="markdown level1 summary"><p>Copies the database-assigned Id back to the model after save.
+Override to copy additional fields (e.g. audit fields, timestamps).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void PopulateFieldsFromEntityAfterSave(TEntity fromEntity, TModel toModel)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TEntity</span></td>
+        <td><span class="parametername">fromEntity</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">toModel</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_ServiceLayerBase_3_SaveAsync__0_.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.ServiceLayerBase%603.SaveAsync(%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/ServiceLayerBase.cs/#L85">View Source</a>
+  </span>
+  <a id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_SaveAsync_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.SaveAsync*"></a>
+  <h4 id="Benday_EfCore_ServiceLayers_ServiceLayerBase_3_SaveAsync__0_" data-uid="Benday.EfCore.ServiceLayers.ServiceLayerBase`3.SaveAsync(`0)">SaveAsync(TModel)</h4>
+  <div class="markdown level1 summary"><p>Validates and saves a domain model: validate → get or create the
+entity → adapt → save → copy database-assigned fields back to the model.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task SaveAsync(TModel saveThis)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">saveThis</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <span class="xref">Benday.Common.Interfaces.IAsyncService&lt;T, TKey&gt;</span>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_ServiceLayers_ServiceLayerBase_3.md&amp;value=---%0Auid%3A%20Benday.EfCore.ServiceLayers.ServiceLayerBase%603%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/ServiceLayers/ServiceLayerBase.cs/#L40" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      Copyright © <a href="https://www.benday.com/">www.benday.com</a> | <a href="mailto:info@benday.com">info@benday.com</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

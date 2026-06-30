@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Namespace Benday.EfCore.Adapters </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Namespace Benday.EfCore.Adapters ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <div class="navbar-brand">
+                <a href="../">
+                  <img id="logo" src="../logo.png" alt="" alt="asdf" width="50" height="50">
+                </a>
+
+              </div>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Benday.EfCore.Adapters">
+
+  <h1 id="Benday_EfCore_Adapters" data-uid="Benday.EfCore.Adapters" class="text-break">Namespace Benday.EfCore.Adapters</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">
+Classes
+</h3>
+      <h4><a class="xref" href="Benday.EfCore.Adapters.AdapterBase-2.html">AdapterBase&lt;TModel, TEntity&gt;</a></h4>
+      <section><p>Non-generic int convenience shim over <a class="xref" href="Benday.EfCore.Adapters.AdapterBase-3.html">AdapterBase&lt;TModel, TEntity, TIdentity&gt;</a>.
+Int consumers derive from this and keep their existing syntax unchanged.</p>
+</section>
+      <h4><a class="xref" href="Benday.EfCore.Adapters.AdapterBase-3.html">AdapterBase&lt;TModel, TEntity, TIdentity&gt;</a></h4>
+      <section><p>Bidirectional adapter between a domain model (TModel) and
+an EF Core entity (TEntity).</p>
+<p>Handles single-item mapping in both directions, plus the tricky
+part: collection mapping with merge logic. When adapting a list of
+models to a list of entities, the adapter:</p>
+<ul>
+<li>Matches existing items by Id and updates them in place</li>
+<li>Creates new entity instances for new models (see <a class="xref" href="Benday.EfCore.Adapters.AdapterBase-3.html#Benday_EfCore_Adapters_AdapterBase_3_IsNew__2_">IsNew(TIdentity)</a>)</li>
+<li>Marks entities for delete when their Id no longer appears
+in the model list (via IsMarkedForDelete)</li>
+</ul>
+<p>Subclasses implement PerformAdapt for the actual property copying.
+The base class handles the lifecycle, matching, and delete detection.</p>
+<p>The identity type is generic (<code class="typeparamref">TIdentity</code>). Int consumers
+use the non-generic <a class="xref" href="Benday.EfCore.Adapters.AdapterBase-2.html">AdapterBase&lt;TModel, TEntity&gt;</a> shim.</p>
+</section>
+      <h4><a class="xref" href="Benday.EfCore.Adapters.CoreFieldsAdapterBase-2.html">CoreFieldsAdapterBase&lt;TModel, TEntity&gt;</a></h4>
+      <section><p>Non-generic int convenience shim over
+<a class="xref" href="Benday.EfCore.Adapters.CoreFieldsAdapterBase-3.html">CoreFieldsAdapterBase&lt;TModel, TEntity, TIdentity&gt;</a>.
+Int consumers derive from this and keep their existing syntax unchanged.</p>
+</section>
+      <h4><a class="xref" href="Benday.EfCore.Adapters.CoreFieldsAdapterBase-3.html">CoreFieldsAdapterBase&lt;TModel, TEntity, TIdentity&gt;</a></h4>
+      <section><p>Adapter base for CoreFields models/entities. Copies the framework-managed
+fields — Status, the four audit fields, and the optimistic-concurrency
+token (plus identity, entity → model) — automatically in both directions,
+leaving subclasses to override only <code>PerformAdapt</code> for their own
+properties. This is the adapter-tier parallel to
+<a class="xref" href="Benday.EfCore.Entities.CoreFieldsEntityBase-1.html">CoreFieldsEntityBase&lt;TIdentity&gt;</a>,
+<a class="xref" href="Benday.EfCore.DomainModels.CoreFieldsDomainModelBase-1.html">CoreFieldsDomainModelBase&lt;TIdentity&gt;</a>, and the
+CoreFields service-layer base.</p>
+<p>The framework copy runs via the <a class="xref" href="Benday.EfCore.Adapters.AdapterBase-3.html#Benday_EfCore_Adapters_AdapterBase_3_CopyFrameworkFields__0__1_">CopyFrameworkFields(TModel, TEntity)</a>
+hook, so the override surface is identical to a plain adapter: you still
+only implement <code>PerformAdapt</code>.</p>
+<p>Escape hatches: override <code>CopyFrameworkFields</code> to take full control,
+and call the granular <a class="xref" href="Benday.EfCore.Adapters.CoreFieldsAdapterBase-3.html#Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyAuditFields__0__1_">CopyAuditFields(TModel, TEntity)</a>,
+<a class="xref" href="Benday.EfCore.Adapters.CoreFieldsAdapterBase-3.html#Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyStatus__0__1_">CopyStatus(TModel, TEntity)</a>, and
+<a class="xref" href="Benday.EfCore.Adapters.CoreFieldsAdapterBase-3.html#Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyConcurrencyToken__0__1_">CopyConcurrencyToken(TModel, TEntity)</a> helpers to reuse only
+the pieces you want. Override everything and you're on your own — nothing
+forces the helpers on you.</p>
+</section>
+    <h3 id="enums">
+Enums
+</h3>
+      <h4><a class="xref" href="Benday.EfCore.Adapters.AdapterAction.html">AdapterAction</a></h4>
+      <section><p>Controls what happens to an individual item during adaptation.
+Returned from BeforeAdapt hooks.</p>
+</section>
+
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      Copyright © <a href="https://www.benday.com/">www.benday.com</a> | <a href="mailto:info@benday.com">info@benday.com</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

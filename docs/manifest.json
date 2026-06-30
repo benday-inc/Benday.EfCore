@@ -4,6 +4,356 @@
   "files": [
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Adapters.AdapterAction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Adapters.AdapterAction.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Adapters.AdapterAction",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Adapters.AdapterAction.yml\" sourcestartlinenumber=\"1\">Controls what happens to an individual item during adaptation.\nReturned from BeforeAdapt hooks.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Adapters.AdapterBase-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Adapters.AdapterBase-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Adapters.AdapterBase<TModel, TEntity>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Adapters.AdapterBase-2.yml\" sourcestartlinenumber=\"1\">Non-generic int convenience shim over <xref href=\"Benday.EfCore.Adapters.AdapterBase%603\" data-throw-if-not-resolved=\"false\"></xref>.\nInt consumers derive from this and keep their existing syntax unchanged.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Adapters.AdapterBase-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Adapters.AdapterBase-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Adapters.AdapterBase<TModel, TEntity, TIdentity>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Adapters.AdapterBase-3.yml\" sourcestartlinenumber=\"1\">Bidirectional adapter between a domain model (TModel) and\nan EF Core entity (TEntity).</p>\n<p sourcefile=\"api/Benday.EfCore.Adapters.AdapterBase-3.yml\" sourcestartlinenumber=\"4\">Handles single-item mapping in both directions, plus the tricky\npart: collection mapping with merge logic. When adapting a list of\nmodels to a list of entities, the adapter:</p>\n<ul sourcefile=\"api/Benday.EfCore.Adapters.AdapterBase-3.yml\" sourcestartlinenumber=\"8\">\n<li sourcefile=\"api/Benday.EfCore.Adapters.AdapterBase-3.yml\" sourcestartlinenumber=\"8\">Matches existing items by Id and updates them in place</li>\n<li sourcefile=\"api/Benday.EfCore.Adapters.AdapterBase-3.yml\" sourcestartlinenumber=\"9\">Creates new entity instances for new models (see <xref href=\"Benday.EfCore.Adapters.AdapterBase%603.IsNew(%602)\" data-throw-if-not-resolved=\"false\"></xref>)</li>\n<li sourcefile=\"api/Benday.EfCore.Adapters.AdapterBase-3.yml\" sourcestartlinenumber=\"10\">Marks entities for delete when their Id no longer appears\nin the model list (via IsMarkedForDelete)</li>\n</ul>\n<p sourcefile=\"api/Benday.EfCore.Adapters.AdapterBase-3.yml\" sourcestartlinenumber=\"13\">Subclasses implement PerformAdapt for the actual property copying.\nThe base class handles the lifecycle, matching, and delete detection.</p>\n<p sourcefile=\"api/Benday.EfCore.Adapters.AdapterBase-3.yml\" sourcestartlinenumber=\"16\">The identity type is generic (<code class=\"typeparamref\">TIdentity</code>). Int consumers\nuse the non-generic <xref href=\"Benday.EfCore.Adapters.AdapterBase%602\" data-throw-if-not-resolved=\"false\"></xref> shim.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Adapters.CoreFieldsAdapterBase-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Adapters.CoreFieldsAdapterBase-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Adapters.CoreFieldsAdapterBase<TModel, TEntity>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Adapters.CoreFieldsAdapterBase-2.yml\" sourcestartlinenumber=\"1\">Non-generic int convenience shim over\n<xref href=\"Benday.EfCore.Adapters.CoreFieldsAdapterBase%603\" data-throw-if-not-resolved=\"false\"></xref>.\nInt consumers derive from this and keep their existing syntax unchanged.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Adapters.CoreFieldsAdapterBase-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Adapters.CoreFieldsAdapterBase-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Adapters.CoreFieldsAdapterBase<TModel, TEntity, TIdentity>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Adapters.CoreFieldsAdapterBase-3.yml\" sourcestartlinenumber=\"1\">Adapter base for CoreFields models/entities. Copies the framework-managed\nfields — Status, the four audit fields, and the optimistic-concurrency\ntoken (plus identity, entity → model) — automatically in both directions,\nleaving subclasses to override only <code>PerformAdapt</code> for their own\nproperties. This is the adapter-tier parallel to\n<xref href=\"Benday.EfCore.Entities.CoreFieldsEntityBase%601\" data-throw-if-not-resolved=\"false\"></xref>,\n<xref href=\"Benday.EfCore.DomainModels.CoreFieldsDomainModelBase%601\" data-throw-if-not-resolved=\"false\"></xref>, and the\nCoreFields service-layer base.</p>\n<p sourcefile=\"api/Benday.EfCore.Adapters.CoreFieldsAdapterBase-3.yml\" sourcestartlinenumber=\"10\">The framework copy runs via the <xref href=\"Benday.EfCore.Adapters.AdapterBase%603.CopyFrameworkFields(%600%2c%601)\" data-throw-if-not-resolved=\"false\"></xref>\nhook, so the override surface is identical to a plain adapter: you still\nonly implement <code>PerformAdapt</code>.</p>\n<p sourcefile=\"api/Benday.EfCore.Adapters.CoreFieldsAdapterBase-3.yml\" sourcestartlinenumber=\"14\">Escape hatches: override <code>CopyFrameworkFields</code> to take full control,\nand call the granular <xref href=\"Benday.EfCore.Adapters.CoreFieldsAdapterBase%603.CopyAuditFields(%600%2c%601)\" data-throw-if-not-resolved=\"false\"></xref>,\n<xref href=\"Benday.EfCore.Adapters.CoreFieldsAdapterBase%603.CopyStatus(%600%2c%601)\" data-throw-if-not-resolved=\"false\"></xref>, and\n<xref href=\"Benday.EfCore.Adapters.CoreFieldsAdapterBase%603.CopyConcurrencyToken(%600%2c%601)\" data-throw-if-not-resolved=\"false\"></xref> helpers to reuse only\nthe pieces you want. Override everything and you're on your own — nothing\nforces the helpers on you.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Adapters.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Adapters.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Adapters",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.DomainModels.CoreFieldsDomainModelBase-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.DomainModels.CoreFieldsDomainModelBase-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.DomainModels.CoreFieldsDomainModelBase<TIdentity>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.DomainModels.CoreFieldsDomainModelBase-1.yml\" sourcestartlinenumber=\"1\">Domain model base class with audit fields and optimistic concurrency.</p>\n<p sourcefile=\"api/Benday.EfCore.DomainModels.CoreFieldsDomainModelBase-1.yml\" sourcestartlinenumber=\"3\">The Timestamp property carries the concurrency token across the\nadapter boundary so the service layer can detect conflicting updates\nwithout touching the entity layer directly.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.DomainModels.CoreFieldsDomainModelBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.DomainModels.CoreFieldsDomainModelBase.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.DomainModels.CoreFieldsDomainModelBase",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.DomainModels.CoreFieldsDomainModelBase.yml\" sourcestartlinenumber=\"1\">Non-generic int convenience shim over <xref href=\"Benday.EfCore.DomainModels.CoreFieldsDomainModelBase%601\" data-throw-if-not-resolved=\"false\"></xref>.\nInt consumers derive from this and keep their existing syntax unchanged.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.DomainModels.DomainModelBase-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.DomainModels.DomainModelBase-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.DomainModels.DomainModelBase<TIdentity>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.DomainModels.DomainModelBase-1.yml\" sourcestartlinenumber=\"1\">Base class for domain models. Uses IEntityIdentity{int} from\nthe shared interface package so domain models and entities\nshare the same identity contract.</p>\n<p sourcefile=\"api/Benday.EfCore.DomainModels.DomainModelBase-1.yml\" sourcestartlinenumber=\"5\">Domain models are NOT EF Core entities. They live on the business\nlogic side of the adapter boundary. EF Core should never see these.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.DomainModels.DomainModelBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.DomainModels.DomainModelBase.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.DomainModels.DomainModelBase",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.DomainModels.DomainModelBase.yml\" sourcestartlinenumber=\"1\">Non-generic int convenience shim over <xref href=\"Benday.EfCore.DomainModels.DomainModelBase%601\" data-throw-if-not-resolved=\"false\"></xref>.\nInt consumers derive from this and keep their existing syntax unchanged.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.DomainModels.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.DomainModels.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.DomainModels",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Entities.CoreFieldsEntityBase-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Entities.CoreFieldsEntityBase-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Entities.CoreFieldsEntityBase<TIdentity>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Entities.CoreFieldsEntityBase-1.yml\" sourcestartlinenumber=\"1\">Entity base class with audit fields (CreatedBy, CreatedDate,\nLastModifiedBy, LastModifiedDate) and an optimistic concurrency\ntoken (<xref href=\"Benday.EfCore.Entities.CoreFieldsEntityBase%601.Timestamp\" data-throw-if-not-resolved=\"false\"></xref>).</p>\n<p sourcefile=\"api/Benday.EfCore.Entities.CoreFieldsEntityBase-1.yml\" sourcestartlinenumber=\"5\">The concurrency token is mapped per provider rather than via a\nDataAnnotations attribute so this type stays provider-agnostic.\nSQL Server consumers map it as <code>rowversion</code> by calling\n<code>ApplyBendaySqlServerConcurrency()</code> (from Benday.EfCore.SqlServer)\nin <code>OnModelCreating</code>.</p>\n<p sourcefile=\"api/Benday.EfCore.Entities.CoreFieldsEntityBase-1.yml\" sourcestartlinenumber=\"11\">Column ordering places audit fields after the entity's own columns\nso they sort to the end of the table in the database.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Entities.CoreFieldsEntityBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Entities.CoreFieldsEntityBase.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Entities.CoreFieldsEntityBase",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Entities.CoreFieldsEntityBase.yml\" sourcestartlinenumber=\"1\">Non-generic int convenience shim over <xref href=\"Benday.EfCore.Entities.CoreFieldsEntityBase%601\" data-throw-if-not-resolved=\"false\"></xref>.\nInt consumers derive from this and keep their existing syntax unchanged.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Entities.DependentEntityCollection-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Entities.DependentEntityCollection-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Entities.DependentEntityCollection<T>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Entities.DependentEntityCollection-1.yml\" sourcestartlinenumber=\"1\">Non-generic int convenience shim over <xref href=\"Benday.EfCore.Entities.DependentEntityCollection%602\" data-throw-if-not-resolved=\"false\"></xref>.\nInt consumers wrap their child collections with this and keep their existing\nsyntax unchanged.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Entities.DependentEntityCollection-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Entities.DependentEntityCollection-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Entities.DependentEntityCollection<T, TIdentity>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Entities.DependentEntityCollection-2.yml\" sourcestartlinenumber=\"1\">Manages the save/delete lifecycle for a collection of child entities.</p>\n<p sourcefile=\"api/Benday.EfCore.Entities.DependentEntityCollection-2.yml\" sourcestartlinenumber=\"3\">Before SaveChanges: any item with IsMarkedForDelete == true is removed\nfrom the DbSet so EF Core will delete it from the database.</p>\n<p sourcefile=\"api/Benday.EfCore.Entities.DependentEntityCollection-2.yml\" sourcestartlinenumber=\"6\">After SaveChanges: items marked for delete are pruned from the\nin-memory collection so the parent entity's navigation property\nreflects the current state.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Entities.EntityBase-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Entities.EntityBase-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Entities.EntityBase<TIdentity>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Entities.EntityBase-1.yml\" sourcestartlinenumber=\"1\">Base class for EF Core entities. Implements the shared\nIEntityIdentity and IDeleteable interfaces from Benday.Common.Interfaces.</p>\n<p sourcefile=\"api/Benday.EfCore.Entities.EntityBase-1.yml\" sourcestartlinenumber=\"4\">The identity type is generic (<code class=\"typeparamref\">TIdentity</code>) so the same\nbase class supports int, Guid, string, or any other key type. Int consumers\nuse the non-generic <xref href=\"Benday.EfCore.Entities.EntityBase\" data-throw-if-not-resolved=\"false\"></xref> shim and never type <code>&lt;int&gt;</code>.</p>\n<p sourcefile=\"api/Benday.EfCore.Entities.EntityBase-1.yml\" sourcestartlinenumber=\"8\">IsMarkedForDelete is [NotMapped] — it only exists in memory to signal\nthe DependentEntityCollection to remove this item during save.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Entities.EntityBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Entities.EntityBase.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Entities.EntityBase",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Entities.EntityBase.yml\" sourcestartlinenumber=\"1\">Non-generic int convenience shim over <xref href=\"Benday.EfCore.Entities.EntityBase%601\" data-throw-if-not-resolved=\"false\"></xref>.\nInt consumers derive from this and keep their existing syntax unchanged.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Entities.IDependentEntityCollection-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Entities.IDependentEntityCollection-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Entities.IDependentEntityCollection<TIdentity>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Entities.IDependentEntityCollection-1.yml\" sourcestartlinenumber=\"1\">Generic extension of <xref href=\"Benday.EfCore.Entities.IDependentEntityCollection\" data-throw-if-not-resolved=\"false\"></xref> that exposes\ntyped identity access for callers (notably test doubles) that need to walk\nthe children and assign identities the way EF Core would during SaveChanges.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Entities.IDependentEntityCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Entities.IDependentEntityCollection.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Entities.IDependentEntityCollection",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Entities.IDependentEntityCollection.yml\" sourcestartlinenumber=\"1\">Manages the lifecycle of dependent/child entities during save operations.\nBefore save: removes items marked for delete from the DbSet.\nAfter save: prunes the in-memory collection.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Entities.IEntityWithDependents.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Entities.IEntityWithDependents.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Entities.IEntityWithDependents",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Entities.IEntityWithDependents.yml\" sourcestartlinenumber=\"1\">Interface for entities that manage dependent/child entity collections.\nThis is the aggregate root pattern — the parent entity controls the\nlifecycle of its children during save and delete operations.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Entities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Entities.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Entities",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Migrations.DefaultDesignTimeDbContextFactory-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Migrations.DefaultDesignTimeDbContextFactory-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Migrations.DefaultDesignTimeDbContextFactory<TContext>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Migrations.DefaultDesignTimeDbContextFactory-1.yml\" sourcestartlinenumber=\"1\">Provider-agnostic design-time DbContext factory base so the EF Core CLI\n(<code>dotnet ef</code>) can construct a context for generating migrations. Reads a\nnamed connection string (default: &quot;default&quot;) from appsettings.json plus\nenvironment-specific overrides and environment variables.</p>\n<p sourcefile=\"api/Benday.EfCore.Migrations.DefaultDesignTimeDbContextFactory-1.yml\" sourcestartlinenumber=\"6\">Provider packages supply the actual provider wiring by overriding\n<xref href=\"Benday.EfCore.Migrations.DefaultDesignTimeDbContextFactory%601.ConfigureProvider(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder%7b%600%7d%2cSystem.String)\" data-throw-if-not-resolved=\"false\"></xref> (for example,\n<code>SqlServerDesignTimeDbContextFactory</code> in Benday.EfCore.SqlServer calls\n<code>UseSqlServer</code>). Concrete factories override\n<xref href=\"Benday.EfCore.Migrations.DefaultDesignTimeDbContextFactory%601.Create(Microsoft.EntityFrameworkCore.DbContextOptions%7b%600%7d)\" data-throw-if-not-resolved=\"false\"></xref> to construct the context.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Migrations.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Migrations.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Migrations",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Registration.EfCoreRegistrationExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Registration.EfCoreRegistrationExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Registration.EfCoreRegistrationExtensions",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Registration.EfCoreRegistrationExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for IServiceCollection to make registration clean.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Registration.EfCoreRegistrationHelper-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Registration.EfCoreRegistrationHelper-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Registration.EfCoreRegistrationHelper<TDbContext>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Registration.EfCoreRegistrationHelper-1.yml\" sourcestartlinenumber=\"1\">Fluent registration helper for wiring up the repository + adapter +\nservice layer architecture with DI. Modeled after CosmosRegistrationHelper.</p>\n<p sourcefile=\"api/Benday.EfCore.Registration.EfCoreRegistrationHelper-1.yml\" sourcestartlinenumber=\"4\">Usage:</p>\n<pre><code class=\"lang-csharp\">services.AddBendayEfCore&lt;MyDbContext&gt;(options =&gt;\n{\n    options.UseConnectionString(connectionString);\n    options.RegisterDbContext();\n\n    options.RegisterAggregate&lt;\n        IPersonRepository, SqlPersonRepository,\n        PersonAdapter,\n        PersonDomainModel,\n        IPersonService, PersonService&gt;();\n});</code></pre>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Benday.EfCore.Registration.SqlServerRegistrationExtensions.yml",
       "output": {
         ".html": {
@@ -28,6 +378,216 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Benday.EfCore.Registration",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Repositories.EfCoreCrudRepositoryBase-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Repositories.EfCoreCrudRepositoryBase-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Repositories.EfCoreCrudRepositoryBase<TEntity, TDbContext>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Repositories.EfCoreCrudRepositoryBase-2.yml\" sourcestartlinenumber=\"1\">Non-generic int convenience shim over\n<xref href=\"Benday.EfCore.Repositories.EfCoreCrudRepositoryBase%603\" data-throw-if-not-resolved=\"false\"></xref>.\nInt consumers derive from this and keep their existing syntax unchanged.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Repositories.EfCoreCrudRepositoryBase-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Repositories.EfCoreCrudRepositoryBase-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Repositories.EfCoreCrudRepositoryBase<TEntity, TIdentity, TDbContext>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Repositories.EfCoreCrudRepositoryBase-3.yml\" sourcestartlinenumber=\"1\">CRUD repository with async operations and aggregate root support.</p>\n<p sourcefile=\"api/Benday.EfCore.Repositories.EfCoreCrudRepositoryBase-3.yml\" sourcestartlinenumber=\"3\">Implements IAsyncReadableRepository from Benday.Common.Interfaces so\nthe same repository contract works whether the storage is SQL Server,\nCosmos DB, or anything else.</p>\n<p sourcefile=\"api/Benday.EfCore.Repositories.EfCoreCrudRepositoryBase-3.yml\" sourcestartlinenumber=\"7\">The save lifecycle handles dependent entities automatically:</p>\n<ol sourcefile=\"api/Benday.EfCore.Repositories.EfCoreCrudRepositoryBase-3.yml\" sourcestartlinenumber=\"8\">\n<li sourcefile=\"api/Benday.EfCore.Repositories.EfCoreCrudRepositoryBase-3.yml\" sourcestartlinenumber=\"8\">VerifyItemIsAddedOrAttached</li>\n<li sourcefile=\"api/Benday.EfCore.Repositories.EfCoreCrudRepositoryBase-3.yml\" sourcestartlinenumber=\"9\">BeforeSave (override for custom logic)</li>\n<li sourcefile=\"api/Benday.EfCore.Repositories.EfCoreCrudRepositoryBase-3.yml\" sourcestartlinenumber=\"10\">BeforeSave on each DependentEntityCollection (marks-for-delete handling)</li>\n<li sourcefile=\"api/Benday.EfCore.Repositories.EfCoreCrudRepositoryBase-3.yml\" sourcestartlinenumber=\"11\">SaveChangesAsync</li>\n<li sourcefile=\"api/Benday.EfCore.Repositories.EfCoreCrudRepositoryBase-3.yml\" sourcestartlinenumber=\"12\">AfterSave on each DependentEntityCollection (prune in-memory)</li>\n<li sourcefile=\"api/Benday.EfCore.Repositories.EfCoreCrudRepositoryBase-3.yml\" sourcestartlinenumber=\"13\">AfterSave (override for custom logic)</li>\n</ol>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Repositories.EfCoreRepositoryBase-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Repositories.EfCoreRepositoryBase-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Repositories.EfCoreRepositoryBase<TEntity, TDbContext>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Repositories.EfCoreRepositoryBase-2.yml\" sourcestartlinenumber=\"1\">Non-generic int convenience shim over\n<xref href=\"Benday.EfCore.Repositories.EfCoreRepositoryBase%603\" data-throw-if-not-resolved=\"false\"></xref>.\nInt consumers derive from this and keep their existing syntax unchanged.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Repositories.EfCoreRepositoryBase-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Repositories.EfCoreRepositoryBase-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Repositories.EfCoreRepositoryBase<TEntity, TIdentity, TDbContext>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Repositories.EfCoreRepositoryBase-3.yml\" sourcestartlinenumber=\"1\">Base repository. Owns the DbContext and handles the\nadd-vs-attach decision based on the <xref href=\"Benday.EfCore.Repositories.EfCoreRepositoryBase%603.IsNew(%600)\" data-throw-if-not-resolved=\"false\"></xref> seam.</p>\n<p sourcefile=\"api/Benday.EfCore.Repositories.EfCoreRepositoryBase-3.yml\" sourcestartlinenumber=\"4\">The identity type is generic (<code class=\"typeparamref\">TIdentity</code>). Int consumers\nuse the non-generic <xref href=\"Benday.EfCore.Repositories.EfCoreRepositoryBase%602\" data-throw-if-not-resolved=\"false\"></xref> shim.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Repositories.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Repositories.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Repositories",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase<TModel, TEntity>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase-2.yml\" sourcestartlinenumber=\"1\">Non-generic int convenience shim over\n<xref href=\"Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase%603\" data-throw-if-not-resolved=\"false\"></xref>.\nInt consumers derive from this and keep their existing syntax unchanged.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase<TModel, TEntity, TIdentity>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase-3.yml\" sourcestartlinenumber=\"1\">Service layer base for entities with audit fields.</p>\n<p sourcefile=\"api/Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase-3.yml\" sourcestartlinenumber=\"3\">Automatically populates CreatedBy/CreatedDate on new items\nand LastModifiedBy/LastModifiedDate on every save. No change\ntracking required — we just always update the last-modified fields.</p>\n<p sourcefile=\"api/Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase-3.yml\" sourcestartlinenumber=\"7\">Also copies audit fields and the concurrency timestamp back to\nthe model after save so the caller has current values.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.ServiceLayers.DefaultValidatorStrategy-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.ServiceLayers.DefaultValidatorStrategy-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.ServiceLayers.DefaultValidatorStrategy<T>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.ServiceLayers.DefaultValidatorStrategy-1.yml\" sourcestartlinenumber=\"1\">Default validator that uses DataAnnotations attributes on the\ndomain model. Returns validation results for callers that need\nerror details.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.ServiceLayers.IUsernameProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.ServiceLayers.IUsernameProvider.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.ServiceLayers.IUsernameProvider",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.ServiceLayers.IUsernameProvider.yml\" sourcestartlinenumber=\"1\">Provides the current username for audit field population.</p>\n<p sourcefile=\"api/Benday.EfCore.ServiceLayers.IUsernameProvider.yml\" sourcestartlinenumber=\"3\">In production, this is typically backed by HttpContext.User.\nIn tests, it's a fake that returns a predictable value.\nThis is why it's an interface — so your service layer never\ntouches HttpContext directly.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.ServiceLayers.IValidatorStrategy-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.ServiceLayers.IValidatorStrategy-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.ServiceLayers.IValidatorStrategy<T>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.ServiceLayers.IValidatorStrategy-1.yml\" sourcestartlinenumber=\"1\">Validation strategy interface. Decouples validation logic from\nboth the domain model and the service layer so each validation\nrule is independently testable and swappable via DI.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.ServiceLayers.InvalidObjectException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.ServiceLayers.InvalidObjectException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.ServiceLayers.InvalidObjectException",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.ServiceLayers.InvalidObjectException.yml\" sourcestartlinenumber=\"1\">Invalid object exception thrown when validation fails in the service layer.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.ServiceLayers.ServiceLayerBase-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.ServiceLayers.ServiceLayerBase-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.ServiceLayers.ServiceLayerBase<TModel, TEntity>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.ServiceLayers.ServiceLayerBase-2.yml\" sourcestartlinenumber=\"1\">Non-generic int convenience shim over\n<xref href=\"Benday.EfCore.ServiceLayers.ServiceLayerBase%603\" data-throw-if-not-resolved=\"false\"></xref>.\nInt consumers derive from this and keep their existing syntax unchanged.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.ServiceLayers.ServiceLayerBase-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.ServiceLayers.ServiceLayerBase-3.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.ServiceLayers.ServiceLayerBase<TModel, TEntity, TIdentity>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.ServiceLayers.ServiceLayerBase-3.yml\" sourcestartlinenumber=\"1\">Base service layer. Handles the core flow:\nvalidate → get or create entity → adapt → save → copy back IDs.</p>\n<p sourcefile=\"api/Benday.EfCore.ServiceLayers.ServiceLayerBase-3.yml\" sourcestartlinenumber=\"4\">The service owns the adapter. The repository only deals in entities.\nThe controller/API layer only deals in domain models. The service\nis the bridge.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.ServiceLayers.UnknownObjectException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.ServiceLayers.UnknownObjectException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.ServiceLayers.UnknownObjectException",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.ServiceLayers.UnknownObjectException.yml\" sourcestartlinenumber=\"1\">Exception thrown when an entity cannot be found by Id.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.ServiceLayers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.ServiceLayers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.ServiceLayers",
       "Summary": null
     },
     {
@@ -84,6 +644,76 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Benday.EfCore.SqlServer",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Testing.Fakes.FakeUsernameProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Testing.Fakes.FakeUsernameProvider.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Testing.Fakes.FakeUsernameProvider",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Testing.Fakes.FakeUsernameProvider.yml\" sourcestartlinenumber=\"1\">Fake username provider for unit testing.\nReturns a predictable username so audit field tests are deterministic.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Testing.Fakes.FakeValidatorStrategy-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Testing.Fakes.FakeValidatorStrategy-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Testing.Fakes.FakeValidatorStrategy<T>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Testing.Fakes.FakeValidatorStrategy-1.yml\" sourcestartlinenumber=\"1\">Fake validator for unit testing. You control the outcome.\nSet IsValidReturnValue to false to test validation failure paths.\nDefaults to true so the happy path works without setup.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Testing.Fakes.InMemoryRepository-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Testing.Fakes.InMemoryRepository-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Testing.Fakes.InMemoryRepository<T>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Testing.Fakes.InMemoryRepository-1.yml\" sourcestartlinenumber=\"1\">Non-generic int convenience shim over <xref href=\"Benday.EfCore.Testing.Fakes.InMemoryRepository%602\" data-throw-if-not-resolved=\"false\"></xref>.\nInt consumers derive from this and keep their existing syntax unchanged.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Testing.Fakes.InMemoryRepository-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Testing.Fakes.InMemoryRepository-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Testing.Fakes.InMemoryRepository<T, TIdentity>",
+      "Summary": "<p sourcefile=\"api/Benday.EfCore.Testing.Fakes.InMemoryRepository-2.yml\" sourcestartlinenumber=\"1\">In-memory repository for unit testing. Implements the same\nIAsyncReadableRepository interface as the real SQL repository,\nso your service layer tests don't know the difference.</p>\n<p sourcefile=\"api/Benday.EfCore.Testing.Fakes.InMemoryRepository-2.yml\" sourcestartlinenumber=\"5\">Also tracks which methods were called, so you can assert that\nyour service layer is interacting with the repository correctly.</p>\n<p sourcefile=\"api/Benday.EfCore.Testing.Fakes.InMemoryRepository-2.yml\" sourcestartlinenumber=\"8\">This is the thing that makes &quot;testing without a database&quot; work.\nYour service layer talks to this fake. Your tests run in milliseconds.\nNo connection string. No SQL Server. No shared dev database.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Benday.EfCore.Testing.Fakes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Benday.EfCore.Testing.Fakes.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Benday.EfCore.Testing.Fakes",
       "Summary": null
     },
     {

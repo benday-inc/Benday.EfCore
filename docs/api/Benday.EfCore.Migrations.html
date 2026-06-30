@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Namespace Benday.EfCore.Registration </title>
+      <title>Namespace Benday.EfCore.Migrations </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Namespace Benday.EfCore.Registration ">
+      <meta name="title" content="Namespace Benday.EfCore.Migrations ">
     
     
       <link rel="shortcut icon" href="../favicon.ico">
@@ -67,37 +67,25 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Benday.EfCore.Registration">
+            <article class="content wrap" id="_content" data-uid="Benday.EfCore.Migrations">
 
-  <h1 id="Benday_EfCore_Registration" data-uid="Benday.EfCore.Registration" class="text-break">Namespace Benday.EfCore.Registration</h1>
+  <h1 id="Benday_EfCore_Migrations" data-uid="Benday.EfCore.Migrations" class="text-break">Namespace Benday.EfCore.Migrations</h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
   <div class="markdown level0 remarks"></div>
     <h3 id="classes">
 Classes
 </h3>
-      <h4><a class="xref" href="Benday.EfCore.Registration.EfCoreRegistrationExtensions.html">EfCoreRegistrationExtensions</a></h4>
-      <section><p>Extension methods for IServiceCollection to make registration clean.</p>
-</section>
-      <h4><a class="xref" href="Benday.EfCore.Registration.EfCoreRegistrationHelper-1.html">EfCoreRegistrationHelper&lt;TDbContext&gt;</a></h4>
-      <section><p>Fluent registration helper for wiring up the repository + adapter +
-service layer architecture with DI. Modeled after CosmosRegistrationHelper.</p>
-<p>Usage:</p>
-<pre><code class="lang-csharp">services.AddBendayEfCore&lt;MyDbContext&gt;(options =&gt;
-{
-    options.UseConnectionString(connectionString);
-    options.RegisterDbContext();
-
-    options.RegisterAggregate&lt;
-        IPersonRepository, SqlPersonRepository,
-        PersonAdapter,
-        PersonDomainModel,
-        IPersonService, PersonService&gt;();
-});</code></pre>
-</section>
-      <h4><a class="xref" href="Benday.EfCore.Registration.SqlServerRegistrationExtensions.html">SqlServerRegistrationExtensions</a></h4>
-      <section><p>SQL Server-specific conveniences layered on top of the provider-agnostic
-<a class="xref" href="Benday.EfCore.Registration.EfCoreRegistrationHelper-1.html">EfCoreRegistrationHelper&lt;TDbContext&gt;</a>.</p>
+      <h4><a class="xref" href="Benday.EfCore.Migrations.DefaultDesignTimeDbContextFactory-1.html">DefaultDesignTimeDbContextFactory&lt;TContext&gt;</a></h4>
+      <section><p>Provider-agnostic design-time DbContext factory base so the EF Core CLI
+(<code>dotnet ef</code>) can construct a context for generating migrations. Reads a
+named connection string (default: &quot;default&quot;) from appsettings.json plus
+environment-specific overrides and environment variables.</p>
+<p>Provider packages supply the actual provider wiring by overriding
+<a class="xref" href="Benday.EfCore.Migrations.DefaultDesignTimeDbContextFactory-1.html#Benday_EfCore_Migrations_DefaultDesignTimeDbContextFactory_1_ConfigureProvider_Microsoft_EntityFrameworkCore_DbContextOptionsBuilder__0__System_String_">ConfigureProvider(DbContextOptionsBuilder&lt;TContext&gt;, string)</a> (for example,
+<code>SqlServerDesignTimeDbContextFactory</code> in Benday.EfCore.SqlServer calls
+<code>UseSqlServer</code>). Concrete factories override
+<a class="xref" href="Benday.EfCore.Migrations.DefaultDesignTimeDbContextFactory-1.html#Benday_EfCore_Migrations_DefaultDesignTimeDbContextFactory_1_Create_Microsoft_EntityFrameworkCore_DbContextOptions__0__">Create(DbContextOptions&lt;TContext&gt;)</a> to construct the context.</p>
 </section>
 
 

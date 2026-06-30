@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Namespace Benday.EfCore.Registration </title>
+      <title>Namespace Benday.EfCore.DomainModels </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Namespace Benday.EfCore.Registration ">
+      <meta name="title" content="Namespace Benday.EfCore.DomainModels ">
     
     
       <link rel="shortcut icon" href="../favicon.ico">
@@ -67,37 +67,35 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Benday.EfCore.Registration">
+            <article class="content wrap" id="_content" data-uid="Benday.EfCore.DomainModels">
 
-  <h1 id="Benday_EfCore_Registration" data-uid="Benday.EfCore.Registration" class="text-break">Namespace Benday.EfCore.Registration</h1>
+  <h1 id="Benday_EfCore_DomainModels" data-uid="Benday.EfCore.DomainModels" class="text-break">Namespace Benday.EfCore.DomainModels</h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
   <div class="markdown level0 remarks"></div>
     <h3 id="classes">
 Classes
 </h3>
-      <h4><a class="xref" href="Benday.EfCore.Registration.EfCoreRegistrationExtensions.html">EfCoreRegistrationExtensions</a></h4>
-      <section><p>Extension methods for IServiceCollection to make registration clean.</p>
+      <h4><a class="xref" href="Benday.EfCore.DomainModels.CoreFieldsDomainModelBase.html">CoreFieldsDomainModelBase</a></h4>
+      <section><p>Non-generic int convenience shim over <a class="xref" href="Benday.EfCore.DomainModels.CoreFieldsDomainModelBase-1.html">CoreFieldsDomainModelBase&lt;TIdentity&gt;</a>.
+Int consumers derive from this and keep their existing syntax unchanged.</p>
 </section>
-      <h4><a class="xref" href="Benday.EfCore.Registration.EfCoreRegistrationHelper-1.html">EfCoreRegistrationHelper&lt;TDbContext&gt;</a></h4>
-      <section><p>Fluent registration helper for wiring up the repository + adapter +
-service layer architecture with DI. Modeled after CosmosRegistrationHelper.</p>
-<p>Usage:</p>
-<pre><code class="lang-csharp">services.AddBendayEfCore&lt;MyDbContext&gt;(options =&gt;
-{
-    options.UseConnectionString(connectionString);
-    options.RegisterDbContext();
-
-    options.RegisterAggregate&lt;
-        IPersonRepository, SqlPersonRepository,
-        PersonAdapter,
-        PersonDomainModel,
-        IPersonService, PersonService&gt;();
-});</code></pre>
+      <h4><a class="xref" href="Benday.EfCore.DomainModels.CoreFieldsDomainModelBase-1.html">CoreFieldsDomainModelBase&lt;TIdentity&gt;</a></h4>
+      <section><p>Domain model base class with audit fields and optimistic concurrency.</p>
+<p>The Timestamp property carries the concurrency token across the
+adapter boundary so the service layer can detect conflicting updates
+without touching the entity layer directly.</p>
 </section>
-      <h4><a class="xref" href="Benday.EfCore.Registration.SqlServerRegistrationExtensions.html">SqlServerRegistrationExtensions</a></h4>
-      <section><p>SQL Server-specific conveniences layered on top of the provider-agnostic
-<a class="xref" href="Benday.EfCore.Registration.EfCoreRegistrationHelper-1.html">EfCoreRegistrationHelper&lt;TDbContext&gt;</a>.</p>
+      <h4><a class="xref" href="Benday.EfCore.DomainModels.DomainModelBase.html">DomainModelBase</a></h4>
+      <section><p>Non-generic int convenience shim over <a class="xref" href="Benday.EfCore.DomainModels.DomainModelBase-1.html">DomainModelBase&lt;TIdentity&gt;</a>.
+Int consumers derive from this and keep their existing syntax unchanged.</p>
+</section>
+      <h4><a class="xref" href="Benday.EfCore.DomainModels.DomainModelBase-1.html">DomainModelBase&lt;TIdentity&gt;</a></h4>
+      <section><p>Base class for domain models. Uses IEntityIdentity{int} from
+the shared interface package so domain models and entities
+share the same identity contract.</p>
+<p>Domain models are NOT EF Core entities. They live on the business
+logic side of the adapter boundary. EF Core should never see these.</p>
 </section>
 
 

@@ -5,11 +5,11 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Class BendaySqlServerModelBuilderExtensions </title>
+      <title>Class DomainModelBase&lt;TIdentity&gt; </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Class BendaySqlServerModelBuilderExtensions ">
+      <meta name="title" content="Class DomainModelBase&lt;TIdentity&gt; ">
     
-    <meta name="description" content="extensions that apply SQL Server-specific model configuration for the Benday.EfCore base types.">
+    <meta name="description" content="Base class for domain models. Uses IEntityIdentity{int} from the shared interface package so domain models and entities share the same identity contract. Domain models are NOT EF Core entities. They live on the business logic side of the adapter boundary. EF Core should never see these.">
       <link rel="shortcut icon" href="../favicon.ico">
       <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
       <link rel="stylesheet" href="../styles/docfx.css">
@@ -67,19 +67,28 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Benday.EfCore.SqlServer.BendaySqlServerModelBuilderExtensions">
+            <article class="content wrap" id="_content" data-uid="Benday.EfCore.DomainModels.DomainModelBase`1">
 
 
 
-  <h1 id="Benday_EfCore_SqlServer_BendaySqlServerModelBuilderExtensions" data-uid="Benday.EfCore.SqlServer.BendaySqlServerModelBuilderExtensions" class="text-break">Class BendaySqlServerModelBuilderExtensions</h1>
-  <div class="markdown level0 summary"><p><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.modelbuilder">ModelBuilder</a> extensions that apply SQL Server-specific model
-configuration for the Benday.EfCore base types.</p>
+  <h1 id="Benday_EfCore_DomainModels_DomainModelBase_1" data-uid="Benday.EfCore.DomainModels.DomainModelBase`1" class="text-break">Class DomainModelBase&lt;TIdentity&gt;</h1>
+  <div class="markdown level0 summary"><p>Base class for domain models. Uses IEntityIdentity{int} from
+the shared interface package so domain models and entities
+share the same identity contract.</p>
+<p>Domain models are NOT EF Core entities. They live on the business
+logic side of the adapter boundary. EF Core should never see these.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-    <div class="level1"><span class="xref">BendaySqlServerModelBuilderExtensions</span></div>
+    <div class="level1"><span class="xref">DomainModelBase&lt;TIdentity&gt;</span></div>
+      <div class="level2"><a class="xref" href="Benday.EfCore.DomainModels.CoreFieldsDomainModelBase-1.html">CoreFieldsDomainModelBase&lt;TIdentity&gt;</a></div>
+      <div class="level2"><a class="xref" href="Benday.EfCore.DomainModels.DomainModelBase.html">DomainModelBase</a></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><span class="xref">IEntityIdentity</span>&lt;TIdentity&gt;</div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -105,55 +114,48 @@ configuration for the Benday.EfCore base types.</p>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Benday.html">Benday</a>.<a class="xref" href="Benday.EfCore.html">EfCore</a>.<a class="xref" href="Benday.EfCore.SqlServer.html">SqlServer</a></h6>
-  <h6><strong>Assembly</strong>: Benday.EfCore.SqlServer.dll</h6>
-  <h5 id="Benday_EfCore_SqlServer_BendaySqlServerModelBuilderExtensions_syntax">Syntax</h5>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Benday.html">Benday</a>.<a class="xref" href="Benday.EfCore.html">EfCore</a>.<a class="xref" href="Benday.EfCore.DomainModels.html">DomainModels</a></h6>
+  <h6><strong>Assembly</strong>: Benday.EfCore.dll</h6>
+  <h5 id="Benday_EfCore_DomainModels_DomainModelBase_1_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class BendaySqlServerModelBuilderExtensions</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract class DomainModelBase&lt;TIdentity&gt; : IEntityIdentity&lt;TIdentity&gt; where TIdentity : IEquatable&lt;TIdentity&gt;</code></pre>
   </div>
-  <h3 id="methods">Methods
-</h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_SqlServer_BendaySqlServerModelBuilderExtensions_ApplyBendaySqlServerConcurrency_Microsoft_EntityFrameworkCore_ModelBuilder_.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.BendaySqlServerModelBuilderExtensions.ApplyBendaySqlServerConcurrency(Microsoft.EntityFrameworkCore.ModelBuilder)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.SqlServer/BendaySqlServerModelBuilderExtensions.cs/#L23">View Source</a>
-  </span>
-  <a id="Benday_EfCore_SqlServer_BendaySqlServerModelBuilderExtensions_ApplyBendaySqlServerConcurrency_" data-uid="Benday.EfCore.SqlServer.BendaySqlServerModelBuilderExtensions.ApplyBendaySqlServerConcurrency*"></a>
-  <h4 id="Benday_EfCore_SqlServer_BendaySqlServerModelBuilderExtensions_ApplyBendaySqlServerConcurrency_Microsoft_EntityFrameworkCore_ModelBuilder_" data-uid="Benday.EfCore.SqlServer.BendaySqlServerModelBuilderExtensions.ApplyBendaySqlServerConcurrency(Microsoft.EntityFrameworkCore.ModelBuilder)">ApplyBendaySqlServerConcurrency(ModelBuilder)</h4>
-  <div class="markdown level1 summary"><p>Maps the <a class="xref" href="Benday.EfCore.Entities.CoreFieldsEntityBase-1.html#Benday_EfCore_Entities_CoreFieldsEntityBase_1_Timestamp">Timestamp</a> property as a SQL
-Server <code>rowversion</code> optimistic-concurrency token for every entity
-that derives from <a class="xref" href="Benday.EfCore.Entities.CoreFieldsEntityBase-1.html">CoreFieldsEntityBase&lt;TIdentity&gt;</a> (including the
-non-generic <a class="xref" href="Benday.EfCore.Entities.CoreFieldsEntityBase.html">CoreFieldsEntityBase</a> int shim). This replaces the
-<code>[Timestamp]</code> attribute that the provider-agnostic base type no
-longer carries.</p>
-<p>Call once at the end of <code>OnModelCreating</code>, after your entities have
-been added to the model.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ModelBuilder ApplyBendaySqlServerConcurrency(this ModelBuilder modelBuilder)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
+  <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-condensed">
     <thead>
       <tr>
-        <th>Type</th>
         <th>Name</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.modelbuilder">ModelBuilder</a></td>
-        <td><span class="parametername">modelBuilder</span></td>
-        <td></td>
+        <td><span class="parametername">TIdentity</span></td>
+        <td><p>The identity type.</p>
+</td>
       </tr>
     </tbody>
   </table>
-  <h5 class="returns">Returns</h5>
+  <h3 id="properties">Properties
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_DomainModels_DomainModelBase_1_Id.md&amp;value=---%0Auid%3A%20Benday.EfCore.DomainModels.DomainModelBase%601.Id%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/DomainModels/DomainModelBase.cs/#L21">View Source</a>
+  </span>
+  <a id="Benday_EfCore_DomainModels_DomainModelBase_1_Id_" data-uid="Benday.EfCore.DomainModels.DomainModelBase`1.Id*"></a>
+  <h4 id="Benday_EfCore_DomainModels_DomainModelBase_1_Id" data-uid="Benday.EfCore.DomainModels.DomainModelBase`1.Id">Id</h4>
+  <div class="markdown level1 summary"><p>Identity of the domain model. The default value (0 for int, Guid.Empty
+for Guid, null for string) means not yet persisted.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TIdentity Id { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-condensed">
     <thead>
       <tr>
@@ -163,11 +165,15 @@ been added to the model.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.modelbuilder">ModelBuilder</a></td>
+        <td><span class="xref">TIdentity</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <span class="xref">Benday.Common.Interfaces.IEntityIdentity&lt;TKey&gt;</span>
+  </div>
 
 </article>
           </div>
@@ -177,10 +183,10 @@ been added to the model.</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_SqlServer_BendaySqlServerModelBuilderExtensions.md&amp;value=---%0Auid%3A%20Benday.EfCore.SqlServer.BendaySqlServerModelBuilderExtensions%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
+                    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_DomainModels_DomainModelBase_1.md&amp;value=---%0Auid%3A%20Benday.EfCore.DomainModels.DomainModelBase%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
                   </li>
                   <li>
-                    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.SqlServer/BendaySqlServerModelBuilderExtensions.cs/#L10" class="contribution-link">View Source</a>
+                    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/DomainModels/DomainModelBase.cs/#L14" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

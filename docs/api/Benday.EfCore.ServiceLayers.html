@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Namespace Benday.EfCore.Registration </title>
+      <title>Namespace Benday.EfCore.ServiceLayers </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Namespace Benday.EfCore.Registration ">
+      <meta name="title" content="Namespace Benday.EfCore.ServiceLayers ">
     
     
       <link rel="shortcut icon" href="../favicon.ico">
@@ -67,37 +67,65 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Benday.EfCore.Registration">
+            <article class="content wrap" id="_content" data-uid="Benday.EfCore.ServiceLayers">
 
-  <h1 id="Benday_EfCore_Registration" data-uid="Benday.EfCore.Registration" class="text-break">Namespace Benday.EfCore.Registration</h1>
+  <h1 id="Benday_EfCore_ServiceLayers" data-uid="Benday.EfCore.ServiceLayers" class="text-break">Namespace Benday.EfCore.ServiceLayers</h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
   <div class="markdown level0 remarks"></div>
     <h3 id="classes">
 Classes
 </h3>
-      <h4><a class="xref" href="Benday.EfCore.Registration.EfCoreRegistrationExtensions.html">EfCoreRegistrationExtensions</a></h4>
-      <section><p>Extension methods for IServiceCollection to make registration clean.</p>
+      <h4><a class="xref" href="Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase-2.html">CoreFieldsServiceLayerBase&lt;TModel, TEntity&gt;</a></h4>
+      <section><p>Non-generic int convenience shim over
+<a class="xref" href="Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase-3.html">CoreFieldsServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;</a>.
+Int consumers derive from this and keep their existing syntax unchanged.</p>
 </section>
-      <h4><a class="xref" href="Benday.EfCore.Registration.EfCoreRegistrationHelper-1.html">EfCoreRegistrationHelper&lt;TDbContext&gt;</a></h4>
-      <section><p>Fluent registration helper for wiring up the repository + adapter +
-service layer architecture with DI. Modeled after CosmosRegistrationHelper.</p>
-<p>Usage:</p>
-<pre><code class="lang-csharp">services.AddBendayEfCore&lt;MyDbContext&gt;(options =&gt;
-{
-    options.UseConnectionString(connectionString);
-    options.RegisterDbContext();
-
-    options.RegisterAggregate&lt;
-        IPersonRepository, SqlPersonRepository,
-        PersonAdapter,
-        PersonDomainModel,
-        IPersonService, PersonService&gt;();
-});</code></pre>
+      <h4><a class="xref" href="Benday.EfCore.ServiceLayers.CoreFieldsServiceLayerBase-3.html">CoreFieldsServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;</a></h4>
+      <section><p>Service layer base for entities with audit fields.</p>
+<p>Automatically populates CreatedBy/CreatedDate on new items
+and LastModifiedBy/LastModifiedDate on every save. No change
+tracking required — we just always update the last-modified fields.</p>
+<p>Also copies audit fields and the concurrency timestamp back to
+the model after save so the caller has current values.</p>
 </section>
-      <h4><a class="xref" href="Benday.EfCore.Registration.SqlServerRegistrationExtensions.html">SqlServerRegistrationExtensions</a></h4>
-      <section><p>SQL Server-specific conveniences layered on top of the provider-agnostic
-<a class="xref" href="Benday.EfCore.Registration.EfCoreRegistrationHelper-1.html">EfCoreRegistrationHelper&lt;TDbContext&gt;</a>.</p>
+      <h4><a class="xref" href="Benday.EfCore.ServiceLayers.DefaultValidatorStrategy-1.html">DefaultValidatorStrategy&lt;T&gt;</a></h4>
+      <section><p>Default validator that uses DataAnnotations attributes on the
+domain model. Returns validation results for callers that need
+error details.</p>
+</section>
+      <h4><a class="xref" href="Benday.EfCore.ServiceLayers.InvalidObjectException.html">InvalidObjectException</a></h4>
+      <section><p>Invalid object exception thrown when validation fails in the service layer.</p>
+</section>
+      <h4><a class="xref" href="Benday.EfCore.ServiceLayers.ServiceLayerBase-2.html">ServiceLayerBase&lt;TModel, TEntity&gt;</a></h4>
+      <section><p>Non-generic int convenience shim over
+<a class="xref" href="Benday.EfCore.ServiceLayers.ServiceLayerBase-3.html">ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;</a>.
+Int consumers derive from this and keep their existing syntax unchanged.</p>
+</section>
+      <h4><a class="xref" href="Benday.EfCore.ServiceLayers.ServiceLayerBase-3.html">ServiceLayerBase&lt;TModel, TEntity, TIdentity&gt;</a></h4>
+      <section><p>Base service layer. Handles the core flow:
+validate → get or create entity → adapt → save → copy back IDs.</p>
+<p>The service owns the adapter. The repository only deals in entities.
+The controller/API layer only deals in domain models. The service
+is the bridge.</p>
+</section>
+      <h4><a class="xref" href="Benday.EfCore.ServiceLayers.UnknownObjectException.html">UnknownObjectException</a></h4>
+      <section><p>Exception thrown when an entity cannot be found by Id.</p>
+</section>
+    <h3 id="interfaces">
+Interfaces
+</h3>
+      <h4><a class="xref" href="Benday.EfCore.ServiceLayers.IUsernameProvider.html">IUsernameProvider</a></h4>
+      <section><p>Provides the current username for audit field population.</p>
+<p>In production, this is typically backed by HttpContext.User.
+In tests, it's a fake that returns a predictable value.
+This is why it's an interface — so your service layer never
+touches HttpContext directly.</p>
+</section>
+      <h4><a class="xref" href="Benday.EfCore.ServiceLayers.IValidatorStrategy-1.html">IValidatorStrategy&lt;T&gt;</a></h4>
+      <section><p>Validation strategy interface. Decouples validation logic from
+both the domain model and the service layer so each validation
+rule is independently testable and swappable via DI.</p>
 </section>
 
 

@@ -4,7 +4,9 @@
       "src": [
         {
           "files": [
-            "**/Benday.EfCore.SqlServer.csproj"
+            "**/Benday.EfCore.SqlServer.csproj",
+            "**/Benday.EfCore.csproj",
+            "**/Benday.EfCore.Testing.csproj"
           ],
           "src": "../"
         }

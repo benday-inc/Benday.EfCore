@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class CoreFieldsAdapterBase&lt;TModel, TEntity, TIdentity&gt; </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class CoreFieldsAdapterBase&lt;TModel, TEntity, TIdentity&gt; ">
+    
+    <meta name="description" content="Adapter base for CoreFields models/entities. Copies the framework-managed fields — Status, the four audit fields, and the optimistic-concurrency token (plus identity, entity → model) — automatically in both directions, leaving subclasses to override only PerformAdapt for their own properties. This is the adapter-tier parallel to , , and the CoreFields service-layer base. The framework copy runs via the  hook, so the override surface is identical to a plain adapter: you still only implement PerformAdapt. Escape hatches: override CopyFrameworkFields to take full control, and call the granular , , and  helpers to reuse only the pieces you want. Override everything and you&#39;re on your own — nothing forces the helpers on you.">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <div class="navbar-brand">
+                <a href="../">
+                  <img id="logo" src="../logo.png" alt="" alt="asdf" width="50" height="50">
+                </a>
+
+              </div>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Benday.EfCore.Adapters.CoreFieldsAdapterBase`3">
+
+
+
+  <h1 id="Benday_EfCore_Adapters_CoreFieldsAdapterBase_3" data-uid="Benday.EfCore.Adapters.CoreFieldsAdapterBase`3" class="text-break">Class CoreFieldsAdapterBase&lt;TModel, TEntity, TIdentity&gt;</h1>
+  <div class="markdown level0 summary"><p>Adapter base for CoreFields models/entities. Copies the framework-managed
+fields — Status, the four audit fields, and the optimistic-concurrency
+token (plus identity, entity → model) — automatically in both directions,
+leaving subclasses to override only <code>PerformAdapt</code> for their own
+properties. This is the adapter-tier parallel to
+<a class="xref" href="Benday.EfCore.Entities.CoreFieldsEntityBase-1.html">CoreFieldsEntityBase&lt;TIdentity&gt;</a>,
+<a class="xref" href="Benday.EfCore.DomainModels.CoreFieldsDomainModelBase-1.html">CoreFieldsDomainModelBase&lt;TIdentity&gt;</a>, and the
+CoreFields service-layer base.</p>
+<p>The framework copy runs via the <a class="xref" href="Benday.EfCore.Adapters.AdapterBase-3.html#Benday_EfCore_Adapters_AdapterBase_3_CopyFrameworkFields__0__1_">CopyFrameworkFields(TModel, TEntity)</a>
+hook, so the override surface is identical to a plain adapter: you still
+only implement <code>PerformAdapt</code>.</p>
+<p>Escape hatches: override <code>CopyFrameworkFields</code> to take full control,
+and call the granular <a class="xref" href="Benday.EfCore.Adapters.CoreFieldsAdapterBase-3.html#Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyAuditFields__0__1_">CopyAuditFields(TModel, TEntity)</a>,
+<a class="xref" href="Benday.EfCore.Adapters.CoreFieldsAdapterBase-3.html#Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyStatus__0__1_">CopyStatus(TModel, TEntity)</a>, and
+<a class="xref" href="Benday.EfCore.Adapters.CoreFieldsAdapterBase-3.html#Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyConcurrencyToken__0__1_">CopyConcurrencyToken(TModel, TEntity)</a> helpers to reuse only
+the pieces you want. Override everything and you're on your own — nothing
+forces the helpers on you.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Benday.EfCore.Adapters.AdapterBase-3.html">AdapterBase</a>&lt;TModel, TEntity, TIdentity&gt;</div>
+    <div class="level2"><span class="xref">CoreFieldsAdapterBase&lt;TModel, TEntity, TIdentity&gt;</span></div>
+      <div class="level3"><a class="xref" href="Benday.EfCore.Adapters.CoreFieldsAdapterBase-2.html">CoreFieldsAdapterBase&lt;TModel, TEntity&gt;</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Benday.EfCore.Adapters.AdapterBase-3.html#Benday_EfCore_Adapters_AdapterBase_3_IsNew__2_">AdapterBase&lt;TModel, TEntity, TIdentity&gt;.IsNew(TIdentity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.Adapters.AdapterBase-3.html#Benday_EfCore_Adapters_AdapterBase_3_Adapt__0__1_">AdapterBase&lt;TModel, TEntity, TIdentity&gt;.Adapt(TModel, TEntity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.Adapters.AdapterBase-3.html#Benday_EfCore_Adapters_AdapterBase_3_Adapt__1__0_">AdapterBase&lt;TModel, TEntity, TIdentity&gt;.Adapt(TEntity, TModel)</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.Adapters.AdapterBase-3.html#Benday_EfCore_Adapters_AdapterBase_3_Adapt_System_Collections_Generic_IList__0__System_Collections_Generic_IList__1__">AdapterBase&lt;TModel, TEntity, TIdentity&gt;.Adapt(IList&lt;TModel&gt;, IList&lt;TEntity&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.Adapters.AdapterBase-3.html#Benday_EfCore_Adapters_AdapterBase_3_Adapt_System_Collections_Generic_IList__1__System_Collections_Generic_IList__0__">AdapterBase&lt;TModel, TEntity, TIdentity&gt;.Adapt(IList&lt;TEntity&gt;, IList&lt;TModel&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.Adapters.AdapterBase-3.html#Benday_EfCore_Adapters_AdapterBase_3_PerformAdapt__0__1_">AdapterBase&lt;TModel, TEntity, TIdentity&gt;.PerformAdapt(TModel, TEntity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.Adapters.AdapterBase-3.html#Benday_EfCore_Adapters_AdapterBase_3_PerformAdapt__1__0_">AdapterBase&lt;TModel, TEntity, TIdentity&gt;.PerformAdapt(TEntity, TModel)</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.Adapters.AdapterBase-3.html#Benday_EfCore_Adapters_AdapterBase_3_CopyFrameworkFields__0__1_">AdapterBase&lt;TModel, TEntity, TIdentity&gt;.CopyFrameworkFields(TModel, TEntity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.Adapters.AdapterBase-3.html#Benday_EfCore_Adapters_AdapterBase_3_CopyFrameworkFields__1__0_">AdapterBase&lt;TModel, TEntity, TIdentity&gt;.CopyFrameworkFields(TEntity, TModel)</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.Adapters.AdapterBase-3.html#Benday_EfCore_Adapters_AdapterBase_3_BeforeAdapt__0__1_">AdapterBase&lt;TModel, TEntity, TIdentity&gt;.BeforeAdapt(TModel, TEntity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.Adapters.AdapterBase-3.html#Benday_EfCore_Adapters_AdapterBase_3_BeforeAdapt__1__0_">AdapterBase&lt;TModel, TEntity, TIdentity&gt;.BeforeAdapt(TEntity, TModel)</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.Adapters.AdapterBase-3.html#Benday_EfCore_Adapters_AdapterBase_3_AfterAdapt__0__1_">AdapterBase&lt;TModel, TEntity, TIdentity&gt;.AfterAdapt(TModel, TEntity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Benday.EfCore.Adapters.AdapterBase-3.html#Benday_EfCore_Adapters_AdapterBase_3_AfterAdapt__1__0_">AdapterBase&lt;TModel, TEntity, TIdentity&gt;.AfterAdapt(TEntity, TModel)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Benday.html">Benday</a>.<a class="xref" href="Benday.EfCore.html">EfCore</a>.<a class="xref" href="Benday.EfCore.Adapters.html">Adapters</a></h6>
+  <h6><strong>Assembly</strong>: Benday.EfCore.dll</h6>
+  <h5 id="Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class CoreFieldsAdapterBase&lt;TModel, TEntity, TIdentity&gt; : AdapterBase&lt;TModel, TEntity, TIdentity&gt; where TModel : CoreFieldsDomainModelBase&lt;TIdentity&gt;, new() where TEntity : CoreFieldsEntityBase&lt;TIdentity&gt;, new() where TIdentity : IEquatable&lt;TIdentity&gt;</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TModel</span></td>
+        <td><p>The CoreFields domain model type.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TEntity</span></td>
+        <td><p>The CoreFields EF Core entity type.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TIdentity</span></td>
+        <td><p>The primary key type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyAuditFields__0__1_.md&amp;value=---%0Auid%3A%20Benday.EfCore.Adapters.CoreFieldsAdapterBase%603.CopyAuditFields(%600%2C%601)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/Adapters/CoreFieldsAdapterBase.cs/#L90">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyAuditFields_" data-uid="Benday.EfCore.Adapters.CoreFieldsAdapterBase`3.CopyAuditFields*"></a>
+  <h4 id="Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyAuditFields__0__1_" data-uid="Benday.EfCore.Adapters.CoreFieldsAdapterBase`3.CopyAuditFields(`0,`1)">CopyAuditFields(TModel, TEntity)</h4>
+  <div class="markdown level1 summary"><p>Copies the four audit fields (CreatedBy/CreatedDate,
+LastModifiedBy/LastModifiedDate), model → entity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void CopyAuditFields(TModel fromValue, TEntity toValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">fromValue</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">TEntity</span></td>
+        <td><span class="parametername">toValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyAuditFields__1__0_.md&amp;value=---%0Auid%3A%20Benday.EfCore.Adapters.CoreFieldsAdapterBase%603.CopyAuditFields(%601%2C%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/Adapters/CoreFieldsAdapterBase.cs/#L102">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyAuditFields_" data-uid="Benday.EfCore.Adapters.CoreFieldsAdapterBase`3.CopyAuditFields*"></a>
+  <h4 id="Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyAuditFields__1__0_" data-uid="Benday.EfCore.Adapters.CoreFieldsAdapterBase`3.CopyAuditFields(`1,`0)">CopyAuditFields(TEntity, TModel)</h4>
+  <div class="markdown level1 summary"><p>Copies the four audit fields (CreatedBy/CreatedDate,
+LastModifiedBy/LastModifiedDate), entity → model.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void CopyAuditFields(TEntity fromValue, TModel toValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TEntity</span></td>
+        <td><span class="parametername">fromValue</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">toValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyConcurrencyToken__0__1_.md&amp;value=---%0Auid%3A%20Benday.EfCore.Adapters.CoreFieldsAdapterBase%603.CopyConcurrencyToken(%600%2C%601)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/Adapters/CoreFieldsAdapterBase.cs/#L111">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyConcurrencyToken_" data-uid="Benday.EfCore.Adapters.CoreFieldsAdapterBase`3.CopyConcurrencyToken*"></a>
+  <h4 id="Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyConcurrencyToken__0__1_" data-uid="Benday.EfCore.Adapters.CoreFieldsAdapterBase`3.CopyConcurrencyToken(`0,`1)">CopyConcurrencyToken(TModel, TEntity)</h4>
+  <div class="markdown level1 summary"><p>Copies the optimistic-concurrency token, model → entity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void CopyConcurrencyToken(TModel fromValue, TEntity toValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">fromValue</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">TEntity</span></td>
+        <td><span class="parametername">toValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyConcurrencyToken__1__0_.md&amp;value=---%0Auid%3A%20Benday.EfCore.Adapters.CoreFieldsAdapterBase%603.CopyConcurrencyToken(%601%2C%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/Adapters/CoreFieldsAdapterBase.cs/#L115">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyConcurrencyToken_" data-uid="Benday.EfCore.Adapters.CoreFieldsAdapterBase`3.CopyConcurrencyToken*"></a>
+  <h4 id="Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyConcurrencyToken__1__0_" data-uid="Benday.EfCore.Adapters.CoreFieldsAdapterBase`3.CopyConcurrencyToken(`1,`0)">CopyConcurrencyToken(TEntity, TModel)</h4>
+  <div class="markdown level1 summary"><p>Copies the optimistic-concurrency token, entity → model.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void CopyConcurrencyToken(TEntity fromValue, TModel toValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TEntity</span></td>
+        <td><span class="parametername">fromValue</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">toValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyFrameworkFields__0__1_.md&amp;value=---%0Auid%3A%20Benday.EfCore.Adapters.CoreFieldsAdapterBase%603.CopyFrameworkFields(%600%2C%601)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/Adapters/CoreFieldsAdapterBase.cs/#L56">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyFrameworkFields_" data-uid="Benday.EfCore.Adapters.CoreFieldsAdapterBase`3.CopyFrameworkFields*"></a>
+  <h4 id="Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyFrameworkFields__0__1_" data-uid="Benday.EfCore.Adapters.CoreFieldsAdapterBase`3.CopyFrameworkFields(`0,`1)">CopyFrameworkFields(TModel, TEntity)</h4>
+  <div class="markdown level1 summary"><p>Copies framework-managed fields model → entity. Override to take full
+control; call the protected Copy* helpers to reuse the pieces you want.
+Identity is intentionally not copied in this direction — it is managed
+by the collection-merge logic and the database.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void CopyFrameworkFields(TModel fromValue, TEntity toValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">fromValue</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">TEntity</span></td>
+        <td><span class="parametername">toValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Benday.EfCore.Adapters.AdapterBase-3.html#Benday_EfCore_Adapters_AdapterBase_3_CopyFrameworkFields__0__1_">AdapterBase&lt;TModel, TEntity, TIdentity&gt;.CopyFrameworkFields(TModel, TEntity)</a></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyFrameworkFields__1__0_.md&amp;value=---%0Auid%3A%20Benday.EfCore.Adapters.CoreFieldsAdapterBase%603.CopyFrameworkFields(%601%2C%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/Adapters/CoreFieldsAdapterBase.cs/#L68">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyFrameworkFields_" data-uid="Benday.EfCore.Adapters.CoreFieldsAdapterBase`3.CopyFrameworkFields*"></a>
+  <h4 id="Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyFrameworkFields__1__0_" data-uid="Benday.EfCore.Adapters.CoreFieldsAdapterBase`3.CopyFrameworkFields(`1,`0)">CopyFrameworkFields(TEntity, TModel)</h4>
+  <div class="markdown level1 summary"><p>Copies framework-managed fields entity → model, including identity.
+Override to take full control; call the protected Copy* helpers to
+reuse the pieces you want.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void CopyFrameworkFields(TEntity fromValue, TModel toValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TEntity</span></td>
+        <td><span class="parametername">fromValue</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">toValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Benday.EfCore.Adapters.AdapterBase-3.html#Benday_EfCore_Adapters_AdapterBase_3_CopyFrameworkFields__1__0_">AdapterBase&lt;TModel, TEntity, TIdentity&gt;.CopyFrameworkFields(TEntity, TModel)</a></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyStatus__0__1_.md&amp;value=---%0Auid%3A%20Benday.EfCore.Adapters.CoreFieldsAdapterBase%603.CopyStatus(%600%2C%601)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/Adapters/CoreFieldsAdapterBase.cs/#L79">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyStatus_" data-uid="Benday.EfCore.Adapters.CoreFieldsAdapterBase`3.CopyStatus*"></a>
+  <h4 id="Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyStatus__0__1_" data-uid="Benday.EfCore.Adapters.CoreFieldsAdapterBase`3.CopyStatus(`0,`1)">CopyStatus(TModel, TEntity)</h4>
+  <div class="markdown level1 summary"><p>Copies the application-defined Status value, model → entity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void CopyStatus(TModel fromValue, TEntity toValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">fromValue</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">TEntity</span></td>
+        <td><span class="parametername">toValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyStatus__1__0_.md&amp;value=---%0Auid%3A%20Benday.EfCore.Adapters.CoreFieldsAdapterBase%603.CopyStatus(%601%2C%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/Adapters/CoreFieldsAdapterBase.cs/#L83">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyStatus_" data-uid="Benday.EfCore.Adapters.CoreFieldsAdapterBase`3.CopyStatus*"></a>
+  <h4 id="Benday_EfCore_Adapters_CoreFieldsAdapterBase_3_CopyStatus__1__0_" data-uid="Benday.EfCore.Adapters.CoreFieldsAdapterBase`3.CopyStatus(`1,`0)">CopyStatus(TEntity, TModel)</h4>
+  <div class="markdown level1 summary"><p>Copies the application-defined Status value, entity → model.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void CopyStatus(TEntity fromValue, TModel toValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TEntity</span></td>
+        <td><span class="parametername">fromValue</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">TModel</span></td>
+        <td><span class="parametername">toValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Adapters_CoreFieldsAdapterBase_3.md&amp;value=---%0Auid%3A%20Benday.EfCore.Adapters.CoreFieldsAdapterBase%603%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore/Adapters/CoreFieldsAdapterBase.cs/#L44" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      Copyright © <a href="https://www.benday.com/">www.benday.com</a> | <a href="mailto:info@benday.com">info@benday.com</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

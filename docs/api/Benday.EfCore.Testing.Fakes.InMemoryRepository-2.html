@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class InMemoryRepository&lt;T, TIdentity&gt; </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class InMemoryRepository&lt;T, TIdentity&gt; ">
+    
+    <meta name="description" content="In-memory repository for unit testing. Implements the same IAsyncReadableRepository interface as the real SQL repository, so your service layer tests don&#39;t know the difference. Also tracks which methods were called, so you can assert that your service layer is interacting with the repository correctly. This is the thing that makes &amp;quot;testing without a database&amp;quot; work. Your service layer talks to this fake. Your tests run in milliseconds. No connection string. No SQL Server. No shared dev database.">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <div class="navbar-brand">
+                <a href="../">
+                  <img id="logo" src="../logo.png" alt="" alt="asdf" width="50" height="50">
+                </a>
+
+              </div>            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2">
+
+
+
+  <h1 id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2" class="text-break">Class InMemoryRepository&lt;T, TIdentity&gt;</h1>
+  <div class="markdown level0 summary"><p>In-memory repository for unit testing. Implements the same
+IAsyncReadableRepository interface as the real SQL repository,
+so your service layer tests don't know the difference.</p>
+<p>Also tracks which methods were called, so you can assert that
+your service layer is interacting with the repository correctly.</p>
+<p>This is the thing that makes &quot;testing without a database&quot; work.
+Your service layer talks to this fake. Your tests run in milliseconds.
+No connection string. No SQL Server. No shared dev database.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">InMemoryRepository&lt;T, TIdentity&gt;</span></div>
+      <div class="level2"><a class="xref" href="Benday.EfCore.Testing.Fakes.InMemoryRepository-1.html">InMemoryRepository&lt;T&gt;</a></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><span class="xref">IAsyncReadableRepository</span>&lt;T, TIdentity&gt;</div>
+    <div><span class="xref">IAsyncRepository</span>&lt;T, TIdentity&gt;</div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Benday.html">Benday</a>.<a class="xref" href="Benday.EfCore.html">EfCore</a>.<a class="xref" href="Benday.EfCore.Testing.html">Testing</a>.<a class="xref" href="Benday.EfCore.Testing.Fakes.html">Fakes</a></h6>
+  <h6><strong>Assembly</strong>: Benday.EfCore.Testing.dll</h6>
+  <h5 id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class InMemoryRepository&lt;T, TIdentity&gt; : IAsyncReadableRepository&lt;T, TIdentity&gt;, IAsyncRepository&lt;T, TIdentity&gt; where T : EntityBase&lt;TIdentity&gt; where TIdentity : IEquatable&lt;TIdentity&gt;</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The entity type.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TIdentity</span></td>
+        <td><p>The primary key type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Testing_Fakes_InMemoryRepository_2_DeleteArgumentValue.md&amp;value=---%0Auid%3A%20Benday.EfCore.Testing.Fakes.InMemoryRepository%602.DeleteArgumentValue%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.Testing/Fakes/InMemoryRepository.cs/#L50">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_DeleteArgumentValue_" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.DeleteArgumentValue*"></a>
+  <h4 id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_DeleteArgumentValue" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.DeleteArgumentValue">DeleteArgumentValue</h4>
+  <div class="markdown level1 summary"><p>The entity passed to the most recent <a class="xref" href="Benday.EfCore.Testing.Fakes.InMemoryRepository-2.html#Benday_EfCore_Testing_Fakes_InMemoryRepository_2_DeleteAsync__0_">DeleteAsync(T)</a> call.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T? DeleteArgumentValue { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Testing_Fakes_InMemoryRepository_2_GetByIdArgumentValue.md&amp;value=---%0Auid%3A%20Benday.EfCore.Testing.Fakes.InMemoryRepository%602.GetByIdArgumentValue%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.Testing/Fakes/InMemoryRepository.cs/#L38">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_GetByIdArgumentValue_" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.GetByIdArgumentValue*"></a>
+  <h4 id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_GetByIdArgumentValue" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.GetByIdArgumentValue">GetByIdArgumentValue</h4>
+  <div class="markdown level1 summary"><p>The id passed to the most recent <a class="xref" href="Benday.EfCore.Testing.Fakes.InMemoryRepository-2.html#Benday_EfCore_Testing_Fakes_InMemoryRepository_2_GetByIdAsync__1_">GetByIdAsync(TIdentity)</a> call.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TIdentity? GetByIdArgumentValue { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TIdentity</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Testing_Fakes_InMemoryRepository_2_Items.md&amp;value=---%0Auid%3A%20Benday.EfCore.Testing.Fakes.InMemoryRepository%602.Items%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.Testing/Fakes/InMemoryRepository.cs/#L27">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_Items_" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.Items*"></a>
+  <h4 id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_Items" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.Items">Items</h4>
+  <div class="markdown level1 summary"><p>The backing store of saved entities.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;T&gt; Items { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Testing_Fakes_InMemoryRepository_2_SaveArgumentValue.md&amp;value=---%0Auid%3A%20Benday.EfCore.Testing.Fakes.InMemoryRepository%602.SaveArgumentValue%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.Testing/Fakes/InMemoryRepository.cs/#L44">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_SaveArgumentValue_" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.SaveArgumentValue*"></a>
+  <h4 id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_SaveArgumentValue" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.SaveArgumentValue">SaveArgumentValue</h4>
+  <div class="markdown level1 summary"><p>The entity passed to the most recent <a class="xref" href="Benday.EfCore.Testing.Fakes.InMemoryRepository-2.html#Benday_EfCore_Testing_Fakes_InMemoryRepository_2_SaveAsync__0_">SaveAsync(T)</a> call.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T? SaveArgumentValue { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Testing_Fakes_InMemoryRepository_2_WasDeleteCalled.md&amp;value=---%0Auid%3A%20Benday.EfCore.Testing.Fakes.InMemoryRepository%602.WasDeleteCalled%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.Testing/Fakes/InMemoryRepository.cs/#L47">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_WasDeleteCalled_" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.WasDeleteCalled*"></a>
+  <h4 id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_WasDeleteCalled" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.WasDeleteCalled">WasDeleteCalled</h4>
+  <div class="markdown level1 summary"><p>True once <a class="xref" href="Benday.EfCore.Testing.Fakes.InMemoryRepository-2.html#Benday_EfCore_Testing_Fakes_InMemoryRepository_2_DeleteAsync__0_">DeleteAsync(T)</a> has been called.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool WasDeleteCalled { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Testing_Fakes_InMemoryRepository_2_WasGetAllCalled.md&amp;value=---%0Auid%3A%20Benday.EfCore.Testing.Fakes.InMemoryRepository%602.WasGetAllCalled%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.Testing/Fakes/InMemoryRepository.cs/#L32">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_WasGetAllCalled_" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.WasGetAllCalled*"></a>
+  <h4 id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_WasGetAllCalled" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.WasGetAllCalled">WasGetAllCalled</h4>
+  <div class="markdown level1 summary"><p>True once <a class="xref" href="Benday.EfCore.Testing.Fakes.InMemoryRepository-2.html#Benday_EfCore_Testing_Fakes_InMemoryRepository_2_GetAllAsync">GetAllAsync()</a> has been called.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool WasGetAllCalled { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Testing_Fakes_InMemoryRepository_2_WasGetByIdCalled.md&amp;value=---%0Auid%3A%20Benday.EfCore.Testing.Fakes.InMemoryRepository%602.WasGetByIdCalled%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.Testing/Fakes/InMemoryRepository.cs/#L35">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_WasGetByIdCalled_" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.WasGetByIdCalled*"></a>
+  <h4 id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_WasGetByIdCalled" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.WasGetByIdCalled">WasGetByIdCalled</h4>
+  <div class="markdown level1 summary"><p>True once <a class="xref" href="Benday.EfCore.Testing.Fakes.InMemoryRepository-2.html#Benday_EfCore_Testing_Fakes_InMemoryRepository_2_GetByIdAsync__1_">GetByIdAsync(TIdentity)</a> has been called.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool WasGetByIdCalled { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Testing_Fakes_InMemoryRepository_2_WasSaveCalled.md&amp;value=---%0Auid%3A%20Benday.EfCore.Testing.Fakes.InMemoryRepository%602.WasSaveCalled%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.Testing/Fakes/InMemoryRepository.cs/#L41">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_WasSaveCalled_" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.WasSaveCalled*"></a>
+  <h4 id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_WasSaveCalled" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.WasSaveCalled">WasSaveCalled</h4>
+  <div class="markdown level1 summary"><p>True once <a class="xref" href="Benday.EfCore.Testing.Fakes.InMemoryRepository-2.html#Benday_EfCore_Testing_Fakes_InMemoryRepository_2_SaveAsync__0_">SaveAsync(T)</a> has been called.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool WasSaveCalled { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Testing_Fakes_InMemoryRepository_2_DeleteAsync__0_.md&amp;value=---%0Auid%3A%20Benday.EfCore.Testing.Fakes.InMemoryRepository%602.DeleteAsync(%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.Testing/Fakes/InMemoryRepository.cs/#L141">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_DeleteAsync_" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.DeleteAsync*"></a>
+  <h4 id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_DeleteAsync__0_" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.DeleteAsync(`0)">DeleteAsync(T)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task DeleteAsync(T entity)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">entity</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Testing_Fakes_InMemoryRepository_2_GenerateId.md&amp;value=---%0Auid%3A%20Benday.EfCore.Testing.Fakes.InMemoryRepository%602.GenerateId%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.Testing/Fakes/InMemoryRepository.cs/#L78">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_GenerateId_" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.GenerateId*"></a>
+  <h4 id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_GenerateId" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.GenerateId">GenerateId()</h4>
+  <div class="markdown level1 summary"><p>Produces deterministic sequential identity values for testing:
+int → 1, 2, 3; Guid → 00000000-0000-0000-0000-000000000001, etc.;
+string → &quot;1&quot;, &quot;2&quot;, &quot;3&quot;. Override for custom key strategies.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual TIdentity GenerateId()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TIdentity</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Testing_Fakes_InMemoryRepository_2_GetAllAsync.md&amp;value=---%0Auid%3A%20Benday.EfCore.Testing.Fakes.InMemoryRepository%602.GetAllAsync%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.Testing/Fakes/InMemoryRepository.cs/#L99">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_GetAllAsync_" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.GetAllAsync*"></a>
+  <h4 id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_GetAllAsync" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.GetAllAsync">GetAllAsync()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;IList&lt;T&gt;&gt; GetAllAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;T&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Testing_Fakes_InMemoryRepository_2_GetByIdAsync__1_.md&amp;value=---%0Auid%3A%20Benday.EfCore.Testing.Fakes.InMemoryRepository%602.GetByIdAsync(%601)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.Testing/Fakes/InMemoryRepository.cs/#L106">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_GetByIdAsync_" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.GetByIdAsync*"></a>
+  <h4 id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_GetByIdAsync__1_" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.GetByIdAsync(`1)">GetByIdAsync(TIdentity)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;T?&gt; GetByIdAsync(TIdentity id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TIdentity</span></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Testing_Fakes_InMemoryRepository_2_IsNew__1_.md&amp;value=---%0Auid%3A%20Benday.EfCore.Testing.Fakes.InMemoryRepository%602.IsNew(%601)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.Testing/Fakes/InMemoryRepository.cs/#L70">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_IsNew_" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.IsNew*"></a>
+  <h4 id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_IsNew__1_" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.IsNew(`1)">IsNew(TIdentity)</h4>
+  <div class="markdown level1 summary"><p>Returns true when the identity value indicates a new, unpersisted item.
+Default: Id equals default(TIdentity). Override for client-assigned keys.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual bool IsNew(TIdentity id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TIdentity</span></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Testing_Fakes_InMemoryRepository_2_OnDelete__0_.md&amp;value=---%0Auid%3A%20Benday.EfCore.Testing.Fakes.InMemoryRepository%602.OnDelete(%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.Testing/Fakes/InMemoryRepository.cs/#L158">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_OnDelete_" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.OnDelete*"></a>
+  <h4 id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_OnDelete__0_" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.OnDelete(`0)">OnDelete(T)</h4>
+  <div class="markdown level1 summary"><p>Override for custom logic after in-memory delete.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnDelete(T entity)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">entity</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Testing_Fakes_InMemoryRepository_2_OnSave__0_.md&amp;value=---%0Auid%3A%20Benday.EfCore.Testing.Fakes.InMemoryRepository%602.OnSave(%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.Testing/Fakes/InMemoryRepository.cs/#L155">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_OnSave_" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.OnSave*"></a>
+  <h4 id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_OnSave__0_" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.OnSave(`0)">OnSave(T)</h4>
+  <div class="markdown level1 summary"><p>Override for custom logic after in-memory save.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnSave(T entity)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">entity</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Testing_Fakes_InMemoryRepository_2_ResetMethodCallTrackers.md&amp;value=---%0Auid%3A%20Benday.EfCore.Testing.Fakes.InMemoryRepository%602.ResetMethodCallTrackers%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.Testing/Fakes/InMemoryRepository.cs/#L53">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_ResetMethodCallTrackers_" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.ResetMethodCallTrackers*"></a>
+  <h4 id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_ResetMethodCallTrackers" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.ResetMethodCallTrackers">ResetMethodCallTrackers()</h4>
+  <div class="markdown level1 summary"><p>Resets all method-call tracking flags and captured arguments.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ResetMethodCallTrackers()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Testing_Fakes_InMemoryRepository_2_SaveAsync__0_.md&amp;value=---%0Auid%3A%20Benday.EfCore.Testing.Fakes.InMemoryRepository%602.SaveAsync(%600)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.Testing/Fakes/InMemoryRepository.cs/#L116">View Source</a>
+  </span>
+  <a id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_SaveAsync_" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.SaveAsync*"></a>
+  <h4 id="Benday_EfCore_Testing_Fakes_InMemoryRepository_2_SaveAsync__0_" data-uid="Benday.EfCore.Testing.Fakes.InMemoryRepository`2.SaveAsync(`0)">SaveAsync(T)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task SaveAsync(T entity)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">entity</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <span class="xref">Benday.Common.Interfaces.IAsyncReadableRepository&lt;T, TKey&gt;</span>
+  </div>
+  <div>
+      <span class="xref">Benday.Common.Interfaces.IAsyncRepository&lt;T, TKey&gt;</span>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/benday-inc/Benday.EfCore/new/main/apiSpec/new?filename=Benday_EfCore_Testing_Fakes_InMemoryRepository_2.md&amp;value=---%0Auid%3A%20Benday.EfCore.Testing.Fakes.InMemoryRepository%602%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/benday-inc/Benday.EfCore/blob/main/Benday.EfCore.Testing/Fakes/InMemoryRepository.cs/#L20" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      Copyright © <a href="https://www.benday.com/">www.benday.com</a> | <a href="mailto:info@benday.com">info@benday.com</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
