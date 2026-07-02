@@ -27,18 +27,18 @@ A companion package `Benday.EfCore.Testing` ships test doubles (`InMemoryReposit
 dotnet build Benday.EfCore.slnx
 
 # Run unit tests (in-memory, no external dependencies)
-dotnet test Benday.EfCore.SqlServer.UnitTests
+dotnet test test/Benday.EfCore.SqlServer.UnitTests
 
 # Run integration tests (requires SQL Server at localhost with sa/Pa$$word)
-dotnet test Benday.EfCore.SqlServer.IntegrationTests
+dotnet test test/Benday.EfCore.SqlServer.IntegrationTests
 
 # Run a single test
-dotnet test Benday.EfCore.SqlServer.IntegrationTests --filter "FullyQualifiedName~MethodName"
+dotnet test test/Benday.EfCore.SqlServer.IntegrationTests --filter "FullyQualifiedName~MethodName"
 
 # Generate NuGet packages (auto-generates on build via GeneratePackageOnBuild)
-dotnet pack Benday.EfCore
-dotnet pack Benday.EfCore.SqlServer
-dotnet pack Benday.EfCore.Testing
+dotnet pack src/Benday.EfCore
+dotnet pack src/Benday.EfCore.SqlServer
+dotnet pack src/Benday.EfCore.Testing
 ```
 
 ### Local SQL Server (for integration tests)
@@ -129,16 +129,17 @@ entities (no token) can be attach-updated while detached.
 
 ## Solution Structure
 
-Solution file: `Benday.EfCore.slnx`.
+Solution file: `Benday.EfCore.slnx`. Shipping libraries live under `src/`; test and example
+projects live under `test/`.
 
-- `Benday.EfCore/` — provider-agnostic library (NuGet package source)
-- `Benday.EfCore.SqlServer/` — SQL Server wiring library (NuGet package source)
-- `Benday.EfCore.Testing/` — test doubles package (`InMemoryRepository<T>`, fakes)
-- `Benday.EfCore.SqlServer.TestApi/` — worked example (Person aggregate: entity, domain model,
+- `src/Benday.EfCore/` — provider-agnostic library (NuGet package source)
+- `src/Benday.EfCore.SqlServer/` — SQL Server wiring library (NuGet package source)
+- `src/Benday.EfCore.Testing/` — test doubles package (`InMemoryRepository<T>`, fakes)
+- `test/Benday.EfCore.SqlServer.TestApi/` — worked example (Person aggregate: entity, domain model,
   adapter, repository, service, DI wiring) used by the integration tests; references both libraries
-- `Benday.EfCore.SqlServer.UnitTests/` — xUnit unit tests (in-memory, no DB; references
+- `test/Benday.EfCore.SqlServer.UnitTests/` — xUnit unit tests (in-memory, no DB; references
   `Benday.EfCore.Testing`)
-- `Benday.EfCore.SqlServer.IntegrationTests/` — xUnit integration tests (require SQL Server)
+- `test/Benday.EfCore.SqlServer.IntegrationTests/` — xUnit integration tests (require SQL Server)
 
 ## Testing Notes
 

@@ -44,9 +44,9 @@ if (-not (Test-Path $localNuGet)) {
 
 # The packable libraries (test/example projects are not packed).
 $projects = @(
-    "Benday.EfCore/Benday.EfCore.csproj",
-    "Benday.EfCore.SqlServer/Benday.EfCore.SqlServer.csproj",
-    "Benday.EfCore.Testing/Benday.EfCore.Testing.csproj"
+    "src/Benday.EfCore/Benday.EfCore.csproj",
+    "src/Benday.EfCore.SqlServer/Benday.EfCore.SqlServer.csproj",
+    "src/Benday.EfCore.Testing/Benday.EfCore.Testing.csproj"
 )
 
 Write-Host "Building solution ($Configuration)..."

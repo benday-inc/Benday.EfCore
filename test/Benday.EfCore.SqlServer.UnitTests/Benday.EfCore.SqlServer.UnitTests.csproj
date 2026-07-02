@@ -13,9 +13,9 @@
     <PackageReference Include="Benday.Common.Testing" Version="3.0.*" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Benday.EfCore\Benday.EfCore.csproj" />
-    <ProjectReference Include="..\Benday.EfCore.Testing\Benday.EfCore.Testing.csproj" />
-    <ProjectReference Include="..\Benday.EfCore.SqlServer\Benday.EfCore.SqlServer.csproj" />
+    <ProjectReference Include="..\..\src\Benday.EfCore\Benday.EfCore.csproj" />
+    <ProjectReference Include="..\..\src\Benday.EfCore.Testing\Benday.EfCore.Testing.csproj" />
+    <ProjectReference Include="..\..\src\Benday.EfCore.SqlServer\Benday.EfCore.SqlServer.csproj" />
     <ProjectReference Include="..\Benday.EfCore.SqlServer.TestApi\Benday.EfCore.SqlServer.TestApi.csproj" />
   </ItemGroup>
   <ItemGroup>

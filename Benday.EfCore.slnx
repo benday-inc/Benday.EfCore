@@ -9,10 +9,14 @@
     <File Path="bdc_mark_128_128.png" />
     <File Path="README.md" />
   </Folder>
-  <Project Path="Benday.EfCore.SqlServer.IntegrationTests/Benday.EfCore.SqlServer.IntegrationTests.csproj" />
-  <Project Path="Benday.EfCore.SqlServer.TestApi/Benday.EfCore.SqlServer.TestApi.csproj" />
-  <Project Path="Benday.EfCore.SqlServer.UnitTests/Benday.EfCore.SqlServer.UnitTests.csproj" />
-  <Project Path="Benday.EfCore.SqlServer/Benday.EfCore.SqlServer.csproj" />
-  <Project Path="Benday.EfCore.Testing/Benday.EfCore.Testing.csproj" />
-  <Project Path="Benday.EfCore/Benday.EfCore.csproj" />
+  <Folder Name="/src/">
+    <Project Path="src/Benday.EfCore/Benday.EfCore.csproj" />
+    <Project Path="src/Benday.EfCore.SqlServer/Benday.EfCore.SqlServer.csproj" />
+    <Project Path="src/Benday.EfCore.Testing/Benday.EfCore.Testing.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/Benday.EfCore.SqlServer.TestApi/Benday.EfCore.SqlServer.TestApi.csproj" />
+    <Project Path="test/Benday.EfCore.SqlServer.UnitTests/Benday.EfCore.SqlServer.UnitTests.csproj" />
+    <Project Path="test/Benday.EfCore.SqlServer.IntegrationTests/Benday.EfCore.SqlServer.IntegrationTests.csproj" />
+  </Folder>
 </Solution>

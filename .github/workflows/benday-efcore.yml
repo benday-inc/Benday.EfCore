@@ -4,22 +4,22 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'Benday.EfCore/**'
-      - 'Benday.EfCore.SqlServer/**'
-      - 'Benday.EfCore.Testing/**'
-      - 'Benday.EfCore.SqlServer.TestApi/**'
-      - 'Benday.EfCore.SqlServer.UnitTests/**'
-      - 'Benday.EfCore.SqlServer.IntegrationTests/**'
+      - 'src/Benday.EfCore/**'
+      - 'src/Benday.EfCore.SqlServer/**'
+      - 'src/Benday.EfCore.Testing/**'
+      - 'test/Benday.EfCore.SqlServer.TestApi/**'
+      - 'test/Benday.EfCore.SqlServer.UnitTests/**'
+      - 'test/Benday.EfCore.SqlServer.IntegrationTests/**'
       - '.github/workflows/benday-efcore.yml'
   pull_request:
     branches: [ "main" ]
     paths:
-      - 'Benday.EfCore/**'
-      - 'Benday.EfCore.SqlServer/**'
-      - 'Benday.EfCore.Testing/**'
-      - 'Benday.EfCore.SqlServer.TestApi/**'
-      - 'Benday.EfCore.SqlServer.UnitTests/**'
-      - 'Benday.EfCore.SqlServer.IntegrationTests/**'
+      - 'src/Benday.EfCore/**'
+      - 'src/Benday.EfCore.SqlServer/**'
+      - 'src/Benday.EfCore.Testing/**'
+      - 'test/Benday.EfCore.SqlServer.TestApi/**'
+      - 'test/Benday.EfCore.SqlServer.UnitTests/**'
+      - 'test/Benday.EfCore.SqlServer.IntegrationTests/**'
       - '.github/workflows/benday-efcore.yml'
   workflow_dispatch:
 
@@ -40,40 +40,40 @@ jobs:
           dotnet-version: 10.0.x
 
       - name: Restore Benday.EfCore
-        run: dotnet restore Benday.EfCore/Benday.EfCore.csproj
+        run: dotnet restore src/Benday.EfCore/Benday.EfCore.csproj
 
       - name: Restore Benday.EfCore.SqlServer
-        run: dotnet restore Benday.EfCore.SqlServer/Benday.EfCore.SqlServer.csproj
+        run: dotnet restore src/Benday.EfCore.SqlServer/Benday.EfCore.SqlServer.csproj
 
       - name: Restore Benday.EfCore.Testing
-        run: dotnet restore Benday.EfCore.Testing/Benday.EfCore.Testing.csproj
+        run: dotnet restore src/Benday.EfCore.Testing/Benday.EfCore.Testing.csproj
 
       - name: Restore UnitTests
-        run: dotnet restore Benday.EfCore.SqlServer.UnitTests/Benday.EfCore.SqlServer.UnitTests.csproj
+        run: dotnet restore test/Benday.EfCore.SqlServer.UnitTests/Benday.EfCore.SqlServer.UnitTests.csproj
 
       - name: Build Benday.EfCore (Release)
-        run: dotnet build Benday.EfCore/Benday.EfCore.csproj --configuration Release --no-restore
+        run: dotnet build src/Benday.EfCore/Benday.EfCore.csproj --configuration Release --no-restore
 
       - name: Build Benday.EfCore.SqlServer (Release)
-        run: dotnet build Benday.EfCore.SqlServer/Benday.EfCore.SqlServer.csproj --configuration Release --no-restore
+        run: dotnet build src/Benday.EfCore.SqlServer/Benday.EfCore.SqlServer.csproj --configuration Release --no-restore
 
       - name: Build Benday.EfCore.Testing (Release)
-        run: dotnet build Benday.EfCore.Testing/Benday.EfCore.Testing.csproj --configuration Release --no-restore
+        run: dotnet build src/Benday.EfCore.Testing/Benday.EfCore.Testing.csproj --configuration Release --no-restore
 
       - name: Build UnitTests (Release)
-        run: dotnet build Benday.EfCore.SqlServer.UnitTests/Benday.EfCore.SqlServer.UnitTests.csproj --configuration Release --no-restore
+        run: dotnet build test/Benday.EfCore.SqlServer.UnitTests/Benday.EfCore.SqlServer.UnitTests.csproj --configuration Release --no-restore
 
       - name: Run Unit Tests (Release)
-        run: dotnet test Benday.EfCore.SqlServer.UnitTests/Benday.EfCore.SqlServer.UnitTests.csproj --configuration Release --no-build --verbosity normal
+        run: dotnet test test/Benday.EfCore.SqlServer.UnitTests/Benday.EfCore.SqlServer.UnitTests.csproj --configuration Release --no-build --verbosity normal
 
       - name: Pack Benday.EfCore
-        run: dotnet pack Benday.EfCore/Benday.EfCore.csproj --no-build --configuration Release --output ./artifacts
+        run: dotnet pack src/Benday.EfCore/Benday.EfCore.csproj --no-build --configuration Release --output ./artifacts
 
       - name: Pack Benday.EfCore.SqlServer
-        run: dotnet pack Benday.EfCore.SqlServer/Benday.EfCore.SqlServer.csproj --no-build --configuration Release --output ./artifacts
+        run: dotnet pack src/Benday.EfCore.SqlServer/Benday.EfCore.SqlServer.csproj --no-build --configuration Release --output ./artifacts
 
       - name: Pack Benday.EfCore.Testing
-        run: dotnet pack Benday.EfCore.Testing/Benday.EfCore.Testing.csproj --no-build --configuration Release --output ./artifacts
+        run: dotnet pack src/Benday.EfCore.Testing/Benday.EfCore.Testing.csproj --no-build --configuration Release --output ./artifacts
 
       - name: Upload NuGet packages
         uses: actions/upload-artifact@v7
@@ -109,13 +109,13 @@ jobs:
           dotnet-version: 10.0.x
 
       - name: Restore IntegrationTests
-        run: dotnet restore Benday.EfCore.SqlServer.IntegrationTests/Benday.EfCore.SqlServer.IntegrationTests.csproj
+        run: dotnet restore test/Benday.EfCore.SqlServer.IntegrationTests/Benday.EfCore.SqlServer.IntegrationTests.csproj
 
       - name: Build IntegrationTests (Release)
-        run: dotnet build Benday.EfCore.SqlServer.IntegrationTests/Benday.EfCore.SqlServer.IntegrationTests.csproj --configuration Release --no-restore
+        run: dotnet build test/Benday.EfCore.SqlServer.IntegrationTests/Benday.EfCore.SqlServer.IntegrationTests.csproj --configuration Release --no-restore
 
       - name: Run Integration Tests (Release)
-        run: dotnet test Benday.EfCore.SqlServer.IntegrationTests/Benday.EfCore.SqlServer.IntegrationTests.csproj --configuration Release --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
+        run: dotnet test test/Benday.EfCore.SqlServer.IntegrationTests/Benday.EfCore.SqlServer.IntegrationTests.csproj --configuration Release --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
 
       - name: Upload test results
         uses: actions/upload-artifact@v7

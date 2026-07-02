@@ -12,7 +12,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Benday.EfCore\Benday.EfCore.csproj" />
-    <ProjectReference Include="..\Benday.EfCore.SqlServer\Benday.EfCore.SqlServer.csproj" />
+    <ProjectReference Include="..\..\src\Benday.EfCore\Benday.EfCore.csproj" />
+    <ProjectReference Include="..\..\src\Benday.EfCore.SqlServer\Benday.EfCore.SqlServer.csproj" />
   </ItemGroup>
 </Project>

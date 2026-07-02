@@ -7,9 +7,9 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
 
-    <PackageId>Benday.EfCore</PackageId>
-    <Title>Benday.EfCore</Title>
-    <Description>Provider-agnostic base classes for the repository pattern, adapter pattern, and service layer pattern with EF Core. Pair with a provider package such as Benday.EfCore.SqlServer. Hide your dependencies.</Description>
+    <PackageId>Benday.EfCore.SqlServer</PackageId>
+    <Title>Benday.EfCore.SqlServer</Title>
+    <Description>SQL Server wiring for Benday.EfCore: connection-string registration (UseConnectionString), rowversion optimistic concurrency (ApplyBendaySqlServerConcurrency), and a design-time DbContext factory base. Pairs with the provider-agnostic Benday.EfCore package. Hide your dependencies.</Description>
     <Authors>Benjamin Day</Authors>
     <Company>Benjamin Day Consulting, Inc.</Company>
     <Copyright>2026</Copyright>
@@ -25,30 +25,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\bdc_mark_128_128.png">
+    <None Include="..\..\bdc_mark_128_128.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Include="..\README.md">
+    <None Include="..\..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Benday.Common" Version="10.1.*" />
+    <ProjectReference Include="..\Benday.EfCore\Benday.EfCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.*" />
-  </ItemGroup>
-
-  <!-- Used by DefaultDesignTimeDbContextFactory to read appsettings at design time. -->
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.*" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="10.0.*" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="10.0.*" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.*" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.*" />
   </ItemGroup>
 
 </Project>

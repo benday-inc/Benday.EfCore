@@ -5,7 +5,9 @@
       "Bash(dotnet test:*)",
       "mcp__claude_ai_Microsoft_Learn__microsoft_docs_search",
       "Bash(dotnet --version)",
-      "Bash(dotnet ef *)"
+      "Bash(dotnet ef *)",
+      "Bash(mkdir -p src test)",
+      "Bash(git mv *)"
     ]
   }
 }
