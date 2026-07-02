@@ -14,7 +14,7 @@
     <Company>Benjamin Day Consulting, Inc.</Company>
     <Copyright>2026</Copyright>
     <AssemblyVersion>11.0.7.0</AssemblyVersion>
-    <Version>11.0.7-alpha</Version>
+    <Version>11.0.8-alpha</Version>
     <PackageTags>efcore;repository;adapter;testability;architecture</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>bdc_mark_128_128.png</PackageIcon>
