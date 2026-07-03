@@ -1,5 +1,6 @@
 using Benday.EfCore.ServiceLayers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Benday.EfCore.Registration;
@@ -37,6 +38,13 @@ public class EfCoreRegistrationHelper<TDbContext> where TDbContext : DbContext
     }
 
     /// <summary>
+    /// The underlying service collection. Exposed so provider packages and
+    /// custom registration extensions (for example the SQL Server diagnostics
+    /// extensions in Benday.EfCore.SqlServer) can add their own services.
+    /// </summary>
+    public IServiceCollection Services => _services;
+
+    /// <summary>
     /// Configure DbContext options directly. Provider packages layer
     /// convenience methods on top of this (for example, the
     /// <c>UseConnectionString</c> extension in Benday.EfCore.SqlServer).
@@ -63,7 +71,21 @@ public class EfCoreRegistrationHelper<TDbContext> where TDbContext : DbContext
                 "before RegisterDbContext().");
         }
 
-        _services.AddDbContext<TDbContext>(_dbContextOptions);
+        // Use the service-provider overload so any IInterceptor registered
+        // in DI (e.g. the query-diagnostics interceptor from
+        // WithQueryDiagnostics) is discovered and applied. Consumers that
+        // register no interceptors get identical behavior to a plain
+        // AddDbContext(configure).
+        _services.AddDbContext<TDbContext>((serviceProvider, options) =>
+        {
+            _dbContextOptions(options);
+
+            var interceptors = serviceProvider.GetServices<IInterceptor>().ToArray();
+            if (interceptors.Length > 0)
+            {
+                options.AddInterceptors(interceptors);
+            }
+        });
 
         return this;
     }
