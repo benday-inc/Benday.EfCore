@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Benday.Common.Interfaces;
 using Benday.EfCore.Diagnostics;
 using Benday.EfCore.Entities;
@@ -71,27 +72,59 @@ public abstract class EfCoreCrudRepositoryBase<TEntity, TIdentity, TDbContext>
     protected virtual IQueryable<TEntity> AddDefaultSort(IQueryable<TEntity> queryable) => queryable;
 
     /// <summary>
-    /// The diagnostics source description for this repository, used to tag
-    /// queries (<c>TagWith</c>) and to attribute the write path via the
-    /// ambient <see cref="EfCoreDiagnosticsCorrelation"/> scope. Defaults to
-    /// the concrete repository type name; override to customize.
+    /// The diagnostics source description for this repository, used as the
+    /// prefix for query tags and correlation scopes (e.g. the
+    /// "PersonRepository" in "PersonRepository.GetByIdAsync"). Defaults to the
+    /// concrete repository type name; override to customize.
     /// </summary>
     protected virtual string DiagnosticsSourceName => GetType().Name;
+
+    /// <summary>
+    /// Tags a query for diagnostics as "<c>&lt;DiagnosticsSourceName&gt;.&lt;caller&gt;</c>"
+    /// — the calling method name is captured automatically, so custom query
+    /// methods get the same attribution as the built-in CRUD methods with no
+    /// hand-written strings. The tag rides in the SQL (visible in Query Store /
+    /// the diagnostics <c>Tags</c>) and the interceptor also uses it to populate
+    /// the diagnostics <c>Source</c> when no correlation scope is active.
+    ///
+    /// <para>
+    /// The tag is a constant per (type, method), so it does not affect SQL
+    /// Server plan-cache reuse. Never pass runtime values.
+    /// </para>
+    /// </summary>
+    /// <typeparam name="TResult">The query element type.</typeparam>
+    /// <param name="query">The query to tag.</param>
+    /// <param name="operationName">
+    /// Captured automatically from the caller; do not pass explicitly except to
+    /// override the label.
+    /// </param>
+    protected IQueryable<TResult> Tag<TResult>(
+        IQueryable<TResult> query,
+        [CallerMemberName] string operationName = "")
+        => query.TagWith($"{DiagnosticsSourceName}.{operationName}");
+
+    /// <summary>
+    /// Opens an ambient diagnostics correlation scope named
+    /// "<c>&lt;DiagnosticsSourceName&gt;.&lt;caller&gt;</c>" so that commands which
+    /// cannot carry a <c>TagWith</c> tag — the INSERT/UPDATE/DELETE emitted by
+    /// SaveChanges — are attributed to the calling operation. Dispose (via a
+    /// <c>using</c>) to restore the previous scope. Use this in custom methods
+    /// that call <c>SaveChanges</c> outside the built-in Save/Delete path.
+    /// </summary>
+    /// <param name="operationName">
+    /// Captured automatically from the caller; do not pass explicitly except to
+    /// override the label.
+    /// </param>
+    protected IDisposable DiagnosticsScope([CallerMemberName] string operationName = "")
+        => EfCoreDiagnosticsCorrelation.Push($"{DiagnosticsSourceName}.{operationName}");
 
     /// <summary>
     /// Returns all entities, applying includes and the default sort.
     /// </summary>
     public virtual async Task<IList<TEntity>> GetAllAsync()
     {
-        // TagWith uses a constant string (type + method) so plan-cache reuse
-        // is unaffected — never interpolate runtime values into a tag.
-        var query = AddDefaultSort(AddIncludes(EntityDbSet.AsQueryable()))
-            .TagWith($"{DiagnosticsSourceName}.{nameof(GetAllAsync)}");
-
-        using (EfCoreDiagnosticsCorrelation.Push($"{DiagnosticsSourceName}.{nameof(GetAllAsync)}"))
-        {
-            return await query.ToListAsync();
-        }
+        var query = Tag(AddDefaultSort(AddIncludes(EntityDbSet.AsQueryable())));
+        return await query.ToListAsync();
     }
 
     /// <summary>
@@ -99,15 +132,10 @@ public abstract class EfCoreCrudRepositoryBase<TEntity, TIdentity, TDbContext>
     /// </summary>
     public virtual async Task<TEntity?> GetByIdAsync(TIdentity id)
     {
-        var query = AddIncludes(EntityDbSet.AsQueryable())
-            .TagWith($"{DiagnosticsSourceName}.{nameof(GetByIdAsync)}");
-
-        using (EfCoreDiagnosticsCorrelation.Push($"{DiagnosticsSourceName}.{nameof(GetByIdAsync)}"))
-        {
-            // .Equals() instead of == because TIdentity is generic; for int/Guid/string
-            // this translates to SQL correctly.
-            return await query.FirstOrDefaultAsync(e => e.Id.Equals(id));
-        }
+        var query = Tag(AddIncludes(EntityDbSet.AsQueryable()));
+        // .Equals() instead of == because TIdentity is generic; for int/Guid/string
+        // this translates to SQL correctly.
+        return await query.FirstOrDefaultAsync(e => e.Id.Equals(id));
     }
 
     /// <summary>
@@ -127,7 +155,7 @@ public abstract class EfCoreCrudRepositoryBase<TEntity, TIdentity, TDbContext>
         // SaveChanges emits INSERT/UPDATE/DELETE, which TagWith can't reach
         // (it only rides on IQueryable). Attribute the write path via the
         // ambient correlation scope instead.
-        using (EfCoreDiagnosticsCorrelation.Push($"{DiagnosticsSourceName}.{nameof(SaveAsync)}"))
+        using (DiagnosticsScope())
         {
             await Context.SaveChangesAsync();
         }
@@ -149,7 +177,7 @@ public abstract class EfCoreCrudRepositoryBase<TEntity, TIdentity, TDbContext>
 
         EntityDbSet.Remove(entity);
 
-        using (EfCoreDiagnosticsCorrelation.Push($"{DiagnosticsSourceName}.{nameof(DeleteAsync)}"))
+        using (DiagnosticsScope())
         {
             await Context.SaveChangesAsync();
         }

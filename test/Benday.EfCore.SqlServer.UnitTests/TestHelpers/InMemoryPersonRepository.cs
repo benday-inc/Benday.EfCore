@@ -12,4 +12,23 @@ namespace Benday.EfCore.SqlServer.UnitTests.TestHelpers;
 /// </summary>
 public class InMemoryPersonRepository : InMemoryRepository<Person>, IPersonRepository
 {
+    /// <inheritdoc />
+    public Task<IList<Person>> SearchByLastNameAsync(string lastName)
+    {
+        IList<Person> results = Items
+            .Where(p => p.LastName == lastName)
+            .ToList();
+
+        return Task.FromResult(results);
+    }
+
+    /// <inheritdoc />
+    public Task<IList<Person>> SearchByNoteTextAsync(string searchText)
+    {
+        IList<Person> results = Items
+            .Where(p => p.Notes.Any(n => n.NoteText.Contains(searchText)))
+            .ToList();
+
+        return Task.FromResult(results);
+    }
 }

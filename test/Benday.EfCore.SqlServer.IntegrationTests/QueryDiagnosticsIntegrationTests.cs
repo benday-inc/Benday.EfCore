@@ -107,6 +107,93 @@ public class QueryDiagnosticsIntegrationTests : IntegrationTestBase
     }
 
     [Fact]
+    public async Task CustomRepositoryMethod_TaggedWithCallerName_PopulatesTagsAndSource()
+    {
+        await EnsureCleanDatabaseAsync();
+
+        var sink = new CapturingEfCoreQueryLogSink();
+        await using var provider = BuildProvider(sink);
+
+        // arrange — seed a couple of matching people
+        using (var scope = provider.CreateScope())
+        {
+            var repo = scope.ServiceProvider.GetRequiredService<IPersonRepository>();
+            await repo.SaveAsync(new Person { FirstName = "Ada", LastName = "Lovelace" });
+            await repo.SaveAsync(new Person { FirstName = "Augusta", LastName = "Lovelace" });
+        }
+
+        sink.Clear();
+
+        // act — the custom method's only diagnostics ceremony is a Tag(...) call
+        IList<Person> results;
+        using (var scope = provider.CreateScope())
+        {
+            var repo = scope.ServiceProvider.GetRequiredService<IPersonRepository>();
+            results = await repo.SearchByLastNameAsync("Lovelace");
+        }
+
+        results.Count.ShouldEqual(2, "Both Lovelaces should be returned");
+
+        // assert — the single Tag() call gave us both the tag (from TagWith) and
+        // Source (from the interceptor's tag fallback), with the method name
+        // captured automatically via [CallerMemberName] — no hand-written string.
+        var searchEvent = sink.Events.FirstOrDefault(e =>
+            e.Tags.Contains("SqlPersonRepository.SearchByLastNameAsync"));
+
+        AssertThat.IsNotNull(searchEvent, "The custom query should be captured and tagged");
+        searchEvent!.Source.ShouldEqual("SqlPersonRepository.SearchByLastNameAsync",
+            "Source should fall back to the tag for a read with no correlation scope");
+    }
+
+    [Fact]
+    public async Task SearchByNoteText_SubqueryOverChildren_TaggedAndSourced()
+    {
+        await EnsureCleanDatabaseAsync();
+
+        var sink = new CapturingEfCoreQueryLogSink();
+        await using var provider = BuildProvider(sink);
+
+        // arrange — two people, one with a matching note
+        using (var scope = provider.CreateScope())
+        {
+            var repo = scope.ServiceProvider.GetRequiredService<IPersonRepository>();
+            await repo.SaveAsync(new Person
+            {
+                FirstName = "Ada",
+                LastName = "Lovelace",
+                Notes = { new PersonNote { NoteText = "loves analytical engines" } }
+            });
+            await repo.SaveAsync(new Person
+            {
+                FirstName = "Charles",
+                LastName = "Babbage",
+                Notes = { new PersonNote { NoteText = "difference engine" } }
+            });
+        }
+
+        sink.Clear();
+
+        // act — search across the child collection
+        IList<Person> results;
+        using (var scope = provider.CreateScope())
+        {
+            var repo = scope.ServiceProvider.GetRequiredService<IPersonRepository>();
+            results = await repo.SearchByNoteTextAsync("analytical");
+        }
+
+        // assert — correct result and the subquery is still tagged + sourced
+        results.Count.ShouldEqual(1, "Only Ada has a note containing 'analytical'");
+        results.Single().FirstName.ShouldEqual("Ada", "The matching person should be returned");
+
+        var searchEvent = sink.Events.FirstOrDefault(e =>
+            e.Tags.Contains("SqlPersonRepository.SearchByNoteTextAsync"));
+
+        AssertThat.IsNotNull(searchEvent, "The child-collection subquery should be captured and tagged");
+        searchEvent!.Source.ShouldEqual("SqlPersonRepository.SearchByNoteTextAsync",
+            "Source should fall back to the tag even for a subquery over children");
+    }
+
+    [Fact]
     public async Task ConcurrentOperations_EachEventAttributedToItsOwnOperation_NoCrossTalk()
     {
         await EnsureCleanDatabaseAsync();

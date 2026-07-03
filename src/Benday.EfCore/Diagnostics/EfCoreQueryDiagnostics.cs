@@ -72,11 +72,11 @@ public sealed class EfCoreQueryDiagnostics
     public bool ExceededThreshold { get; init; }
 
     /// <summary>
-    /// Optional origin tag for the command, e.g. "PersonRepository.SaveAsync".
-    /// Populated from the ambient <c>EfCoreDiagnosticsCorrelation</c> scope the
-    /// repository base pushes around each operation. Unlike <see cref="Tags"/>,
-    /// this also covers the write path (SaveChanges/Delete). Null when no
-    /// correlation scope was active.
+    /// Optional origin of the command, e.g. "PersonRepository.SaveAsync".
+    /// Resolved as: the ambient <c>EfCoreDiagnosticsCorrelation</c> scope if one
+    /// is active (this is how the write path — SaveChanges/Delete, which cannot
+    /// be tagged — is attributed), otherwise the first entry of <see cref="Tags"/>
+    /// (how tagged reads are attributed). Null when neither is present.
     /// </summary>
     public string? Source { get; init; }
 }

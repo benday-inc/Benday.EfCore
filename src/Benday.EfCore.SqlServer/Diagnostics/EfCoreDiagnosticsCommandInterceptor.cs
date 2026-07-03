@@ -101,18 +101,23 @@ public sealed class EfCoreDiagnosticsCommandInterceptor : DbCommandInterceptor
         EfCoreQueryEventKind kind, DbCommand command, TimeSpan duration, int resultCount)
     {
         var commandText = command.CommandText ?? string.Empty;
+        var tags = ExtractTags(commandText);
 
         var diagnostics = new EfCoreQueryDiagnostics
         {
             EventKind = kind,
             Timestamp = DateTimeOffset.UtcNow,
             CommandText = commandText,
-            Tags = ExtractTags(commandText),
+            Tags = tags,
             Parameters = _options.CaptureParameters ? ExtractParameters(command.Parameters) : null,
             Duration = duration,
             ResultCount = resultCount,
             ExceededThreshold = duration >= _options.SlowQueryThreshold,
+            // Writes carry an ambient correlation source (they can't be tagged);
+            // reads fall back to their TagWith tag. This is what lets a custom
+            // read method get Source attribution from a single Tag(...) call.
             Source = EfCoreDiagnosticsCorrelation.Current
+                ?? (tags.Count > 0 ? tags[0] : null)
         };
 
         try
