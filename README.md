@@ -38,6 +38,8 @@ v11 is a ground-up modernization:
   swap the storage, keep the contract.
 - **Adapter + service layer** base classes for mapping between domain models and EF entities.
 - **No search predicate machinery** — write your own LINQ queries in your repository.
+- **Opt-in query diagnostics** — slow-query flagging and per-method attribution for dev-time perf
+  work (see [Query diagnostics](#query-diagnostics-development-perf-tooling)).
 
 > **Upgrading from v10?** This is a breaking release. The search base class
 > (`SqlEntityFrameworkSearchableRepositoryBase`) and its predicate methods, the
@@ -77,6 +79,52 @@ provider-agnostic — SQL Server consumers map it as `rowversion` by calling
 and the update affects zero rows. Always **load the entity first** (so it carries its token), then
 modify and save. The service layer does exactly this (`GetByIdAsync` → adapt → save). Plain
 `EntityBase` entities (no token) can be attach-updated while detached.
+
+## Query diagnostics (development perf tooling)
+
+Opt-in diagnostics for finding slow and chatty queries during development — modeled on the diagnostics
+in [`Benday.CosmosDb`](https://www.nuget.org/packages/Benday.CosmosDb/). It's **off by default and
+zero-overhead** until you turn it on.
+
+Enable it at registration (the interceptor ships in **`Benday.EfCore.SqlServer`**):
+
+```csharp
+services.AddBendayEfCore<MyDbContext>(options =>
+{
+    options.UseConnectionString(connectionString);
+
+    // route every captured query to an NDJSON file...
+    options.WithQueryLogSink<MyDbContext, FileEfCoreQueryLogSink>();
+    // ...and flag anything slower than 100 ms
+    options.WithQueryDiagnostics(o => o.SlowQueryThreshold = TimeSpan.FromMilliseconds(100));
+
+    options.RegisterDbContext();
+    // ... RegisterAggregate<...>() etc.
+});
+```
+
+Each database command produces a structured `EfCoreQueryDiagnostics` event — SQL text, duration, row
+count, an `ExceededThreshold` flag, and a `Source` label identifying the repository method that issued
+it. Implement `IEfCoreQueryLogSink` for custom handling, or use the built-in `FileEfCoreQueryLogSink`
+(NDJSON, written off-thread so it never blocks a query).
+
+Repository methods are labeled automatically. The CRUD base tags its own queries; in a **custom query
+method** you get the same labeling from a single `Tag(...)` call:
+
+```csharp
+public async Task<IList<Person>> SearchByLastNameAsync(string lastName)
+{
+    // tagged "SqlPersonRepository.SearchByLastNameAsync" — method name captured automatically
+    var query = Tag(AddIncludes(EntityDbSet.AsQueryable())
+        .Where(p => p.LastName == lastName));
+
+    return await query.ToListAsync();
+}
+```
+
+For a custom method that **writes** (calls `SaveChanges`), wrap it in `using (DiagnosticsScope()) { ... }`
+instead — inserts/updates/deletes can't carry a query tag. Keep tags constant (type + method); never
+interpolate runtime values, or you'll pollute the SQL Server plan cache.
 
 ## Build and test
 

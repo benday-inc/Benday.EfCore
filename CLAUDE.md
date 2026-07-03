@@ -75,7 +75,9 @@ project). The SQL Server-specific pieces live in `Benday.EfCore.SqlServer` (see 
   runs `BeforeSave` → dependent-collection `BeforeSave` → `SaveChangesAsync` → dependent-collection
   `AfterSave` → `AfterSave`. Override `AddIncludes`/`AddDefaultSort` for eager-loading and sorting.
   (These used only core EF Core APIs, so they are provider-agnostic; the old `SqlEntityFramework*`
-  names were renamed during the package split.)
+  names were renamed during the package split.) The base also tags reads with the `Tag(query)` helper
+  (auto-labels via `[CallerMemberName]`) and scopes the write path with `DiagnosticsScope()`; both feed
+  the query-diagnostics stack (see "Query diagnostics" below).
 - **ServiceLayers/** — `IValidatorStrategy<T>`, `DefaultValidatorStrategy<T>` (DataAnnotations),
   `IUsernameProvider`; `ServiceLayerBase<TModel, TEntity>` (validate → get/create → adapt → save →
   copy back Id, implements `IAsyncService<TModel,int>`); `CoreFieldsServiceLayerBase<TModel, TEntity>`
@@ -87,7 +89,19 @@ project). The SQL Server-specific pieces live in `Benday.EfCore.SqlServer` (see 
   `RegisterAggregate` (repo + adapter + default validator + service in one call — note it does NOT
   register an `IUsernameProvider`, so add `RegisterUsernameProvider` for `CoreFields` services).
   `RegisterDbContext` now requires `ConfigureDbContext(...)` (or the SQL Server `UseConnectionString`
-  extension) to have been called first — there is no built-in provider fallback.
+  extension) to have been called first — there is no built-in provider fallback. It builds the DbContext
+  via the `(IServiceProvider, DbContextOptionsBuilder)` overload and auto-applies every `IInterceptor`
+  registered in DI (this is how query diagnostics attach). The helper's underlying `IServiceCollection`
+  is exposed as the public `Services` property so provider packages and custom extensions can register
+  their own services.
+- **Diagnostics/** (provider-agnostic pieces) — `EfCoreQueryDiagnostics` (immutable event: `EventKind`
+  Reader/Scalar/NonQuery, `CommandText`, `Tags`, `Parameters`, `Duration`, `ResultCount`,
+  `ExceededThreshold`, `Source`); `IEfCoreQueryLogSink` + `NoOpEfCoreQueryLogSink` (app-wide sink, same
+  contract as Cosmos's `ICosmosQueryLogSink`); `FileEfCoreQueryLogSink` + `EfCoreFileLogSinkOptions`
+  (NDJSON via background queue, `DroppedCount`); `EfCoreQueryDiagnosticsOptions` (`SlowQueryThreshold`
+  default 200 ms, `CaptureParameters` default off); `EfCoreDiagnosticsCorrelation` (AsyncLocal that
+  attributes the write path). The command interceptor and its registration live in the SQL Server layer
+  (they need `Microsoft.EntityFrameworkCore.Relational`). See "Query diagnostics" below.
 - **Migrations/** — `DefaultDesignTimeDbContextFactory<TContext>`: provider-agnostic
   `IDesignTimeDbContextFactory` base that loads a named connection string (default `"default"`) from
   appsettings + environment. Subclasses supply the provider via the abstract `ConfigureProvider`
@@ -104,6 +118,12 @@ Everything provider-specific is isolated here:
   every `CoreFieldsEntityBase`-derived entity in the model. This replaces the `[Timestamp]` attribute.
 - **`SqlServerDesignTimeDbContextFactory<TContext>`** — subclass of
   `DefaultDesignTimeDbContextFactory<TContext>` that overrides `ConfigureProvider` with `UseSqlServer`.
+- **`EfCoreDiagnosticsCommandInterceptor`** + the **`WithQueryDiagnostics` / `WithQueryLogSink`**
+  registration extensions (namespace `Benday.EfCore.Registration`) — the query-diagnostics capture
+  engine and its wiring. They live here rather than in the core because `DbCommandInterceptor` /
+  `CommandExecutedEventData` are relational types (base `Microsoft.EntityFrameworkCore` has no such
+  types). The interceptor is relational-general, not SQL-Server-specific — it would move unchanged into
+  a shared relational package if one is ever added. See "Query diagnostics" below.
 
 ### The aggregate / dependent-entity lifecycle (load-bearing)
 
@@ -126,6 +146,35 @@ Once mapped: a detached `CoreFields` entity **cannot** be blind-attached-and-upd
 original token → 0 rows affected → `DbUpdateConcurrencyException`). Load the entity first (so it
 carries its token), then modify and save — which is what the service layer does. Plain `EntityBase`
 entities (no token) can be attach-updated while detached.
+
+### Query diagnostics (opt-in dev perf tooling)
+
+Modeled on the Benday.CosmosDb diagnostics stack, for finding slow/chatty queries during development.
+**Off by default and zero-overhead until enabled** — capture only runs if `WithQueryDiagnostics()` is
+called, because that call is what registers the interceptor.
+
+- **Enable:** `helper.WithQueryDiagnostics(o => o.SlowQueryThreshold = TimeSpan.FromMilliseconds(100))`
+  registers `EfCoreDiagnosticsCommandInterceptor`; pair with
+  `helper.WithQueryLogSink<TDbContext, FileEfCoreQueryLogSink>()` (or `WithQueryLogSink(instance)`) to
+  route events. `RegisterDbContext` applies the interceptor to the DbContext options.
+- **App-wide sink** `IEfCoreQueryLogSink` (default `NoOp`; `File` sink ships), mirroring Cosmos.
+- **Attribution split (the load-bearing design point):** EF Core intercepts at the command layer, below
+  the repository, so it doesn't inherently know the caller. **Reads** are attributed by `TagWith` — the
+  base `Tag(query)` helper tags each query `"<RepoType>.<method>"` (method captured via
+  `[CallerMemberName]`); the tag rides in the SQL (also visible in Query Store) and the interceptor
+  parses it back into `Tags`. **Writes** (INSERT/UPDATE/DELETE from SaveChanges) can't be tagged, so
+  they're attributed by an `AsyncLocal` correlation scope (`DiagnosticsScope()` /
+  `EfCoreDiagnosticsCorrelation`). `Source` resolves as `Correlation.Current ?? first tag`, so a
+  **custom read method needs only a single `Tag(query)` call** to get both `Tags` and `Source`; a custom
+  write method wraps its `SaveChanges` in `using (DiagnosticsScope())`.
+- **Tags must be constant** (type + method) — never interpolate runtime values or you pollute the SQL
+  Server plan cache. The `Tag()`/`DiagnosticsScope()` helpers enforce this.
+- **`AsyncLocal` is safe under concurrency** — it's isolated per async control flow, so concurrent
+  requests don't cross-contaminate (proved by `ConcurrentOperations_..._NoCrossTalk`).
+- **Deliberately not ported from Cosmos:** RU cost, partition / cross-partition, and Cosmos index
+  metrics have no EF equivalent; `ExceededThreshold` (duration vs `SlowQueryThreshold`) replaces RU as
+  the "expensive query" signal. SQL Server index-hit/miss analysis (DMVs / execution plans) is a
+  possible future add in the SQL Server layer — deferred, since SSMS/ADS already surface missing indexes.
 
 ## Solution Structure
 
@@ -153,6 +202,11 @@ projects live under `test/`.
   `ApplyBendaySqlServerConcurrency()` call in `TestDbContext.OnModelCreating` and a
   `SqlServerDesignTimeDbContextFactory` subclass.
 - Both libraries have XML doc comments on all public types/members (`GenerateDocumentationFile`).
+- The integration tests set `parallelizeTestCollections: false` in `xunit.runner.json` because every
+  test wipes the shared `benday-efcore-sqlserver` database; running test classes in parallel would let
+  them clobber each other. `QueryDiagnosticsIntegrationTests` exercises the diagnostics stack end-to-end
+  with a capturing `IEfCoreQueryLogSink` — the seed of a future `Benday.EfCore.Testing` query-count /
+  N+1 assertion helper.
 
 ## CI/CD
 
