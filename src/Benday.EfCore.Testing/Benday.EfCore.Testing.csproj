@@ -14,8 +14,8 @@
     <Authors>Benjamin Day</Authors>
     <Company>Benjamin Day Consulting, Inc.</Company>
     <Copyright>2026</Copyright>
-    <AssemblyVersion>11.0.9.0</AssemblyVersion>
-    <Version>11.0.9-alpha</Version>
+    <AssemblyVersion>11.0.10.0</AssemblyVersion>
+    <Version>11.0.10-alpha</Version>
     <PackageTags>efcore;testing;repository;fakes;testdoubles</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>bdc_mark_128_128.png</PackageIcon>
@@ -38,6 +38,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Benday.EfCore\Benday.EfCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="10.0.401" />
   </ItemGroup>
 
 </Project>
