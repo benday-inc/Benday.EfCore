@@ -43,6 +43,14 @@ public abstract class IntegrationTestBase : TestClassBase
     /// </summary>
     protected static async Task EnsureCleanDatabaseAsync()
     {
+        // In CI the database is supposed to be there (service container), so an
+        // unreachable server is a real failure -- skipping would hide it behind a green run.
+        if (!DatabaseIsAvailable() && IsRunningInCi())
+        {
+            Assert.Fail("SQL Server is not available at localhost, but CI=true. " +
+                "The SQL Server service container probably failed to start.");
+        }
+
         Assert.SkipUnless(DatabaseIsAvailable(),
             "SQL Server is not available at localhost. Run ./start-local-dev.ps1 to start it.");
 
@@ -53,6 +61,9 @@ public abstract class IntegrationTestBase : TestClassBase
         context.Persons.RemoveRange(context.Persons);
         await context.SaveChangesAsync();
     }
+
+    private static bool IsRunningInCi() =>
+        string.Equals(Environment.GetEnvironmentVariable("CI"), "true", StringComparison.OrdinalIgnoreCase);
 
     private static bool DatabaseIsAvailable()
     {

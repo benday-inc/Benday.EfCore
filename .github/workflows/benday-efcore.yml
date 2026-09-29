@@ -4,76 +4,50 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'src/Benday.EfCore/**'
-      - 'src/Benday.EfCore.SqlServer/**'
-      - 'src/Benday.EfCore.Testing/**'
-      - 'test/Benday.EfCore.SqlServer.TestApi/**'
-      - 'test/Benday.EfCore.SqlServer.UnitTests/**'
-      - 'test/Benday.EfCore.SqlServer.IntegrationTests/**'
+      - 'src/**'
+      - 'test/**'
+      - 'Benday.EfCore.slnx'
+      - 'global.json'
       - '.github/workflows/benday-efcore.yml'
   pull_request:
     branches: [ "main" ]
     paths:
-      - 'src/Benday.EfCore/**'
-      - 'src/Benday.EfCore.SqlServer/**'
-      - 'src/Benday.EfCore.Testing/**'
-      - 'test/Benday.EfCore.SqlServer.TestApi/**'
-      - 'test/Benday.EfCore.SqlServer.UnitTests/**'
-      - 'test/Benday.EfCore.SqlServer.IntegrationTests/**'
+      - 'src/**'
+      - 'test/**'
+      - 'Benday.EfCore.slnx'
+      - 'global.json'
       - '.github/workflows/benday-efcore.yml'
   workflow_dispatch:
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+# Test commands use Microsoft.Testing.Platform options (global.json sets the MTP runner),
+# so TRX output is --report-xunit-trx, not the VSTest-style --logger "trx".
 
 jobs:
   unit-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-
-      - name: Setup .NET 9
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: 9.0.x
+      - uses: actions/checkout@v7
 
       - name: Setup .NET 10
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@v6
         with:
           dotnet-version: 10.0.x
 
-      - name: Restore Benday.EfCore
-        run: dotnet restore src/Benday.EfCore/Benday.EfCore.csproj
+      - name: Build solution (Release)
+        run: dotnet build Benday.EfCore.slnx --configuration Release
 
-      - name: Restore Benday.EfCore.SqlServer
-        run: dotnet restore src/Benday.EfCore.SqlServer/Benday.EfCore.SqlServer.csproj
+      - name: Run unit tests
+        run: >-
+          dotnet test --project test/Benday.EfCore.SqlServer.UnitTests/Benday.EfCore.SqlServer.UnitTests.csproj
+          --configuration Release --no-build
+          --report-xunit-trx --report-xunit-trx-filename unit-test-results.trx
 
-      - name: Restore Benday.EfCore.Testing
-        run: dotnet restore src/Benday.EfCore.Testing/Benday.EfCore.Testing.csproj
-
-      - name: Restore UnitTests
-        run: dotnet restore test/Benday.EfCore.SqlServer.UnitTests/Benday.EfCore.SqlServer.UnitTests.csproj
-
-      - name: Build Benday.EfCore (Release)
-        run: dotnet build src/Benday.EfCore/Benday.EfCore.csproj --configuration Release --no-restore
-
-      - name: Build Benday.EfCore.SqlServer (Release)
-        run: dotnet build src/Benday.EfCore.SqlServer/Benday.EfCore.SqlServer.csproj --configuration Release --no-restore
-
-      - name: Build Benday.EfCore.Testing (Release)
-        run: dotnet build src/Benday.EfCore.Testing/Benday.EfCore.Testing.csproj --configuration Release --no-restore
-
-      - name: Build UnitTests (Release)
-        run: dotnet build test/Benday.EfCore.SqlServer.UnitTests/Benday.EfCore.SqlServer.UnitTests.csproj --configuration Release --no-restore
-
-      - name: Run Unit Tests (Release)
-        run: dotnet test test/Benday.EfCore.SqlServer.UnitTests/Benday.EfCore.SqlServer.UnitTests.csproj --configuration Release --no-build --verbosity normal
-
-      - name: Pack Benday.EfCore
-        run: dotnet pack src/Benday.EfCore/Benday.EfCore.csproj --no-build --configuration Release --output ./artifacts
-
-      - name: Pack Benday.EfCore.SqlServer
-        run: dotnet pack src/Benday.EfCore.SqlServer/Benday.EfCore.SqlServer.csproj --no-build --configuration Release --output ./artifacts
-
-      - name: Pack Benday.EfCore.Testing
-        run: dotnet pack src/Benday.EfCore.Testing/Benday.EfCore.Testing.csproj --no-build --configuration Release --output ./artifacts
+      - name: Pack NuGet packages
+        run: dotnet pack Benday.EfCore.slnx --configuration Release --no-build --output ./artifacts
 
       - name: Upload NuGet packages
         uses: actions/upload-artifact@v7
@@ -81,13 +55,19 @@ jobs:
           name: nuget-packages-efcore
           path: ./artifacts/*.nupkg
 
+      - name: Upload unit test results
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: unit-test-results
+          path: '**/TestResults/*.trx'
+
   integration-tests:
-    needs: unit-tests
     runs-on: ubuntu-latest
 
     services:
       sqlserver:
-        image: mcr.microsoft.com/mssql/server:2022-latest
+        image: mcr.microsoft.com/mssql/server:2025-latest
         ports:
           - 1433:1433
         env:
@@ -101,34 +81,33 @@ jobs:
           --health-start-period 10s
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Setup .NET 10
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@v6
         with:
           dotnet-version: 10.0.x
 
-      - name: Restore IntegrationTests
-        run: dotnet restore test/Benday.EfCore.SqlServer.IntegrationTests/Benday.EfCore.SqlServer.IntegrationTests.csproj
+      - name: Build integration tests (Release)
+        run: dotnet build test/Benday.EfCore.SqlServer.IntegrationTests/Benday.EfCore.SqlServer.IntegrationTests.csproj --configuration Release
 
-      - name: Build IntegrationTests (Release)
-        run: dotnet build test/Benday.EfCore.SqlServer.IntegrationTests/Benday.EfCore.SqlServer.IntegrationTests.csproj --configuration Release --no-restore
+      # CI=true (set by the runner) makes the tests fail rather than skip when SQL Server is
+      # unreachable, so a broken service container can't produce a green run with no real tests.
+      - name: Run integration tests
+        run: >-
+          dotnet test --project test/Benday.EfCore.SqlServer.IntegrationTests/Benday.EfCore.SqlServer.IntegrationTests.csproj
+          --configuration Release --no-build
+          --report-xunit-trx --report-xunit-trx-filename integration-test-results.trx
 
-      - name: Run Integration Tests (Release)
-        run: dotnet test test/Benday.EfCore.SqlServer.IntegrationTests/Benday.EfCore.SqlServer.IntegrationTests.csproj --configuration Release --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
-
-      - name: Upload test results
+      - name: Upload integration test results
         uses: actions/upload-artifact@v7
         if: always()
         with:
           name: integration-test-results
-          path: |
-            **/TestResults/*.trx
-            **/TestResults/*.log
+          path: '**/TestResults/*.trx'
 
   deploy:
-    # needs: [unit-tests, integration-tests]
-    needs: [unit-tests]
+    needs: [unit-tests, integration-tests]
     runs-on: ubuntu-latest
     environment: nuget-deploy
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -140,7 +119,7 @@ jobs:
           name: nuget-packages-efcore
 
       - name: Setup .NET 10
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@v6
         with:
           dotnet-version: 10.0.x
 

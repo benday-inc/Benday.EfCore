@@ -218,9 +218,13 @@ GitHub Actions workflow: `.github/workflows/benday-efcore.yml`
 - Manual workflow dispatch
 
 **Jobs:**
-1. **unit-tests** — builds all three NuGet packages, runs unit tests, packs and uploads artifacts
-2. **integration-tests** — runs after unit-tests; uses SQL Server 2025 container, runs integration tests
+1. **unit-tests** — builds the solution, runs unit tests, packs and uploads the NuGet packages
+2. **integration-tests** — runs in parallel with unit-tests; uses a SQL Server 2025 service container.
+   In CI (`CI=true`) an unreachable SQL Server **fails** the tests instead of skipping them.
 3. **deploy** — runs after both test jobs pass, only on push to `main`; pushes packages to NuGet.org
+
+Tests run on Microsoft.Testing.Platform (`global.json`), so use MTP options in `dotnet test` — e.g.
+`--report-xunit-trx`, not the VSTest-only `--logger "trx"` (which fails with exit code 5).
 
 **Required secrets:**
 - `NUGET_API_KEY` — NuGet.org API key for publishing
