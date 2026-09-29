@@ -19,6 +19,13 @@ on:
       - '.github/workflows/benday-efcore.yml'
   workflow_dispatch:
 
+# checks: write lets dorny/test-reporter publish a check run with the test results.
+# (Fork PRs get a read-only token, so the reporter can't post there -- fine for this repo.)
+permissions:
+  contents: read
+  actions: read
+  checks: write
+
 env:
   DOTNET_NOLOGO: true
   DOTNET_CLI_TELEMETRY_OPTOUT: true
@@ -46,6 +53,21 @@ jobs:
           --configuration Release --no-build
           --report-xunit-trx --report-xunit-trx-filename unit-test-results.trx
 
+      - name: Publish unit test report
+        uses: dorny/test-reporter@v3
+        if: ${{ !cancelled() }}
+        with:
+          name: Unit Tests
+          path: '**/TestResults/unit-test-results.trx'
+          reporter: dotnet-trx
+
+      - name: Upload unit test results (TRX)
+        uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: unit-test-results
+          path: '**/TestResults/unit-test-results.trx'
+
       - name: Pack NuGet packages
         run: dotnet pack Benday.EfCore.slnx --configuration Release --no-build --output ./artifacts
 
@@ -54,13 +76,6 @@ jobs:
         with:
           name: nuget-packages-efcore
           path: ./artifacts/*.nupkg
-
-      - name: Upload unit test results
-        uses: actions/upload-artifact@v7
-        if: always()
-        with:
-          name: unit-test-results
-          path: '**/TestResults/*.trx'
 
   integration-tests:
     runs-on: ubuntu-latest
@@ -99,12 +114,20 @@ jobs:
           --configuration Release --no-build
           --report-xunit-trx --report-xunit-trx-filename integration-test-results.trx
 
-      - name: Upload integration test results
+      - name: Publish integration test report
+        uses: dorny/test-reporter@v3
+        if: ${{ !cancelled() }}
+        with:
+          name: Integration Tests
+          path: '**/TestResults/integration-test-results.trx'
+          reporter: dotnet-trx
+
+      - name: Upload integration test results (TRX)
         uses: actions/upload-artifact@v7
-        if: always()
+        if: ${{ !cancelled() }}
         with:
           name: integration-test-results
-          path: '**/TestResults/*.trx'
+          path: '**/TestResults/integration-test-results.trx'
 
   deploy:
     needs: [unit-tests, integration-tests]
