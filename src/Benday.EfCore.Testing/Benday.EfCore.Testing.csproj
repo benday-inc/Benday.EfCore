@@ -14,8 +14,8 @@
     <Authors>Benjamin Day</Authors>
     <Company>Benjamin Day Consulting, Inc.</Company>
     <Copyright>2026</Copyright>
-    <AssemblyVersion>11.0.10.0</AssemblyVersion>
-    <Version>11.0.10-alpha</Version>
+    <AssemblyVersion>11.0.11.0</AssemblyVersion>
+    <Version>11.0.11-alpha</Version>
     <PackageTags>efcore;testing;repository;fakes;testdoubles</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>bdc_mark_128_128.png</PackageIcon>
